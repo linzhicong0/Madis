@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652932BBD9AB000F83280 /* MadisApp.swift */; };
+		E75652962BBD9AB000F83280 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652952BBD9AB000F83280 /* ContentView.swift */; };
+		E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75652972BBD9AB200F83280 /* Assets.xcassets */; };
+		E756529B2BBD9AB200F83280 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E756529A2BBD9AB200F83280 /* Preview Assets.xcassets */; };
+		E75652A62BBD9AB200F83280 /* MadisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652A52BBD9AB200F83280 /* MadisTests.swift */; };
+		E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652AF2BBD9AB200F83280 /* MadisUITests.swift */; };
+		E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E75652A22BBD9AB200F83280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E75652882BBD9AB000F83280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E756528F2BBD9AB000F83280;
+			remoteInfo = Madis;
+		};
+		E75652AC2BBD9AB200F83280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E75652882BBD9AB000F83280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E756528F2BBD9AB000F83280;
+			remoteInfo = Madis;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E75652902BBD9AB000F83280 /* Madis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Madis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75652932BBD9AB000F83280 /* MadisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisApp.swift; sourceTree = "<group>"; };
+		E75652952BBD9AB000F83280 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E75652972BBD9AB200F83280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E756529A2BBD9AB200F83280 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E756529C2BBD9AB200F83280 /* Madis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Madis.entitlements; sourceTree = "<group>"; };
+		E75652A12BBD9AB200F83280 /* MadisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75652A52BBD9AB200F83280 /* MadisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisTests.swift; sourceTree = "<group>"; };
+		E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75652AF2BBD9AB200F83280 /* MadisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITests.swift; sourceTree = "<group>"; };
+		E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E756528D2BBD9AB000F83280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E756529E2BBD9AB200F83280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75652A82BBD9AB200F83280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E75652872BBD9AB000F83280 = {
+			isa = PBXGroup;
+			children = (
+				E75652922BBD9AB000F83280 /* Madis */,
+				E75652A42BBD9AB200F83280 /* MadisTests */,
+				E75652AE2BBD9AB200F83280 /* MadisUITests */,
+				E75652912BBD9AB000F83280 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E75652912BBD9AB000F83280 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E75652902BBD9AB000F83280 /* Madis.app */,
+				E75652A12BBD9AB200F83280 /* MadisTests.xctest */,
+				E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E75652922BBD9AB000F83280 /* Madis */ = {
+			isa = PBXGroup;
+			children = (
+				E75652932BBD9AB000F83280 /* MadisApp.swift */,
+				E75652952BBD9AB000F83280 /* ContentView.swift */,
+				E75652972BBD9AB200F83280 /* Assets.xcassets */,
+				E756529C2BBD9AB200F83280 /* Madis.entitlements */,
+				E75652992BBD9AB200F83280 /* Preview Content */,
+			);
+			path = Madis;
+			sourceTree = "<group>";
+		};
+		E75652992BBD9AB200F83280 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E756529A2BBD9AB200F83280 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E75652A42BBD9AB200F83280 /* MadisTests */ = {
+			isa = PBXGroup;
+			children = (
+				E75652A52BBD9AB200F83280 /* MadisTests.swift */,
+			);
+			path = MadisTests;
+			sourceTree = "<group>";
+		};
+		E75652AE2BBD9AB200F83280 /* MadisUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E75652AF2BBD9AB200F83280 /* MadisUITests.swift */,
+				E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */,
+			);
+			path = MadisUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E756528F2BBD9AB000F83280 /* Madis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75652B52BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "Madis" */;
+			buildPhases = (
+				E756528C2BBD9AB000F83280 /* Sources */,
+				E756528D2BBD9AB000F83280 /* Frameworks */,
+				E756528E2BBD9AB000F83280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Madis;
+			productName = Madis;
+			productReference = E75652902BBD9AB000F83280 /* Madis.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E75652A02BBD9AB200F83280 /* MadisTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75652B82BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "MadisTests" */;
+			buildPhases = (
+				E756529D2BBD9AB200F83280 /* Sources */,
+				E756529E2BBD9AB200F83280 /* Frameworks */,
+				E756529F2BBD9AB200F83280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E75652A32BBD9AB200F83280 /* PBXTargetDependency */,
+			);
+			name = MadisTests;
+			productName = MadisTests;
+			productReference = E75652A12BBD9AB200F83280 /* MadisTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E75652AA2BBD9AB200F83280 /* MadisUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75652BB2BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "MadisUITests" */;
+			buildPhases = (
+				E75652A72BBD9AB200F83280 /* Sources */,
+				E75652A82BBD9AB200F83280 /* Frameworks */,
+				E75652A92BBD9AB200F83280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E75652AD2BBD9AB200F83280 /* PBXTargetDependency */,
+			);
+			name = MadisUITests;
+			productName = MadisUITests;
+			productReference = E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E75652882BBD9AB000F83280 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					E756528F2BBD9AB000F83280 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					E75652A02BBD9AB200F83280 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = E756528F2BBD9AB000F83280;
+					};
+					E75652AA2BBD9AB200F83280 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = E756528F2BBD9AB000F83280;
+					};
+				};
+			};
+			buildConfigurationList = E756528B2BBD9AB000F83280 /* Build configuration list for PBXProject "Madis" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E75652872BBD9AB000F83280;
+			productRefGroup = E75652912BBD9AB000F83280 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E756528F2BBD9AB000F83280 /* Madis */,
+				E75652A02BBD9AB200F83280 /* MadisTests */,
+				E75652AA2BBD9AB200F83280 /* MadisUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E756528E2BBD9AB000F83280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E756529B2BBD9AB200F83280 /* Preview Assets.xcassets in Resources */,
+				E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E756529F2BBD9AB200F83280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75652A92BBD9AB200F83280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E756528C2BBD9AB000F83280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75652962BBD9AB000F83280 /* ContentView.swift in Sources */,
+				E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E756529D2BBD9AB200F83280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75652A62BBD9AB200F83280 /* MadisTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75652A72BBD9AB200F83280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */,
+				E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E75652A32BBD9AB200F83280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E756528F2BBD9AB000F83280 /* Madis */;
+			targetProxy = E75652A22BBD9AB200F83280 /* PBXContainerItemProxy */;
+		};
+		E75652AD2BBD9AB200F83280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E756528F2BBD9AB000F83280 /* Madis */;
+			targetProxy = E75652AC2BBD9AB200F83280 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E75652B32BBD9AB200F83280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E75652B42BBD9AB200F83280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E75652B62BBD9AB200F83280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Madis/Madis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Madis/Preview Content\"";
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.Madis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E75652B72BBD9AB200F83280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Madis/Madis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Madis/Preview Content\"";
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.Madis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E75652B92BBD9AB200F83280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.MadisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Madis.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Madis";
+			};
+			name = Debug;
+		};
+		E75652BA2BBD9AB200F83280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.MadisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Madis.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Madis";
+			};
+			name = Release;
+		};
+		E75652BC2BBD9AB200F83280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.MadisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Madis;
+			};
+			name = Debug;
+		};
+		E75652BD2BBD9AB200F83280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AY98D2H4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jack.MadisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Madis;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E756528B2BBD9AB000F83280 /* Build configuration list for PBXProject "Madis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75652B32BBD9AB200F83280 /* Debug */,
+				E75652B42BBD9AB200F83280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E75652B52BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "Madis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75652B62BBD9AB200F83280 /* Debug */,
+				E75652B72BBD9AB200F83280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E75652B82BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "MadisTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75652B92BBD9AB200F83280 /* Debug */,
+				E75652BA2BBD9AB200F83280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E75652BB2BBD9AB200F83280 /* Build configuration list for PBXNativeTarget "MadisUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75652BC2BBD9AB200F83280 /* Debug */,
+				E75652BD2BBD9AB200F83280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E75652882BBD9AB000F83280 /* Project object */;
+}
