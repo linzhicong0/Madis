@@ -14,6 +14,7 @@ struct Graphic: Identifiable, Hashable {
     var text: String
     var children: [Graphic]
     
+    
     init(id: UUID = UUID(), imageName: String, text: String, children: [Graphic]) {
         self.id = id
         self.imageName = imageName
@@ -27,48 +28,7 @@ class DatabaseNavigationController: NSViewController {
     var outlineView: NSOutlineView!
     var scrollView: NSScrollView!
     
-    let graphics: [Graphic] = [
-        Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle_child1", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle_child2", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-        Graphic(imageName: "triangleshape.fill", text: "Rectangle", children: [
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: []),
-            Graphic(imageName: "rectangle.fill", text: "Rectangle", children: [])
-        ]),
-    ]
+    let rowHeight: CGFloat = 22
     
     override func loadView() {
         
@@ -114,14 +74,17 @@ class DatabaseNavigationController: NSViewController {
 
 extension DatabaseNavigationController: NSOutlineViewDelegate {
     
-    
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        if let node = item as? Graphic {
-            let item = DatabaseRowView(name: node.text)
+        if let node = item as? RedisDatabase {
+            let item = DatabaseRowView(name: node.name)
             let hostingView = NSHostingView(rootView: item)
             return hostingView
-            
+        }
+        else if let node = item as? RedisRow {
+            let item = DatabaseRowView(name: node.key)
+            let hostingView = NSHostingView(rootView: item)
+            return hostingView
         }
         
         return nil
@@ -129,9 +92,9 @@ extension DatabaseNavigationController: NSOutlineViewDelegate {
     
     // change the row height
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        22
+        return self.rowHeight
     }
-  
+    
     
     func outlineView(_ outlineView: NSOutlineView, shouldExpandItem item: Any) -> Bool {
         true
@@ -142,25 +105,25 @@ extension DatabaseNavigationController: NSOutlineViewDelegate {
 extension DatabaseNavigationController: NSOutlineViewDataSource {
     // the count of the item
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        if let node = item as? Graphic {
-            return node.children.count
+        if let node = item as? RedisDatabase {
+            return node.numOfKeys
         }
-        return graphics.count
+        return MockData.database.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        if let node = item as? Graphic {
-            return node.children[index]
+        if let node = item as? RedisDatabase {
+            return node.rows[index]
         }
-        return graphics[index]
+        return MockData.database[index]
         
     }
     
     // if the item can expand
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if let item = item as? Graphic {
-            return !item.children.isEmpty
+        if let item = item as? RedisDatabase {
+            return !item.rows.isEmpty
         }
         return false
     }

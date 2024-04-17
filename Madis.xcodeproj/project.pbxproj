@@ -10,6 +10,10 @@
 		E71780B22BD00E460056BF64 /* DatabaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780B12BD00E460056BF64 /* DatabaseNavigationView.swift */; };
 		E71780B42BD00E820056BF64 /* DatabaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780B32BD00E820056BF64 /* DatabaseNavigationController.swift */; };
 		E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780B52BD010260056BF64 /* DatabaseRowView.swift */; };
+		E71780B92BD011B60056BF64 /* RedisDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780B82BD011B60056BF64 /* RedisDatabase.swift */; };
+		E71780BB2BD011CC0056BF64 /* RedisRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780BA2BD011CC0056BF64 /* RedisRow.swift */; };
+		E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780BC2BD011DB0056BF64 /* RedisType.swift */; };
+		E71780BF2BD012860056BF64 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71780BE2BD012860056BF64 /* MockData.swift */; };
 		E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652932BBD9AB000F83280 /* MadisApp.swift */; };
 		E75652962BBD9AB000F83280 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652952BBD9AB000F83280 /* ContentView.swift */; };
 		E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75652972BBD9AB200F83280 /* Assets.xcassets */; };
@@ -40,6 +44,10 @@
 		E71780B12BD00E460056BF64 /* DatabaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseNavigationView.swift; sourceTree = "<group>"; };
 		E71780B32BD00E820056BF64 /* DatabaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseNavigationController.swift; sourceTree = "<group>"; };
 		E71780B52BD010260056BF64 /* DatabaseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRowView.swift; sourceTree = "<group>"; };
+		E71780B82BD011B60056BF64 /* RedisDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisDatabase.swift; sourceTree = "<group>"; };
+		E71780BA2BD011CC0056BF64 /* RedisRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisRow.swift; sourceTree = "<group>"; };
+		E71780BC2BD011DB0056BF64 /* RedisType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisType.swift; sourceTree = "<group>"; };
+		E71780BE2BD012860056BF64 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		E75652902BBD9AB000F83280 /* Madis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Madis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652932BBD9AB000F83280 /* MadisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisApp.swift; sourceTree = "<group>"; };
 		E75652952BBD9AB000F83280 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +104,17 @@
 			path = DatabaseNavigation;
 			sourceTree = "<group>";
 		};
+		E71780B72BD0119D0056BF64 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E71780B82BD011B60056BF64 /* RedisDatabase.swift */,
+				E71780BA2BD011CC0056BF64 /* RedisRow.swift */,
+				E71780BC2BD011DB0056BF64 /* RedisType.swift */,
+				E71780BE2BD012860056BF64 /* MockData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E75652872BBD9AB000F83280 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +138,7 @@
 		E75652922BBD9AB000F83280 /* Madis */ = {
 			isa = PBXGroup;
 			children = (
+				E71780B72BD0119D0056BF64 /* Model */,
 				E71780AF2BD00E040056BF64 /* Features */,
 				E75652932BBD9AB000F83280 /* MadisApp.swift */,
 				E75652952BBD9AB000F83280 /* ContentView.swift */,
@@ -284,7 +304,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71780BB2BD011CC0056BF64 /* RedisRow.swift in Sources */,
+				E71780B92BD011B60056BF64 /* RedisDatabase.swift in Sources */,
 				E75652962BBD9AB000F83280 /* ContentView.swift in Sources */,
+				E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */,
+				E71780BF2BD012860056BF64 /* MockData.swift in Sources */,
 				E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */,
 				E71780B42BD00E820056BF64 /* DatabaseNavigationController.swift in Sources */,
 				E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */,
