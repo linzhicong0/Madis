@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct RedisDatabase {
+struct RedisDatabase: Identifiable {
     
+    let id: String = UUID().uuidString
     let name: String
     let rows: [RedisRow]
     
@@ -16,4 +17,14 @@ struct RedisDatabase {
         return rows.count
     }
     
+}
+
+
+struct RedisOutlineItem: Identifiable {
+    
+    let id: String = UUID().uuidString
+    let name: String
+    let value: String
+    let type: RedisType
+    let children: [RedisOutlineItem]?
 }

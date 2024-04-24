@@ -29,4 +29,18 @@ struct MockData {
         RedisDatabase(name: "movie", rows: []),
         RedisDatabase(name: "actor", rows: [])
     ]
+    
+    
+    static let redisOutlineItems = [
+        
+        RedisOutlineItem(name: "user", value: "", type: .Database, children: [
+            RedisOutlineItem(name: "sample", value: "string", type: .String, children: nil),
+            RedisOutlineItem(name: "sample", value: "set", type: .Set, children: nil),
+            RedisOutlineItem(name: "sample", value: "movie", type: .Hash, children: nil),
+            RedisOutlineItem(name: "sample", value: "stream", type: .Stream, children: nil),
+            RedisOutlineItem(name: "sample", value: "zset", type: .ZSet, children: nil),
+            RedisOutlineItem(name: "sample", value: "list", type: .List, children: nil)
+
+        ])
+    ]
 }
