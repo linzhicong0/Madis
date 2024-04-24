@@ -11,11 +11,11 @@ struct DatabaseView: View {
     var body: some View {
         
         HSplitView {
+            // TODO: change the init width
             LeftView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: 400, maxHeight: .infinity)
             RightView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.blue)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -36,15 +36,13 @@ struct LeftView: View {
     @State var selectedItem: String = ""
     
     var body: some View {
-        VStack() {
+        VStack {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.gray)
                     TextField("search", text: $searchString)
                         .textFieldStyle(.plain)
-                    
-                    
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal)
@@ -77,20 +75,13 @@ struct LeftView: View {
             
             
             ScrollView {
-                
-                
                 Section {
-                    
-                    //                    Group {
-                    //
                     OutlineGroup(MockData.redisOutlineItems, children: \.children) { item in
                         if (item.type == .Database) {
-                            
                             HStack {
                                 Text(item.name)
                                 Text("\(item.children!.count) keys")
                             }
-                            
                         }
                         else {
                             RedisItemView(item: item, selected: selectedItem == item.id)
@@ -98,25 +89,9 @@ struct LeftView: View {
                                 .onTapGesture {
                                     selectedItem = item.id
                                 }
-                            
                         }
-                        
                     }
-                    
-                    //                        List(MockData.redisOutlineItems, children: \.children) { item in
-                    //                            Text(item.name)
-                    //                        }
-                    //                        .frame(maxWidth: .infinity)
-                    
-                    
-                    //                        DisclosureGroup(
-                    //                            content: { Text("Content") },
-                    //                            label: { Text("label") }
-                    //                        )
-                    //                    }
-                    
                 } header: {
-                    
                     HStack{
                         // TODO: Update it to dynamic fetch the result
                         Text("KEYS (8409 SCANNED)")
@@ -127,16 +102,126 @@ struct LeftView: View {
                 }
             }
             .padding(.leading, 10)
-            
-            
         }
     }
 }
 
 
 struct RightView: View {
+    @State var selection: Set<UUID> = []
+    @State var fieldText: String = ""
+    @State var contentText: String = ""
+    
     var body: some View {
-        Text("right")
+        VStack {
+            
+            // Top
+            HStack {
+                Text("sample:movie")
+                Spacer()
+                
+                Button(action: {}, label: {
+                    Image(systemName:  "heart" )
+                })
+                .buttonStyle(BorderedButtonStyle())
+                
+                Button(action: {}, label: {
+                    
+                    HStack(spacing:1) {
+                        Image(systemName: "gear")
+                        Image(systemName: "chevron.down")
+                        
+                    }
+                })
+                .buttonBorderShape(.roundedRectangle)
+                
+                
+            }
+            .padding(.vertical, 13)
+            .padding(.horizontal)
+            .background(BlurView())
+            
+            VStack {
+                
+                // info
+                HStack {
+                    // TTL
+                    Text("TTL:")
+                        .font(.caption)
+                    Text("14d 5h")
+                        .font(.caption2)
+                        .foregroundStyle(.gray)
+                    
+                    // Memory
+                    Text("Memory:")
+                        .font(.caption)
+                    Text("106 KB")
+                        .font(.caption2)
+                        .foregroundStyle(.gray)
+                    
+                    // Encoding
+                    Text("Encoding:")
+                        .font(.caption)
+                    
+                    Text("hashtable")
+                        .font(.caption2)
+                        .foregroundStyle(.gray)
+                    
+                    Spacer()
+                }
+                .padding(.vertical, 6)
+                .padding(.horizontal, 4)
+                .background(.white.secondary)
+                
+                // table
+                HStack {
+                    
+                    Table(MockData.redisKeyValueItems, selection: $selection) {
+                        
+                        TableColumn("Field", value: \.field)
+                        TableColumn("Content", value: \.content)
+                    }
+                    
+                    Divider()
+                    
+                    VStack {
+                        
+                        Form {
+                            Section {
+                                TextEditor(text: $fieldText)
+                                    .frame(height: 100)
+                            } header: {
+                                Text("Field")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                
+                            }
+                            
+                            Section {
+                                TextEditor(text: $contentText)
+                                    .frame(height: 100)
+                            } header: {
+                                Text("Content")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                            }
+                            
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding(.trailing, 8)
+                    .frame(maxWidth: 200, maxHeight: .infinity)
+                    
+                }
+                
+                // bottom
+                
+                
+            }
+            
+            
+        }
     }
 }
 

@@ -43,4 +43,10 @@ struct MockData {
 
         ])
     ]
+    
+    static let redisKeyValueItems = [
+        RedisKeyValue(field: "plot", content: "A promising young drummer enrolls at a cut-throat mustest"),
+        RedisKeyValue(field: "title", content: "Test Title"),
+        RedisKeyValue(field: "rating", content: "8.9")
+    ]
 }
