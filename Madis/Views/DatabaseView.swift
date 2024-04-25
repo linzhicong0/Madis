@@ -49,24 +49,29 @@ struct LeftView: View {
                 .background(.primary.opacity(0.15))
                 .clipShape(.rect(cornerRadius: 10))
                 
-                
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    print("refresh button clicked")
+                }, label: {
                     Image(systemName: "arrow.clockwise")
                         .font(.caption)
+                        .frame(width: 30, height: 30)
+                        .contentShape(Rectangle())
                 })
-                .frame(width: 30, height: 30)
+                .buttonStyle(PlainButtonStyle())
                 .background(.gray.opacity(0.4))
                 .clipShape(.rect(cornerRadius: 8))
-                .buttonStyle(PlainButtonStyle())
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    print("plus button clicked")
+                }, label: {
                     Image(systemName: "plus")
-                        .font(.caption)
+                        .font(.caption)                        
+                        .frame(width: 30, height: 30)
+                        .contentShape(Rectangle())
                 })
-                .frame(width: 30, height: 30)
+                .buttonStyle(PlainButtonStyle())
                 .background(.gray.opacity(0.4))
                 .clipShape(.rect(cornerRadius: 8))
-                .buttonStyle(PlainButtonStyle())
             }
             .padding(.top, 10)
             .padding(.horizontal, 5)
@@ -189,6 +194,7 @@ struct RightView: View {
                         Form {
                             Section {
                                 TextEditor(text: $fieldText)
+                                    .font(.headline)
                                     .frame(height: 100)
                             } header: {
                                 Text("Field")
