@@ -13,7 +13,7 @@ struct DatabaseView: View {
         HSplitView {
             // TODO: change the init width
             LeftView()
-                .frame(maxWidth: 400, maxHeight: .infinity)
+                .frame(minWidth: 200, maxWidth: 400, maxHeight: .infinity)
             RightView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
@@ -65,7 +65,7 @@ struct LeftView: View {
                     print("plus button clicked")
                 }, label: {
                     Image(systemName: "plus")
-                        .font(.caption)                        
+                        .font(.caption)
                         .frame(width: 30, height: 30)
                         .contentShape(Rectangle())
                 })
@@ -92,7 +92,9 @@ struct LeftView: View {
                             RedisItemView(item: item, selected: selectedItem == item.id)
                                 .padding(.horizontal, 10)
                                 .onTapGesture {
-                                    selectedItem = item.id
+                                    withAnimation(.linear(duration: 0.1)) {
+                                        selectedItem = item.id
+                                    }
                                 }
                         }
                     }

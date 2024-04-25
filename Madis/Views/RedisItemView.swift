@@ -20,15 +20,15 @@ struct RedisItemView: View {
                 .frame(width: 50)
                 .foregroundStyle(.white)
                 .background(item.type.colorValue)
-                .clipShape(.rect(cornerRadius: 5))
+                .clipShape(.rect(cornerRadius: 3))
             Text("\(item.name):\(item.value)")
             Spacer()
         }
-        .padding(5)
+        .padding(4)
         .padding(.leading, 5)
         .background(selected ? .gray.opacity(0.3) : .clear)
         .contentShape(Rectangle())
-        .clipShape(.rect(cornerRadius: 4))
+        .clipShape(.rect(cornerRadius: 5))
     }
 }
 
