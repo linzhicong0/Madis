@@ -17,11 +17,22 @@ struct HomeView: View {
     var body: some View {
         VStack(spacing: 0) {
             
-            TopBarView()
-                .background(colorScheme == .dark ? .black.opacity(0.2) : .white.opacity(0.2))
+            ZStack {
+                
+                Color.white.background(BlurView())
+                    .blendMode(.difference)
+                
+                TopBarView()
+                    .padding(.vertical, 5)
+
+            }
+            .frame(height: 30)
+            
+            Divider()
             
             DatabaseView()
         }
+        .ignoresSafeArea()
         
     }
 }
