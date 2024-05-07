@@ -12,19 +12,28 @@ struct MadisApp: App {
     
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var appViewModel = AppViewModel()
+
     var body: some Scene {
         
         WindowGroup {
-            HomeView()
-                .preferredColorScheme(.light)
-//                .toolbar(content: {
-//                    TopBarView()
-//                })
-//                .toolbarTitleDisplayMode(.inline)
-////                .presentedWindowToolbarStyle(.expanded)
-//                .toolbarBackground(colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.2), for: .windowToolbar)
             
+            MainView()
+                .environment(\.appViewModel, appViewModel)
+
         }
         .windowStyle(.hiddenTitleBar)
     }
+}
+
+extension EnvironmentValues {
+    var appViewModel: AppViewModel {
+        get { self[AppViewModelKey.self]}
+        set { self[AppViewModelKey.self] = newValue}
+        
+    }
+    
+}
+private struct AppViewModelKey: EnvironmentKey {
+    static var defaultValue: AppViewModel = AppViewModel()
 }

@@ -12,7 +12,8 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @Environment(\.colorScheme) var colorScheme;
+    @Environment(\.colorScheme) var colorScheme
+    
     
     var body: some View {
         VStack(spacing: 0) {
