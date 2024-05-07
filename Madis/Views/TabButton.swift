@@ -26,10 +26,12 @@ struct TabButton: View {
             HStack(spacing: 10) {
                 
                 ZStack{
-                       Capsule()
+                    Capsule()
                         .fill(.clear)
-                        .matchedGeometryEffect(id: "Tab", in: animation)
-                        
+                    // we need to make it the source according to the selected
+                    // otherwise will have undefined behaviour
+                        .matchedGeometryEffect(id: "Tab", in: animation, isSource: selected == title)
+                    
                     if selected == title {
                         Capsule()
                             .fill(.orange)
