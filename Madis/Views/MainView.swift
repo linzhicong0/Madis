@@ -27,8 +27,11 @@ struct MainView: View {
             HStack {
                 
                 SideView(appViewModel: appViewModel)
+                Divider()
                 
                 ZStack {
+                    ConnectionManagementView()
+                        .environment(appViewModel)
                     
                 }
                 .frame(maxWidth: .infinity)

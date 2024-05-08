@@ -40,7 +40,7 @@ struct MockData {
             RedisOutlineItem(name: "sample", value: "stream", type: .Stream, children: nil),
             RedisOutlineItem(name: "sample", value: "zset", type: .ZSet, children: nil),
             RedisOutlineItem(name: "sample", value: "list", type: .List, children: nil)
-
+            
         ])
     ]
     
@@ -51,11 +51,11 @@ struct MockData {
     ]
     
     static let connectionItems = [
-        Connection(name: "name1", host: "127.0.0.1", username: "jack", password: "12345"),
-        Connection(name: "name2", host: "127.0.0.1", username: "jack", password: "12345"),
-        Connection(name: "name3", host: "127.0.0.1", username: "jack", password: "12345"),
-        Connection(name: "name4", host: "127.0.0.1", username: "jack", password: "12345"),
-        Connection(name: "name5", host: "127.0.0.1", username: "jack", password: "12345")
-
+        Connection(name: "name1", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        Connection(name: "name2", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        Connection(name: "name3", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        Connection(name: "name4", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        Connection(name: "name5", host: "127.0.0.1", port: "6379", username: "jack", password: "12345")
+        
     ]
 }

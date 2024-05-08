@@ -22,11 +22,11 @@ struct SideView: View {
                 
                 TabButton(image: "rectangle.3.group", title: "setting", animation: animation, selected: $appViewModel.selectedTab)
                 
-//                TabButton(image: "rectangle.3.group", title: "connection3", animation: animation, selected: $appViewModel.selectedTab)
             }
             Spacer()
         }
-        .frame(maxWidth: (screen.width / 2) / 4 , maxHeight: .infinity)
+        .padding(.top, 10)
+        .frame(maxWidth: (screen.width / 2) / 8 , maxHeight: .infinity)
     }
 }
 //

@@ -35,13 +35,18 @@ struct ConnectionCardView: View {
             HStack {
                 Spacer()
                 
+                // Open Connection Button
+                Button(action: {}, label: {
+                    Image(systemName: "play.fill")
+                        .contentShape(Rectangle())
+                })
+                .buttonStyle(PlainButtonStyle())
                 // Setting Button
                 Button(action: {}, label: {
                     Image(systemName: "gear")
                         .contentShape(Rectangle())
                 })
                 .buttonStyle(PlainButtonStyle())
-                
                 
                 // Delete Button
                 Button(action: {}, label: {
@@ -51,12 +56,37 @@ struct ConnectionCardView: View {
                 .buttonStyle(PlainButtonStyle())
             }
             
-            
         }
+        .padding()
         .frame(width: 200, height: 180)
         .background(Color("ConnectionCardBackground"))
+        .clipShape(.rect(cornerRadius: 12))
         
     }
+}
+
+struct PlusButton: View {
+    var body: some View {
+        
+        Button(action: {}, label: {
+            ZStack {
+                Color("ConnectionCardBackground")
+                Image(systemName: "plus")
+                    .resizable()
+                    .padding()
+                    .frame(width: 70, height: 70)
+            }
+            .frame(width: 200, height: 180)
+            .clipShape(.rect(cornerRadius: 12))
+
+        })
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+#Preview{
+    PlusButton()
+    
 }
 
 #Preview {
