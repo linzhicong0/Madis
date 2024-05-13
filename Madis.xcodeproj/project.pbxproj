@@ -29,6 +29,7 @@
 		E71781262BE91CC10056BF64 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781252BE91CC10056BF64 /* AppViewModel.swift */; };
 		E71781282BEA61EC0056BF64 /* ConnectionManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781272BEA61EB0056BF64 /* ConnectionManagementView.swift */; };
 		E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717812A2BEA62050056BF64 /* ConnectionCardView.swift */; };
+		E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717812C2BED128E0056BF64 /* ConnectionConfigurationView.swift */; };
 		E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652932BBD9AB000F83280 /* MadisApp.swift */; };
 		E75652962BBD9AB000F83280 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652952BBD9AB000F83280 /* ContentView.swift */; };
 		E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75652972BBD9AB200F83280 /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		E71781252BE91CC10056BF64 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		E71781272BEA61EB0056BF64 /* ConnectionManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManagementView.swift; sourceTree = "<group>"; };
 		E717812A2BEA62050056BF64 /* ConnectionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCardView.swift; sourceTree = "<group>"; };
+		E717812C2BED128E0056BF64 /* ConnectionConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionConfigurationView.swift; sourceTree = "<group>"; };
 		E75652902BBD9AB000F83280 /* Madis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Madis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652932BBD9AB000F83280 /* MadisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisApp.swift; sourceTree = "<group>"; };
 		E75652952BBD9AB000F83280 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				E71781272BEA61EB0056BF64 /* ConnectionManagementView.swift */,
 				E717812A2BEA62050056BF64 /* ConnectionCardView.swift */,
+				E717812C2BED128E0056BF64 /* ConnectionConfigurationView.swift */,
 			);
 			path = Connection;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				E71781262BE91CC10056BF64 /* AppViewModel.swift in Sources */,
 				E717810E2BD683C10056BF64 /* HomeView.swift in Sources */,
 				E71781242BE9163F0056BF64 /* SideView.swift in Sources */,
+				E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */,
 				E717811C2BDFBF870056BF64 /* ConnectionSettingView.swift in Sources */,
 				E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */,
 				E71780BF2BD012860056BF64 /* MockData.swift in Sources */,

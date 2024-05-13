@@ -11,8 +11,11 @@ struct ConnectionManagementView: View {
     
     @Environment(\.appViewModel) private var appViewModel
     
+    @State private var showDialog = false
+    
+    
     let columns = [
-        GridItem(.adaptive(minimum: 195), spacing: 10)
+        GridItem(.adaptive(minimum: 195), spacing: 5),
     ]
     
     var body: some View {
@@ -21,14 +24,25 @@ struct ConnectionManagementView: View {
                 ForEach(appViewModel.connections) { conn in
                     ConnectionCardView(connectionName: conn.name, host: conn.host, port: conn.port, lastConnection: conn.username)
                 }
-                PlusButton()
+                PlusButton {
+                    showDialog = true
+                }
             }
             .padding()
         }
+        .defaultScrollAnchor(UnitPoint.topLeading)
+        .sheet(isPresented: $showDialog, content: {
+            ConnectionConfigurationView(showDialog: $showDialog)
+        })
+
+        
+        
     }
 }
 
-#Preview {
-    ConnectionManagementView()
-        .frame(width:800, height: 500)
-}
+//#Preview {
+//    ConnectionManagementView()
+//        .frame(width:800, height: 500)
+//}
+
+
