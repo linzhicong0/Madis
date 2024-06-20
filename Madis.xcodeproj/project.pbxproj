@@ -22,7 +22,7 @@
 		E71781182BD7FEF20056BF64 /* RedisItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781172BD7FEF20056BF64 /* RedisItemView.swift */; };
 		E717811A2BD945610056BF64 /* RedisKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781192BD945610056BF64 /* RedisKeyValue.swift */; };
 		E717811C2BDFBF870056BF64 /* ConnectionSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717811B2BDFBF870056BF64 /* ConnectionSettingView.swift */; };
-		E717811E2BDFE59E0056BF64 /* RedisConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717811D2BDFE59E0056BF64 /* RedisConnection.swift */; };
+		E717811E2BDFE59E0056BF64 /* RedisConnectionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717811D2BDFE59E0056BF64 /* RedisConnectionDetail.swift */; };
 		E71781202BE8F7EA0056BF64 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717811F2BE8F7EA0056BF64 /* MainView.swift */; };
 		E71781222BE8F9550056BF64 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781212BE8F9550056BF64 /* TabButton.swift */; };
 		E71781242BE9163F0056BF64 /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781232BE9163F0056BF64 /* SideView.swift */; };
@@ -30,6 +30,9 @@
 		E71781282BEA61EC0056BF64 /* ConnectionManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71781272BEA61EB0056BF64 /* ConnectionManagementView.swift */; };
 		E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717812A2BEA62050056BF64 /* ConnectionCardView.swift */; };
 		E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E717812C2BED128E0056BF64 /* ConnectionConfigurationView.swift */; };
+		E7511F052BFB948D00330FBF /* RediStack in Frameworks */ = {isa = PBXBuildFile; productRef = E7511F042BFB948D00330FBF /* RediStack */; };
+		E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F4E2BFCE01000330FBF /* RedisManager.swift */; };
+		E7511F512C20505A00330FBF /* RedisClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F502C20505A00330FBF /* RedisClient.swift */; };
 		E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652932BBD9AB000F83280 /* MadisApp.swift */; };
 		E75652962BBD9AB000F83280 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652952BBD9AB000F83280 /* ContentView.swift */; };
 		E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75652972BBD9AB200F83280 /* Assets.xcassets */; };
@@ -72,7 +75,7 @@
 		E71781172BD7FEF20056BF64 /* RedisItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemView.swift; sourceTree = "<group>"; };
 		E71781192BD945610056BF64 /* RedisKeyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisKeyValue.swift; sourceTree = "<group>"; };
 		E717811B2BDFBF870056BF64 /* ConnectionSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSettingView.swift; sourceTree = "<group>"; };
-		E717811D2BDFE59E0056BF64 /* RedisConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisConnection.swift; sourceTree = "<group>"; };
+		E717811D2BDFE59E0056BF64 /* RedisConnectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisConnectionDetail.swift; sourceTree = "<group>"; };
 		E717811F2BE8F7EA0056BF64 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E71781212BE8F9550056BF64 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		E71781232BE9163F0056BF64 /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 		E71781272BEA61EB0056BF64 /* ConnectionManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManagementView.swift; sourceTree = "<group>"; };
 		E717812A2BEA62050056BF64 /* ConnectionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCardView.swift; sourceTree = "<group>"; };
 		E717812C2BED128E0056BF64 /* ConnectionConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionConfigurationView.swift; sourceTree = "<group>"; };
+		E7511F4E2BFCE01000330FBF /* RedisManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisManager.swift; sourceTree = "<group>"; };
+		E7511F502C20505A00330FBF /* RedisClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisClient.swift; sourceTree = "<group>"; };
 		E75652902BBD9AB000F83280 /* Madis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Madis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652932BBD9AB000F83280 /* MadisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisApp.swift; sourceTree = "<group>"; };
 		E75652952BBD9AB000F83280 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7511F052BFB948D00330FBF /* RediStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +150,7 @@
 				E71780BC2BD011DB0056BF64 /* RedisType.swift */,
 				E71780BE2BD012860056BF64 /* MockData.swift */,
 				E71781192BD945610056BF64 /* RedisKeyValue.swift */,
-				E717811D2BDFE59E0056BF64 /* RedisConnection.swift */,
+				E717811D2BDFE59E0056BF64 /* RedisConnectionDetail.swift */,
 				E71781252BE91CC10056BF64 /* AppViewModel.swift */,
 			);
 			path = Model;
@@ -178,6 +184,22 @@
 			path = Connection;
 			sourceTree = "<group>";
 		};
+		E7511F032BFB948D00330FBF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7511F4D2BFCDFFE00330FBF /* Redis */ = {
+			isa = PBXGroup;
+			children = (
+				E7511F4E2BFCE01000330FBF /* RedisManager.swift */,
+				E7511F502C20505A00330FBF /* RedisClient.swift */,
+			);
+			path = Redis;
+			sourceTree = "<group>";
+		};
 		E75652872BBD9AB000F83280 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +207,7 @@
 				E75652A42BBD9AB200F83280 /* MadisTests */,
 				E75652AE2BBD9AB200F83280 /* MadisUITests */,
 				E75652912BBD9AB000F83280 /* Products */,
+				E7511F032BFB948D00330FBF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +224,7 @@
 		E75652922BBD9AB000F83280 /* Madis */ = {
 			isa = PBXGroup;
 			children = (
+				E7511F4D2BFCDFFE00330FBF /* Redis */,
 				E717810C2BD683AB0056BF64 /* Views */,
 				E71780B72BD0119D0056BF64 /* Model */,
 				E71780AF2BD00E040056BF64 /* Features */,
@@ -254,6 +278,9 @@
 			dependencies = (
 			);
 			name = Madis;
+			packageProductDependencies = (
+				E7511F042BFB948D00330FBF /* RediStack */,
+			);
 			productName = Madis;
 			productReference = E75652902BBD9AB000F83280 /* Madis.app */;
 			productType = "com.apple.product-type.application";
@@ -326,6 +353,9 @@
 				Base,
 			);
 			mainGroup = E75652872BBD9AB000F83280;
+			packageReferences = (
+				E71781762BF6531B0056BF64 /* XCRemoteSwiftPackageReference "RediStack" */,
+			);
 			productRefGroup = E75652912BBD9AB000F83280 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -381,14 +411,16 @@
 				E717810E2BD683C10056BF64 /* HomeView.swift in Sources */,
 				E71781242BE9163F0056BF64 /* SideView.swift in Sources */,
 				E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */,
+				E7511F512C20505A00330FBF /* RedisClient.swift in Sources */,
 				E717811C2BDFBF870056BF64 /* ConnectionSettingView.swift in Sources */,
 				E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */,
+				E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */,
 				E71780BF2BD012860056BF64 /* MockData.swift in Sources */,
 				E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */,
 				E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */,
 				E71781222BE8F9550056BF64 /* TabButton.swift in Sources */,
 				E717811A2BD945610056BF64 /* RedisKeyValue.swift in Sources */,
-				E717811E2BDFE59E0056BF64 /* RedisConnection.swift in Sources */,
+				E717811E2BDFE59E0056BF64 /* RedisConnectionDetail.swift in Sources */,
 				E71780B42BD00E820056BF64 /* DatabaseNavigationController.swift in Sources */,
 				E71781102BD6842C0056BF64 /* TopBarView.swift in Sources */,
 				E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */,
@@ -713,6 +745,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E71781762BF6531B0056BF64 /* XCRemoteSwiftPackageReference "RediStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swift-server/RediStack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E7511F042BFB948D00330FBF /* RediStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E71781762BF6531B0056BF64 /* XCRemoteSwiftPackageReference "RediStack" */;
+			productName = RediStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E75652882BBD9AB000F83280 /* Project object */;
 }

@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import NIOPosix
+import NIOCore
+import RediStack
 
 struct ConnectionConfigurationView: View {
     
@@ -19,7 +22,12 @@ struct ConnectionConfigurationView: View {
     @State private var password: String = ""
     
     @State private var closeButtonHovering = false
+    @State private var showConnectionResultDiaglog = false
+    @State private var testConnectionPassed: Bool = false
+    @State private var isTesting: Bool = false
     
+    private let width: CGFloat = 400
+    private let height: CGFloat = 400
     var body: some View {
         
         ZStack(alignment: .topLeading) {
@@ -48,7 +56,9 @@ struct ConnectionConfigurationView: View {
                 
                 HStack {
                     Spacer()
-                    Button(action: {}, label: {
+                    Button(action: {
+                        onTestConnectionButtonClicked()
+                    }, label: {
                         Text("Test Connection")
                             .padding(5)
                             .foregroundStyle(.white)
@@ -61,17 +71,11 @@ struct ConnectionConfigurationView: View {
                         Text("Cancel")
                             .padding(5)
                             .foregroundStyle(.white)
-                        
                     })
                     .buttonStyle(.borderedProminent)
                     
                     Button( action: {
                         
-                        let newConnection = Connection(name: self.connectionName, host: self.connectionHost, port: self.connectionPort, username: self.username, password: self.password)
-                        
-                        appViewModel.connections.append(newConnection)
-                        
-                        close()
                         
                     }, label: {
                         Text("Create")
@@ -80,13 +84,29 @@ struct ConnectionConfigurationView: View {
                     })
                     .buttonStyle(.borderedProminent)
                 }
+            }
+            .padding(15)
+            .frame(width: width, height: height)
+            .background(BlurView())
+            .blur(radius: isTesting ? 3.0 : 0.0)
+            
+            
+            if isTesting {
+                Color.black
+                    .opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                    }
+                
+                ProgressView {
+                }
+                .progressViewStyle(.circular)
+                .frame(width: width, height: height)
+                .backgroundStyle(.black )
+                
                 
                 
             }
-            .padding(15)
-            .frame(width: 400, height:400)
-            .background(BlurView())
-            
             // close button
             Button(action: {
                 close()
@@ -110,10 +130,85 @@ struct ConnectionConfigurationView: View {
                 closeButtonHovering = hovering
             })
         }
+        .sheet(isPresented: $showConnectionResultDiaglog, content: {
+            TestConnectionSheetView(testConnectionPassed: $testConnectionPassed, showConnectionResultDiaglog: $showConnectionResultDiaglog)
+        })
+    }
+    
+    var testResultSheet: some View {
+        print("sheet: \(testConnectionPassed)")
+        return VStack(spacing: 30, content: {
+            Image(systemName: testConnectionPassed ? "checkmark" : "xmark")
+                .resizable()
+                .foregroundStyle(testConnectionPassed ? .green : .red)
+                .frame(width: 40, height: 40)
+            Text(testConnectionPassed ? "Test passed!": "Test failed!")
+                .font(.title2)
+            Button(action: {
+                showConnectionResultDiaglog.toggle()
+            }, label: {
+                Text("OK")
+                    .foregroundStyle(.white)
+                    .frame(width: 40)
+            })
+        })
+        .frame(width: 300, height: 200)
     }
     
     private func close() {
         showDialog = false
+    }
+    
+    private func onCreateButtonClicked() {
+        let newConnection = ConnectionDetail(name: self.connectionName, host: self.connectionHost, port: self.connectionPort, username: self.username, password: self.password)
+        
+        appViewModel.connections.append(newConnection)
+        
+        close()
+        
+    }
+    
+    private func onTestConnectionButtonClicked() {
+        
+        isTesting = true
+        
+        RedisManager.shared.testConnection(host: connectionHost, port: Int(connectionPort) ?? 6379, username: username == "" ? nil : username, password: password == "" ? nil : password).whenComplete { result in
+            switch result{
+            case .success(let result):
+                testConnectionPassed = result
+            case .failure(let err):
+                testConnectionPassed = false
+            }
+            
+            showConnectionResultDiaglog = true
+            isTesting = false
+        }
+        
+    }
+}
+
+struct TestConnectionSheetView: View  {
+    
+    @Binding var testConnectionPassed: Bool
+    @Binding var showConnectionResultDiaglog: Bool
+    
+    var body: some View{
+        return VStack(spacing: 30, content: {
+            Image(systemName: testConnectionPassed ? "checkmark" : "xmark")
+                .resizable()
+                .foregroundStyle(testConnectionPassed ? .green : .red)
+                .frame(width: 40, height: 40)
+            Text(testConnectionPassed ? "Test passed!": "Test failed!")
+                .font(.title2)
+            Button(action: {
+                showConnectionResultDiaglog.toggle()
+            }, label: {
+                Text("OK")
+                    .foregroundStyle(.white)
+                    .frame(width: 40)
+            })
+        })
+        .frame(width: 300, height: 200)
     }
 }
 

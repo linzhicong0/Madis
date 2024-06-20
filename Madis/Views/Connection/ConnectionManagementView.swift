@@ -26,6 +26,8 @@ struct ConnectionManagementView: View {
                 }
                 PlusButton {
                     showDialog = true
+//                    let manager = RedisManager()
+                    print("hello")
                 }
             }
             .padding()

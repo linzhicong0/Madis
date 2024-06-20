@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ConnectionSettingView: View {
     
-    @State private var selectedItem: Connection?
+    @State private var selectedItem: ConnectionDetail?
     
     var body: some View {
         NavigationSplitView {
@@ -31,7 +31,7 @@ struct ConnectionSettingView: View {
 
 struct ConnectionDetailView: View {
     
-    var connection: Connection!
+    var connection: ConnectionDetail!
     @State private var host: String = ""
     
     var body: some View {
@@ -77,7 +77,7 @@ struct CustomeTextField: View {
 
 
 
-struct Connection: Identifiable, Hashable{
+struct ConnectionDetail: Identifiable, Hashable{
     let id = UUID()
     let name: String
     let host: String

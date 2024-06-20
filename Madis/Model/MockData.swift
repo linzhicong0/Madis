@@ -51,11 +51,11 @@ struct MockData {
     ]
     
     static let connectionItems = [
-        Connection(name: "name1", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
-        Connection(name: "name2", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
-        Connection(name: "name3", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
-        Connection(name: "name4", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
-        Connection(name: "name5", host: "127.0.0.1", port: "6379", username: "jack", password: "12345")
+        ConnectionDetail(name: "name1", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        ConnectionDetail(name: "name2", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        ConnectionDetail(name: "name3", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        ConnectionDetail(name: "name4", host: "127.0.0.1", port: "6379", username: "jack", password: "12345"),
+        ConnectionDetail(name: "name5", host: "127.0.0.1", port: "6379", username: "jack", password: "12345")
         
     ]
 }

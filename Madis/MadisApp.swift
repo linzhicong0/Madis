@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RediStack
 
 @main
 struct MadisApp: App {
