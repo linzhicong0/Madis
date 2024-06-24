@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ConnectionManagementView: View {
     
     @Environment(\.appViewModel) private var appViewModel
     
     @State private var showDialog = false
+    
+    @Query private var connections: [ConnectionDetail]
+    
+    @State private var selectdConnection: ConnectionDetail?
     
     
     let columns = [
@@ -21,20 +26,18 @@ struct ConnectionManagementView: View {
     var body: some View {
         ScrollView() {
             LazyVGrid(columns: columns, alignment: .leading) {
-                ForEach(appViewModel.connections) { conn in
-                    ConnectionCardView(connectionName: conn.name, host: conn.host, port: conn.port, lastConnection: conn.username)
+                ForEach(connections) { conn in
+                    ConnectionCardView(connectionDetail: conn)
                 }
                 PlusButton {
                     showDialog = true
-//                    let manager = RedisManager()
-                    print("hello")
                 }
             }
             .padding()
         }
         .defaultScrollAnchor(UnitPoint.topLeading)
         .sheet(isPresented: $showDialog, content: {
-            ConnectionConfigurationView(showDialog: $showDialog)
+            ConnectionConfigurationView(showDialog: $showDialog, connection: $selectdConnection)
         })
 
         

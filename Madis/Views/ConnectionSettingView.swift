@@ -76,12 +76,3 @@ struct CustomeTextField: View {
 }
 
 
-
-struct ConnectionDetail: Identifiable, Hashable{
-    let id = UUID()
-    let name: String
-    let host: String
-    let port: String
-    let username: String
-    let password: String
-}

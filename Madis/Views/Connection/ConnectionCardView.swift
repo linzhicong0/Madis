@@ -9,24 +9,26 @@ import SwiftUI
 
 struct ConnectionCardView: View {
     
-    var connectionName: String
-    var host: String
-    var port: String
-    var lastConnection: String
+    @Environment(\.modelContext) private var context
+    
+    @State private var showDialog: Bool = false
+    
+    @State var connectionDetail: ConnectionDetail?
+    
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 20) {
             
-            Text("\(connectionName)")
+            Text("\(connectionDetail!.name)")
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(Color("CardTitleFontColor"))
             
-            Text("\(host):\(port)")
+            Text("\(connectionDetail!.host):\(connectionDetail!.port)")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundStyle(Color("CardTextFontColor"))
             
-            Text("\(lastConnection)")
+            Text("TODO")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundStyle(Color("CardTextFontColor"))
             
@@ -34,7 +36,6 @@ struct ConnectionCardView: View {
             
             HStack {
                 Spacer()
-                
                 // Open Connection Button
                 Button(action: {}, label: {
                     Image(systemName: "play.fill")
@@ -42,14 +43,18 @@ struct ConnectionCardView: View {
                 })
                 .buttonStyle(PlainButtonStyle())
                 // Setting Button
-                Button(action: {}, label: {
+                Button(action: {
+                    showDialog = true
+                }, label: {
                     Image(systemName: "gear")
                         .contentShape(Rectangle())
                 })
                 .buttonStyle(PlainButtonStyle())
                 
                 // Delete Button
-                Button(action: {}, label: {
+                Button(action: {
+                    delete()
+                }, label: {
                     Image(systemName: "trash")
                         .contentShape(Rectangle())
                 })
@@ -61,6 +66,15 @@ struct ConnectionCardView: View {
         .frame(width: 200, height: 180)
         .background(Color("ConnectionCardBackground"))
         .clipShape(.rect(cornerRadius: 12))
+        .sheet(isPresented: $showDialog, content: {
+            ConnectionConfigurationView(showDialog: $showDialog, connection: $connectionDetail)
+        })
+        
+    }
+    
+    private func delete() {
+        context.delete(connectionDetail!)
+        print("deleted: \(connectionDetail!.name)")
         
     }
 }
@@ -99,6 +113,6 @@ struct PlusButton: View {
 }
 
 #Preview {
-    ConnectionCardView(connectionName: "My Local Connection", host: "127.0.0.1", port: "6379", lastConnection: "30 minutes ago")
+    ConnectionCardView( connectionDetail:  ConnectionDetail(name: "test", host: "127.0.0.1", port: "6379", username: "test", password: "1234"))
         .frame(width: 200, height: 180)
 }

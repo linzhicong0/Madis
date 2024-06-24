@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RediStack
+import SwiftData
 
 @main
 struct MadisApp: App {
@@ -24,6 +25,7 @@ struct MadisApp: App {
 
         }
         .windowStyle(.hiddenTitleBar)
+        .modelContainer(for: ConnectionDetail.self)
     }
 }
 

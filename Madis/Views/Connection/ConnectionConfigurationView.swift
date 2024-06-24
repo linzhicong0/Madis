@@ -13,8 +13,11 @@ import RediStack
 struct ConnectionConfigurationView: View {
     
     @Environment(\.appViewModel) private var appViewModel
+    @Environment(\.modelContext) private var context
     
     @Binding var showDialog: Bool
+    @Binding var connection: ConnectionDetail?
+    
     @State private var connectionName: String = ""
     @State private var connectionHost: String = "127.0.0.1"
     @State private var connectionPort: String = "6379"
@@ -32,8 +35,7 @@ struct ConnectionConfigurationView: View {
         
         ZStack(alignment: .topLeading) {
             VStack(spacing: 20) {
-                
-                Text("New Connection")
+                Text("Update Connection")
                     .font(.title)
                 
                 // Connection Name
@@ -66,6 +68,7 @@ struct ConnectionConfigurationView: View {
                     })
                     
                     Button(action: {
+                        
                         showDialog = false
                     }, label: {
                         Text("Cancel")
@@ -75,8 +78,7 @@ struct ConnectionConfigurationView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Button( action: {
-                        
-                        
+                        onCreateButtonClicked()
                     }, label: {
                         Text("Create")
                             .padding(5)
@@ -162,7 +164,9 @@ struct ConnectionConfigurationView: View {
     private func onCreateButtonClicked() {
         let newConnection = ConnectionDetail(name: self.connectionName, host: self.connectionHost, port: self.connectionPort, username: self.username, password: self.password)
         
-        appViewModel.connections.append(newConnection)
+        context.insert(newConnection)
+        
+        //        appViewModel.connections.append(newConnection)
         
         close()
         
@@ -213,7 +217,7 @@ struct TestConnectionSheetView: View  {
 }
 
 #Preview {
-    ConnectionConfigurationView(showDialog: .constant(true))
+    ConnectionConfigurationView(showDialog: .constant(true), connection: .constant(ConnectionDetail(name: "test", host: "127.0.0.1", port: "6379", username: "test", password: "1234")))
 }
 
 struct CustomFormInputView: View {
