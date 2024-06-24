@@ -9,6 +9,7 @@ import SwiftUI
 import NIOPosix
 import NIOCore
 import RediStack
+import SwiftData
 
 struct ConnectionConfigurationView: View {
     
@@ -16,13 +17,9 @@ struct ConnectionConfigurationView: View {
     @Environment(\.modelContext) private var context
     
     @Binding var showDialog: Bool
-    @Binding var connection: ConnectionDetail?
+    @State var connection: ConnectionDetail
     
-    @State private var connectionName: String = ""
-    @State private var connectionHost: String = "127.0.0.1"
-    @State private var connectionPort: String = "6379"
-    @State private var username: String = ""
-    @State private var password: String = ""
+    var isUpdate: Bool = false
     
     @State private var closeButtonHovering = false
     @State private var showConnectionResultDiaglog = false
@@ -39,19 +36,19 @@ struct ConnectionConfigurationView: View {
                     .font(.title)
                 
                 // Connection Name
-                CustomFormInputView(title: "Connection Name", systemImage: "list.bullet.circle", placeholder: "connection name", text: $connectionName)
+                CustomFormInputView(title: "Connection Name", systemImage: "list.bullet.circle", placeholder: "connection name", text: $connection.name)
                 
                 // Connection host and port
                 HStack() {
-                    CustomFormInputView(title: "Host", systemImage: "house.circle",placeholder: "host" , text: $connectionHost)
+                    CustomFormInputView(title: "Host", systemImage: "house.circle",placeholder: "host" , text: $connection.host)
                     Text(":")
                         .font(.title)
                         .offset(y: 10)
-                    CustomFormInputView(title: "Port", systemImage: "door.left.hand.closed", placeholder: "port", text: $connectionPort)
+                    CustomFormInputView(title: "Port", systemImage: "door.left.hand.closed", placeholder: "port", text: $connection.port)
                 }
                 HStack {
-                    CustomFormInputView(title: "Username", systemImage: "person.crop.circle", placeholder: "username", text: $username)
-                    CustomFormInputView(title: "Password", systemImage: "key.horizontal.fill", isSecured: true, placeholder: "password", text: $password)
+                    CustomFormInputView(title: "Username", systemImage: "person.crop.circle", placeholder: "username", text: $connection.username)
+                    CustomFormInputView(title: "Password", systemImage: "key.horizontal.fill", isSecured: true, placeholder: "password", text: $connection.password)
                 }
                 
                 Spacer()
@@ -80,7 +77,7 @@ struct ConnectionConfigurationView: View {
                     Button( action: {
                         onCreateButtonClicked()
                     }, label: {
-                        Text("Create")
+                        Text(isUpdate ? "Update" : "Create")
                             .padding(5)
                             .foregroundStyle(.white)
                     })
@@ -91,7 +88,6 @@ struct ConnectionConfigurationView: View {
             .frame(width: width, height: height)
             .background(BlurView())
             .blur(radius: isTesting ? 3.0 : 0.0)
-            
             
             if isTesting {
                 Color.black
@@ -105,8 +101,6 @@ struct ConnectionConfigurationView: View {
                 .progressViewStyle(.circular)
                 .frame(width: width, height: height)
                 .backgroundStyle(.black )
-                
-                
                 
             }
             // close button
@@ -162,11 +156,29 @@ struct ConnectionConfigurationView: View {
     }
     
     private func onCreateButtonClicked() {
-        let newConnection = ConnectionDetail(name: self.connectionName, host: self.connectionHost, port: self.connectionPort, username: self.username, password: self.password)
-        
-        context.insert(newConnection)
-        
-        //        appViewModel.connections.append(newConnection)
+        if(isUpdate){
+            try? context.save()
+        } else {
+            
+            // check if the connection name already exist?
+            // if exist then show an alert
+            // else create it
+            let name = connection.name
+            var descriptor = FetchDescriptor<ConnectionDetail>(
+                predicate: #Predicate { $0.name == name },
+                sortBy: [
+                    .init(\.id)]
+            )
+            descriptor.fetchLimit = 1
+            var fetchResult = try! context.fetch(descriptor)
+            
+            if fetchResult.count != 0 {
+                print("exist")
+            } else {
+                context.insert(self.connection)
+            }
+            
+        }
         
         close()
         
@@ -176,11 +188,11 @@ struct ConnectionConfigurationView: View {
         
         isTesting = true
         
-        RedisManager.shared.testConnection(host: connectionHost, port: Int(connectionPort) ?? 6379, username: username == "" ? nil : username, password: password == "" ? nil : password).whenComplete { result in
+        RedisManager.shared.testConnection(host: connection.host, port: Int(connection.port) ?? 6379, username: connection.username == "" ? nil : connection.username, password: connection.password == "" ? nil : connection.password).whenComplete { result in
             switch result{
             case .success(let result):
                 testConnectionPassed = result
-            case .failure(let err):
+            case .failure(_):
                 testConnectionPassed = false
             }
             
@@ -217,7 +229,7 @@ struct TestConnectionSheetView: View  {
 }
 
 #Preview {
-    ConnectionConfigurationView(showDialog: .constant(true), connection: .constant(ConnectionDetail(name: "test", host: "127.0.0.1", port: "6379", username: "test", password: "1234")))
+    ConnectionConfigurationView(showDialog: .constant(true), connection: ConnectionDetail(name: "test", host: "127.0.0.1", port: "6379", username: "test", password: "1234"))
 }
 
 struct CustomFormInputView: View {

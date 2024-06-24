@@ -37,7 +37,7 @@ struct ConnectionManagementView: View {
         }
         .defaultScrollAnchor(UnitPoint.topLeading)
         .sheet(isPresented: $showDialog, content: {
-            ConnectionConfigurationView(showDialog: $showDialog, connection: $selectdConnection)
+            ConnectionConfigurationView(showDialog: $showDialog, connection: ConnectionDetail(), isUpdate: false)
         })
 
         

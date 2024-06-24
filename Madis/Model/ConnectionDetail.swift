@@ -8,27 +8,20 @@
 import Foundation
 import SwiftData
 
-//@Model
-//class ConnectionDetailList: Identifiable, Hashable {
-//    @Attribute(.unique)
-//    var id = UUID()
-//    
-//    @Relationship(deleteRule:.cascade)
-//    var connections = [ConnectionDetail]()
-//    
-//    init() {}
-//}
-
 @Model
 class ConnectionDetail: Identifiable, Hashable {
     
     var id: String
     @Attribute(.unique)
-    var name: String
-    var host: String
-    var port: String
-    var username: String
-    var password: String
+    var name: String = ""
+    var host: String = "127.0.0.1"
+    var port: String = "6379"
+    var username: String = ""
+    var password: String = ""
+    
+    init() {
+        self.id = UUID().uuidString
+    }
     
     init(name: String, host: String, port: String, username: String, password: String) {
         self.id = UUID().uuidString

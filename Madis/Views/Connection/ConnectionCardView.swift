@@ -13,18 +13,18 @@ struct ConnectionCardView: View {
     
     @State private var showDialog: Bool = false
     
-    @State var connectionDetail: ConnectionDetail?
+    @State var connectionDetail: ConnectionDetail
     
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 20) {
             
-            Text("\(connectionDetail!.name)")
+            Text("\(connectionDetail.name)")
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(Color("CardTitleFontColor"))
             
-            Text("\(connectionDetail!.host):\(connectionDetail!.port)")
+            Text("\(connectionDetail.host):\(connectionDetail.port)")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundStyle(Color("CardTextFontColor"))
             
@@ -67,14 +67,14 @@ struct ConnectionCardView: View {
         .background(Color("ConnectionCardBackground"))
         .clipShape(.rect(cornerRadius: 12))
         .sheet(isPresented: $showDialog, content: {
-            ConnectionConfigurationView(showDialog: $showDialog, connection: $connectionDetail)
+            ConnectionConfigurationView(showDialog: $showDialog, connection: connectionDetail, isUpdate: true)
         })
         
     }
     
     private func delete() {
-        context.delete(connectionDetail!)
-        print("deleted: \(connectionDetail!.name)")
+        context.delete(connectionDetail)
+        print("deleted: \(connectionDetail.name)")
         
     }
 }
