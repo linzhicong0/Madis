@@ -12,4 +12,6 @@ import Foundation
 class AppViewModel {
     var selectedTab: String = "Connection"
     
+    var showTitleForTabBar: Bool = true
+    
 }

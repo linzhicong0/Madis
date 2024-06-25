@@ -26,7 +26,7 @@ struct SideView: View {
             Spacer()
         }
         .padding(.top, 10)
-        .frame(maxWidth: (screen.width / 2) / 8 , maxHeight: .infinity)
+        .frame(maxWidth: appViewModel.showTitleForTabBar ? (screen.width / 2) / 8 : 65, maxHeight: .infinity)
     }
 }
 //

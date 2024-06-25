@@ -10,6 +10,8 @@ import SwiftUI
 struct TopBarView: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.appViewModel) private var appViewModel
+    
     var body: some View {
         
         HStack(alignment: .center, spacing: 20) {
@@ -31,7 +33,11 @@ struct TopBarView: View {
             .buttonStyle(PlainButtonStyle())
             
             // sidebar
-            Button(action: {}, label: {
+            Button(action: {
+                withAnimation {
+                    appViewModel.showTitleForTabBar.toggle()
+                }
+            }, label: {
                 Image(systemName: "sidebar.left")
                     .font(.system(size: 14))
             })

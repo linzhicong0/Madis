@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TabButton: View {
+    @Environment(\.appViewModel) private var appViewModel
+    
     var image: String
     var title: String
     
@@ -46,13 +48,15 @@ struct TabButton: View {
                     .foregroundStyle(selected == title ? .orange : .gray)
                     .frame(width: 30)
                 
-                Text(title)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.gray)
+                
+                if appViewModel.showTitleForTabBar {
+                    Text(title)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.gray)
+                    
+                }
                 
                 Spacer()
-                
-                
             }
             .padding(.vertical, 5)
             .contentShape(Rectangle())
