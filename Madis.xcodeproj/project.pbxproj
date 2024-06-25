@@ -34,6 +34,7 @@
 		E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F4E2BFCE01000330FBF /* RedisManager.swift */; };
 		E7511F512C20505A00330FBF /* RedisClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F502C20505A00330FBF /* RedisClient.swift */; };
 		E7511F532C29926400330FBF /* ConnectionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F522C29926400330FBF /* ConnectionDetail.swift */; };
+		E7511F592C2AE5FE00330FBF /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F582C2AE5FE00330FBF /* SettingView.swift */; };
 		E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652932BBD9AB000F83280 /* MadisApp.swift */; };
 		E75652962BBD9AB000F83280 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652952BBD9AB000F83280 /* ContentView.swift */; };
 		E75652982BBD9AB200F83280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75652972BBD9AB200F83280 /* Assets.xcassets */; };
@@ -87,6 +88,7 @@
 		E7511F4E2BFCE01000330FBF /* RedisManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisManager.swift; sourceTree = "<group>"; };
 		E7511F502C20505A00330FBF /* RedisClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisClient.swift; sourceTree = "<group>"; };
 		E7511F522C29926400330FBF /* ConnectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetail.swift; sourceTree = "<group>"; };
+		E7511F582C2AE5FE00330FBF /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E75652902BBD9AB000F83280 /* Madis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Madis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652932BBD9AB000F83280 /* MadisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisApp.swift; sourceTree = "<group>"; };
 		E75652952BBD9AB000F83280 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -162,10 +164,11 @@
 		E717810C2BD683AB0056BF64 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E7511F572C2AE5F400330FBF /* Setting */,
+				E7511F542C2AE51A00330FBF /* Database */,
 				E71781292BEA61F20056BF64 /* Connection */,
 				E717810D2BD683C10056BF64 /* HomeView.swift */,
 				E717810F2BD6842C0056BF64 /* TopBarView.swift */,
-				E71781112BD684510056BF64 /* DatabaseView.swift */,
 				E71781132BD686A30056BF64 /* DatabaseDisclosureView.swift */,
 				E71781152BD6A2560056BF64 /* BlurView.swift */,
 				E71781172BD7FEF20056BF64 /* RedisItemView.swift */,
@@ -201,6 +204,22 @@
 				E7511F502C20505A00330FBF /* RedisClient.swift */,
 			);
 			path = Redis;
+			sourceTree = "<group>";
+		};
+		E7511F542C2AE51A00330FBF /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E71781112BD684510056BF64 /* DatabaseView.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		E7511F572C2AE5F400330FBF /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E7511F582C2AE5FE00330FBF /* SettingView.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E75652872BBD9AB000F83280 = {
@@ -428,6 +447,7 @@
 				E71780B42BD00E820056BF64 /* DatabaseNavigationController.swift in Sources */,
 				E71781102BD6842C0056BF64 /* TopBarView.swift in Sources */,
 				E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */,
+				E7511F592C2AE5FE00330FBF /* SettingView.swift in Sources */,
 				E71780B22BD00E460056BF64 /* DatabaseNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

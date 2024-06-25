@@ -30,8 +30,17 @@ struct MainView: View {
                 Divider()
                 
                 ZStack {
-                    ConnectionManagementView()
-                        .environment(appViewModel)
+                    switch appViewModel.selectedTab{
+                    case "Connection":
+                        ConnectionManagementView()
+                    case "Database":
+                        DatabaseView()
+                    case "Setting":
+                        SettingView()
+                    default:
+                        ConnectionManagementView()
+                    }
+                    
                     
                 }
                 .frame(maxWidth: .infinity)

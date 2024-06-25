@@ -16,11 +16,11 @@ struct SideView: View {
     var body: some View {
         VStack {
             Group {
-                TabButton(image: "rectangle.3.group", title: "connection", animation: animation, selected: $appViewModel.selectedTab)
+                TabButton(image: "server.rack", title: "Connection", animation: animation, selected: $appViewModel.selectedTab)
                 
-                TabButton(image: "rectangle.3.group", title: "database", animation: animation, selected: $appViewModel.selectedTab)
+                TabButton(image: "cylinder.split.1x2", title: "Database", animation: animation, selected: $appViewModel.selectedTab)
                 
-                TabButton(image: "rectangle.3.group", title: "setting", animation: animation, selected: $appViewModel.selectedTab)
+                TabButton(image: "gear", title: "Setting", animation: animation, selected: $appViewModel.selectedTab)
                 
             }
             Spacer()
