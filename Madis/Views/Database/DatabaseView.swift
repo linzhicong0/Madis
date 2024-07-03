@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct DatabaseView: View {
+    
+    @Environment(\.appViewModel) private var appViewModel
+    
     var body: some View {
         
         HSplitView {
@@ -21,7 +24,6 @@ struct DatabaseView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(BlurView())
         
-        
     }
 }
 
@@ -32,8 +34,10 @@ struct DatabaseView: View {
 
 struct LeftView: View {
     
+    @Environment(\.appViewModel) private var appViewModel
     @State var searchString: String = ""
     @State var selectedItem: String = ""
+    @State var redisOutlineItems: [RedisOutlineItem] = []
     
     var body: some View {
         VStack {
@@ -51,6 +55,7 @@ struct LeftView: View {
                 
                 Button(action: {
                     print("refresh button clicked")
+                    getAllKeys()
                 }, label: {
                     Image(systemName: "arrow.clockwise")
                         .font(.caption)
@@ -78,38 +83,50 @@ struct LeftView: View {
             
             Divider()
             
-            
-            ScrollView {
-                Section {
-                    OutlineGroup(MockData.redisOutlineItems, children: \.children) { item in
-                        if (item.type == .Database) {
-                            HStack {
-                                Text(item.name)
-                                Text("\(item.children!.count) keys")
-                            }
+            Section {
+                List(redisOutlineItems   , children: \.children) { item in
+                    if item.children != nil {
+                        HStack(spacing:5) {
+                            Image(systemName: "folder")
+                            Text(item.label)
+                            Text("(\(item.children!.count))")
                         }
-                        else {
-                            RedisItemView(item: item, selected: selectedItem == item.id)
-                                .padding(.horizontal, 10)
-                                .onTapGesture {
-                                    withAnimation(.linear(duration: 0.1)) {
-                                        selectedItem = item.id
-                                    }
+                    }
+                    else {
+                        RedisItemView(item: item, selected: selectedItem == item.id)
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.1)) {
+                                    selectedItem = item.id
                                 }
-                        }
+                            }
                     }
-                } header: {
-                    HStack{
-                        // TODO: Update it to dynamic fetch the result
-                        Text("KEYS (8409 SCANNED)")
-                            .font(.headline)
-                            .foregroundStyle(.gray)
-                        Spacer()
-                    }
+                }
+                .listStyle(.sidebar)
+            } header: {
+                HStack{
+                    // TODO: Update it to dynamic fetch the result
+                    Text("KEYS (8409 SCANNED)")
+                        .font(.headline)
+                        .foregroundStyle(.gray)
+                    Spacer()
                 }
             }
             .padding(.leading, 10)
+            
         }
+        .onAppear() {
+            getAllKeys()
+        }
+    }
+    
+    private func getAllKeys() {
+        print("DatabaseView left view onAppear")
+        RedisManager.shared.getAllKeys(clientName: appViewModel.selectedRedisCLientName) { values in
+            redisOutlineItems = values
+        }
+        print("Finished getting keys from redis")
+        
+        
     }
 }
 

@@ -17,7 +17,7 @@ struct ConnectionConfigurationView: View {
     @Environment(\.modelContext) private var context
     
     @Binding var showDialog: Bool
-    @State var connection: ConnectionDetail
+//    @State var connection: ConnectionDetail
     
     var isUpdate: Bool = false
     
@@ -25,6 +25,12 @@ struct ConnectionConfigurationView: View {
     @State private var showConnectionResultDiaglog = false
     @State private var testConnectionPassed: Bool = false
     @State private var isTesting: Bool = false
+        
+    @State  var name: String = ""
+    @State  var host: String = "127.0.0.1"
+    @State  var port: String = "6379"
+    @State  var username: String = ""
+    @State  var password: String = ""
     
     private let width: CGFloat = 400
     private let height: CGFloat = 400
@@ -36,19 +42,19 @@ struct ConnectionConfigurationView: View {
                     .font(.title)
                 
                 // Connection Name
-                CustomFormInputView(title: "Connection Name", systemImage: "list.bullet.circle", placeholder: "connection name", text: $connection.name)
+                CustomFormInputView(title: "Connection Name", systemImage: "list.bullet.circle", placeholder: "connection name", text: $name)
                 
                 // Connection host and port
                 HStack() {
-                    CustomFormInputView(title: "Host", systemImage: "house.circle",placeholder: "host" , text: $connection.host)
+                    CustomFormInputView(title: "Host", systemImage: "house.circle",placeholder: "host" , text: $host)
                     Text(":")
                         .font(.title)
                         .offset(y: 10)
-                    CustomFormInputView(title: "Port", systemImage: "door.left.hand.closed", placeholder: "port", text: $connection.port)
+                    CustomFormInputView(title: "Port", systemImage: "door.left.hand.closed", placeholder: "port", text: $port)
                 }
                 HStack {
-                    CustomFormInputView(title: "Username", systemImage: "person.crop.circle", placeholder: "username", text: $connection.username)
-                    CustomFormInputView(title: "Password", systemImage: "key.horizontal.fill", isSecured: true, placeholder: "password", text: $connection.password)
+                    CustomFormInputView(title: "Username", systemImage: "person.crop.circle", placeholder: "username", text: $username)
+                    CustomFormInputView(title: "Password", systemImage: "key.horizontal.fill", isSecured: true, placeholder: "password", text: $password)
                 }
                 
                 Spacer()
@@ -163,7 +169,6 @@ struct ConnectionConfigurationView: View {
             // check if the connection name already exist?
             // if exist then show an alert
             // else create it
-            let name = connection.name
             var descriptor = FetchDescriptor<ConnectionDetail>(
                 predicate: #Predicate { $0.name == name },
                 sortBy: [
@@ -175,7 +180,9 @@ struct ConnectionConfigurationView: View {
             if fetchResult.count != 0 {
                 print("exist")
             } else {
-                context.insert(self.connection)
+                let connection = ConnectionDetail(name: name, host: host, port: port, username: username == "" ? nil : username, password: password == "" ? nil : password)
+                
+                context.insert(connection)
             }
             
         }
@@ -185,21 +192,17 @@ struct ConnectionConfigurationView: View {
     }
     
     private func onTestConnectionButtonClicked() {
-        
         isTesting = true
-        
-        RedisManager.shared.testConnection(host: connection.host, port: Int(connection.port) ?? 6379, username: connection.username == "" ? nil : connection.username, password: connection.password == "" ? nil : connection.password).whenComplete { result in
+        RedisManager.shared.testConnection(host: host, port: Int(port) ?? 6379, username: username == "" ? nil : username, password: password == "" ? nil : password).whenComplete { result in
             switch result{
             case .success(let result):
                 testConnectionPassed = result
             case .failure(_):
                 testConnectionPassed = false
             }
-            
             showConnectionResultDiaglog = true
             isTesting = false
         }
-        
     }
 }
 
@@ -229,7 +232,7 @@ struct TestConnectionSheetView: View  {
 }
 
 #Preview {
-    ConnectionConfigurationView(showDialog: .constant(true), connection: ConnectionDetail(name: "test", host: "127.0.0.1", port: "6379", username: "test", password: "1234"))
+    ConnectionConfigurationView(showDialog: .constant(true))
 }
 
 struct CustomFormInputView: View {

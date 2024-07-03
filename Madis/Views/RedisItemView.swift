@@ -21,11 +21,11 @@ struct RedisItemView: View {
                 .foregroundStyle(.white)
                 .background(item.type.colorValue)
                 .clipShape(.rect(cornerRadius: 3))
-            Text("\(item.name):\(item.value)")
+            Text("\(item.label)")
             Spacer()
         }
         .padding(4)
-        .padding(.leading, 5)
+//        .padding(.leading, 5)
         .background(selected ? .gray.opacity(0.3) : .clear)
         .contentShape(Rectangle())
         .clipShape(.rect(cornerRadius: 5))
@@ -33,7 +33,7 @@ struct RedisItemView: View {
 }
 
 #Preview {
-    RedisItemView(item: RedisOutlineItem(name: "sample", value: "string", type: .String, children: nil), selected: true)
+    RedisItemView(item: RedisOutlineItem(key: "sample",label: "sample", type: .String, children: nil), selected: true)
         .frame(width: 300, height: 100)
 }
 

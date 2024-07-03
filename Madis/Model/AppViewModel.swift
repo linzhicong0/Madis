@@ -10,8 +10,13 @@ import Foundation
 
 @Observable
 class AppViewModel {
+    
     var selectedTab: String = "Connection"
     
     var showTitleForTabBar: Bool = true
+    
+    var selectedRedisCLientName: String = ""
+    
+    var selectedKey: String = ""
     
 }

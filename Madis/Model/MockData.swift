@@ -33,13 +33,13 @@ struct MockData {
     
     static let redisOutlineItems = [
         
-        RedisOutlineItem(name: "user", value: "", type: .Database, children: [
-            RedisOutlineItem(name: "sample", value: "string", type: .String, children: nil),
-            RedisOutlineItem(name: "sample", value: "set", type: .Set, children: nil),
-            RedisOutlineItem(name: "sample", value: "movie", type: .Hash, children: nil),
-            RedisOutlineItem(name: "sample", value: "stream", type: .Stream, children: nil),
-            RedisOutlineItem(name: "sample", value: "zset", type: .ZSet, children: nil),
-            RedisOutlineItem(name: "sample", value: "list", type: .List, children: nil)
+        RedisOutlineItem(key: "user", label: "user", type: .String, children: [
+            RedisOutlineItem(key: "sample", label: "sample", type: .String, children: nil),
+            RedisOutlineItem(key: "sample", label: "sample", type: .Set, children: nil),
+            RedisOutlineItem(key: "sample", label: "sample", type: .Hash, children: nil),
+            RedisOutlineItem(key: "sample", label: "sample", type: .Stream, children: nil),
+            RedisOutlineItem(key: "sample", label: "sample", type: .ZSet, children: nil),
+            RedisOutlineItem(key: "sample", label: "sample", type: .List, children: nil)
             
         ])
     ]

@@ -10,10 +10,12 @@ import SwiftUI
 struct ConnectionCardView: View {
     
     @Environment(\.modelContext) private var context
+    @Environment(\.appViewModel) private var appViewModel
     
     @State private var showDialog: Bool = false
     
     @State var connectionDetail: ConnectionDetail
+
     
     
     var body: some View {
@@ -37,7 +39,10 @@ struct ConnectionCardView: View {
             HStack {
                 Spacer()
                 // Open Connection Button
-                Button(action: {}, label: {
+                Button(action: {
+                    appViewModel.selectedRedisCLientName = connectionDetail.name
+                    try! RedisManager.shared.addRedisClient(name: connectionDetail.name, config: connectionDetail)
+                }, label: {
                     Image(systemName: "play.fill")
                         .contentShape(Rectangle())
                 })
@@ -67,7 +72,7 @@ struct ConnectionCardView: View {
         .background(Color("ConnectionCardBackground"))
         .clipShape(.rect(cornerRadius: 12))
         .sheet(isPresented: $showDialog, content: {
-            ConnectionConfigurationView(showDialog: $showDialog, connection: connectionDetail, isUpdate: true)
+            ConnectionConfigurationView(showDialog: $showDialog, isUpdate: true, name: connectionDetail.name, host: connectionDetail.host, port: connectionDetail.port, username: connectionDetail.username ?? "", password: connectionDetail.password ?? "")
         })
         
     }

@@ -21,10 +21,14 @@ struct RedisDatabase: Identifiable {
 
 
 struct RedisOutlineItem: Identifiable {
-    
     let id: String = UUID().uuidString
-    let name: String
-    let value: String
+    // The key of the redis object
+    let key: String?
+    // The label to show in the OutlineView
+    let label: String
+    // The type of the redis object
     let type: RedisType
-    let children: [RedisOutlineItem]?
+    // The children of the object, split by the ":"
+    var children: [RedisOutlineItem]?
 }
+
