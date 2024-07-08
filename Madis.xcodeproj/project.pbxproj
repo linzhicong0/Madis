@@ -42,6 +42,7 @@
 		E75652A62BBD9AB200F83280 /* MadisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652A52BBD9AB200F83280 /* MadisTests.swift */; };
 		E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652AF2BBD9AB200F83280 /* MadisUITests.swift */; };
 		E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */; };
+		E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652AF2BBD9AB200F83280 /* MadisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITests.swift; sourceTree = "<group>"; };
 		E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				E717811D2BDFE59E0056BF64 /* RedisConnectionDetail.swift */,
 				E71781252BE91CC10056BF64 /* AppViewModel.swift */,
 				E7511F522C29926400330FBF /* ConnectionDetail.swift */,
+				E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				E71781122BD684510056BF64 /* DatabaseView.swift in Sources */,
 				E71781142BD686A30056BF64 /* DatabaseDisclosureView.swift in Sources */,
 				E71780B92BD011B60056BF64 /* RedisDatabase.swift in Sources */,
+				E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */,
 				E71781202BE8F7EA0056BF64 /* MainView.swift in Sources */,
 				E75652962BBD9AB000F83280 /* ContentView.swift in Sources */,
 				E71781182BD7FEF20056BF64 /* RedisItemView.swift in Sources */,

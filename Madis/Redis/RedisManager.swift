@@ -67,6 +67,16 @@ public class RedisManager {
         
     }
     
+    func getKeyMetaData(clientName: String, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
+        guard let client = redisClients[clientName] else {
+            callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test"))
+            return
+        }
+        client.getKeyMetaData(key:key).whenSuccess { value in
+            callback(value)
+        }
+    }
+
     private func convertKeysToRedisOutlineItem(keys: [String], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()

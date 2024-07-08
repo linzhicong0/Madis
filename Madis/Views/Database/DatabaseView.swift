@@ -10,14 +10,16 @@ import SwiftUI
 struct DatabaseView: View {
     
     @Environment(\.appViewModel) private var appViewModel
+    @State var redisDetailViewModel: RedisItemDetailViewModel?
+    
     
     var body: some View {
         
         HSplitView {
             // TODO: change the init width
-            LeftView()
+            LeftView(redisDetailViewModel: $redisDetailViewModel)
                 .frame(minWidth: 200, maxWidth: 400, maxHeight: .infinity)
-            RightView()
+            RightView(redisDetailViewModel: $redisDetailViewModel)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
         }
@@ -38,6 +40,7 @@ struct LeftView: View {
     @State var searchString: String = ""
     @State var selectedItem: String = ""
     @State var redisOutlineItems: [RedisOutlineItem] = []
+    @Binding var redisDetailViewModel: RedisItemDetailViewModel?
     
     var body: some View {
         VStack {
@@ -84,19 +87,25 @@ struct LeftView: View {
             Divider()
             
             Section {
-                List(redisOutlineItems   , children: \.children) { item in
+                List(redisOutlineItems, children: \.children) { item in
                     if item.children != nil {
                         HStack(spacing:5) {
                             Image(systemName: "folder")
                             Text(item.label)
                             Text("(\(item.children!.count))")
                         }
+                        .onTapGesture {
+                            print("click")
+                            selectedItem = item.id
+                        }
                     }
                     else {
                         RedisItemView(item: item, selected: selectedItem == item.id)
                             .onTapGesture {
+                                print("click")
                                 withAnimation(.linear(duration: 0.1)) {
                                     selectedItem = item.id
+                                    selectKey(key: item.key!)
                                 }
                             }
                     }
@@ -125,8 +134,12 @@ struct LeftView: View {
             redisOutlineItems = values
         }
         print("Finished getting keys from redis")
-        
-        
+    }
+    
+    private func selectKey(key: String) {
+        RedisManager.shared.getKeyMetaData(clientName: appViewModel.selectedRedisCLientName, key: key) { viewModel in
+            redisDetailViewModel = viewModel
+        }
     }
 }
 
@@ -135,117 +148,120 @@ struct RightView: View {
     @State var selection: Set<UUID> = []
     @State var fieldText: String = ""
     @State var contentText: String = ""
+    @Binding var redisDetailViewModel: RedisItemDetailViewModel?
+    
     
     var body: some View {
         VStack {
             
-            // Top
-            HStack {
-                Text("sample:movie")
-                Spacer()
-                
-                Button(action: {}, label: {
-                    Image(systemName:  "heart" )
-                })
-                .buttonStyle(BorderedButtonStyle())
-                
-                Button(action: {}, label: {
-                    
-                    HStack(spacing:1) {
-                        Image(systemName: "gear")
-                        Image(systemName: "chevron.down")
-                        
-                    }
-                })
-                .buttonBorderShape(.roundedRectangle)
-                
-                
+            if redisDetailViewModel == nil {
+                Text("No key selected...")
             }
-            .padding(.vertical, 13)
-            .padding(.horizontal)
-            .background(BlurView())
-            
-            VStack {
-                
-                // info
+            else {
+                // Top
                 HStack {
-                    // TTL
-                    Text("TTL:")
-                        .font(.caption)
-                    Text("14d 5h")
-                        .font(.caption2)
-                        .foregroundStyle(.gray)
-                    
-                    // Memory
-                    Text("Memory:")
-                        .font(.caption)
-                    Text("106 KB")
-                        .font(.caption2)
-                        .foregroundStyle(.gray)
-                    
-                    // Encoding
-                    Text("Encoding:")
-                        .font(.caption)
-                    
-                    Text("hashtable")
-                        .font(.caption2)
-                        .foregroundStyle(.gray)
-                    
+                    Text("\(redisDetailViewModel!.key)")
                     Spacer()
+                    
+                    Button(action: {}, label: {
+                        Image(systemName:  "heart" )
+                    })
+                    .buttonStyle(BorderedButtonStyle())
+                    
+                    Button(action: {}, label: {
+                        
+                        HStack(spacing:1) {
+                            Image(systemName: "gear")
+                            Image(systemName: "chevron.down")
+                            
+                        }
+                    })
+                    .buttonBorderShape(.roundedRectangle)
+                    
+                    
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal, 4)
-                .background(.white.secondary)
+                .padding(.vertical, 13)
+                .padding(.horizontal)
+                .background(BlurView())
                 
-                // table
-                HStack {
+                VStack {
                     
-                    Table(MockData.redisKeyValueItems, selection: $selection) {
+                    // info
+                    HStack {
+                        // TTL
+                        Text("TTL:")
+                            .font(.caption)
+                        Text("\(redisDetailViewModel!.ttl)")
+                            .font(.caption2)
+                            .foregroundStyle(.gray)
                         
-                        TableColumn("Field", value: \.field)
-                        TableColumn("Content", value: \.content)
+                        // Memory
+                        Text("Memory:")
+                            .font(.caption)
+                        Text("\(redisDetailViewModel!.memory)")
+                            .font(.caption2)
+                            .foregroundStyle(.gray)
+                        
+                        // Encoding
+                        Text("Encoding:")
+                            .font(.caption)
+                        
+//                        Text("\(redisDetailViewModel!.encoding)")
+//                            .font(.caption2)
+//                            .foregroundStyle(.gray)
+//                        
+                        Spacer()
                     }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 4)
+                    .background(.black.secondary)
                     
-                    Divider()
-                    
-                    VStack {
+                    // table
+                    HStack {
                         
-                        Form {
-                            Section {
-                                TextEditor(text: $fieldText)
-                                    .font(.headline)
-                                    .frame(height: 100)
-                            } header: {
-                                Text("Field")
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
+                        Table(MockData.redisKeyValueItems, selection: $selection) {
+                            
+                            TableColumn("Field", value: \.field)
+                            TableColumn("Content", value: \.content)
+                        }
+                        
+                        Divider()
+                        
+                        VStack {
+                            
+                            Form {
+                                Section {
+                                    TextEditor(text: $fieldText)
+                                        .font(.headline)
+                                        .frame(height: 100)
+                                } header: {
+                                    Text("Field")
+                                        .font(.caption)
+                                        .foregroundStyle(.gray)
+                                    
+                                }
+                                
+                                Section {
+                                    TextEditor(text: $contentText)
+                                        .frame(height: 100)
+                                } header: {
+                                    Text("Content")
+                                        .font(.caption)
+                                        .foregroundStyle(.gray)
+                                }
                                 
                             }
                             
-                            Section {
-                                TextEditor(text: $contentText)
-                                    .frame(height: 100)
-                            } header: {
-                                Text("Content")
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                            }
-                            
+                            Spacer()
                         }
+                        .padding(.trailing, 8)
+                        .frame(maxWidth: 200, maxHeight: .infinity)
                         
-                        Spacer()
                     }
-                    .padding(.trailing, 8)
-                    .frame(maxWidth: 200, maxHeight: .infinity)
                     
+                    // bottom
                 }
-                
-                // bottom
-                
-                
             }
-            
-            
         }
     }
 }
