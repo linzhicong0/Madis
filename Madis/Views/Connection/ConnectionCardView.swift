@@ -40,7 +40,7 @@ struct ConnectionCardView: View {
                 Spacer()
                 // Open Connection Button
                 Button(action: {
-                    appViewModel.selectedRedisCLientName = connectionDetail.name
+                    appViewModel.selectedConnectionDetail = connectionDetail
                     try! RedisManager.shared.addRedisClient(name: connectionDetail.name, config: connectionDetail)
                 }, label: {
                     Image(systemName: "play.fill")

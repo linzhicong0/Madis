@@ -15,7 +15,7 @@ class AppViewModel {
     
     var showTitleForTabBar: Bool = true
     
-    var selectedRedisCLientName: String = ""
+    var selectedConnectionDetail: ConnectionDetail?
     
     var selectedKey: String = ""
     

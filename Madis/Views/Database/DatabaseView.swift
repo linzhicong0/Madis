@@ -15,16 +15,24 @@ struct DatabaseView: View {
     
     var body: some View {
         
-        HSplitView {
-            // TODO: change the init width
-            LeftView(redisDetailViewModel: $redisDetailViewModel)
-                .frame(minWidth: 200, maxWidth: 400, maxHeight: .infinity)
-            RightView(redisDetailViewModel: $redisDetailViewModel)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+        if appViewModel.selectedConnectionDetail == nil {
+            Text("Please select a connection")
+                .font(.title3)
+        }
+        else {
+            HSplitView {
+                // TODO: change the init width
+                LeftView(redisDetailViewModel: $redisDetailViewModel)
+                    .frame(minWidth: 200, maxWidth: 400, maxHeight: .infinity)
+                RightView(redisDetailViewModel: $redisDetailViewModel)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(BlurView())
             
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(BlurView())
         
     }
 }
@@ -130,14 +138,17 @@ struct LeftView: View {
     
     private func getAllKeys() {
         print("DatabaseView left view onAppear")
-        RedisManager.shared.getAllKeys(clientName: appViewModel.selectedRedisCLientName) { values in
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+        RedisManager.shared.getAllKeys(clientName: clientName) { values in
             redisOutlineItems = values
         }
         print("Finished getting keys from redis")
     }
     
     private func selectKey(key: String) {
-        RedisManager.shared.getKeyMetaData(clientName: appViewModel.selectedRedisCLientName, key: key) { viewModel in
+        
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        RedisManager.shared.getKeyMetaData(clientName: clientName, key: key) { viewModel in
             redisDetailViewModel = viewModel
         }
     }
@@ -206,10 +217,10 @@ struct RightView: View {
                         Text("Encoding:")
                             .font(.caption)
                         
-//                        Text("\(redisDetailViewModel!.encoding)")
-//                            .font(.caption2)
-//                            .foregroundStyle(.gray)
-//                        
+                        //                        Text("\(redisDetailViewModel!.encoding)")
+                        //                            .font(.caption2)
+                        //                            .foregroundStyle(.gray)
+                        //
                         Spacer()
                     }
                     .padding(.vertical, 6)
