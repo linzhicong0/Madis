@@ -31,7 +31,7 @@ struct MockData {
     ]
     
     
-    static let redisOutlineItems = [
+    static var redisOutlineItems = [
         
         RedisOutlineItem(key: "user", label: "user", type: .String, children: [
             RedisOutlineItem(key: "sample", label: "sample", type: .String, children: nil),
@@ -44,7 +44,7 @@ struct MockData {
         ])
     ]
     
-    static let redisKeyValueItems = [
+    static var redisKeyValueItems = [
         RedisKeyValue(field: "plot", content: "A promising young drummer enrolls at a cut-throat mustest"),
         RedisKeyValue(field: "title", content: "Test Title"),
         RedisKeyValue(field: "rating", content: "8.9")

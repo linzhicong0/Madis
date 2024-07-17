@@ -43,6 +43,8 @@
 		E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652AF2BBD9AB200F83280 /* MadisUITests.swift */; };
 		E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */; };
 		E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */; };
+		E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */; };
+		E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		E75652AF2BBD9AB200F83280 /* MadisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITests.swift; sourceTree = "<group>"; };
 		E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemDetailViewModel.swift; sourceTree = "<group>"; };
+		E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValueEditor.swift; sourceTree = "<group>"; };
+		E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableValueEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 		E717810C2BD683AB0056BF64 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E7C449372C3ECDDC0076FDEF /* Components */,
 				E7511F572C2AE5F400330FBF /* Setting */,
 				E7511F542C2AE51A00330FBF /* Database */,
 				E71781292BEA61F20056BF64 /* Connection */,
@@ -285,6 +290,15 @@
 				E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */,
 			);
 			path = MadisUITests;
+			sourceTree = "<group>";
+		};
+		E7C449372C3ECDDC0076FDEF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */,
+				E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,6 +452,7 @@
 				E717810E2BD683C10056BF64 /* HomeView.swift in Sources */,
 				E71781242BE9163F0056BF64 /* SideView.swift in Sources */,
 				E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */,
+				E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */,
 				E7511F512C20505A00330FBF /* RedisClient.swift in Sources */,
 				E717811C2BDFBF870056BF64 /* ConnectionSettingView.swift in Sources */,
 				E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */,
@@ -446,6 +461,7 @@
 				E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */,
 				E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */,
 				E71781222BE8F9550056BF64 /* TabButton.swift in Sources */,
+				E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */,
 				E717811A2BD945610056BF64 /* RedisKeyValue.swift in Sources */,
 				E717811E2BDFE59E0056BF64 /* RedisConnectionDetail.swift in Sources */,
 				E71780B42BD00E820056BF64 /* DatabaseNavigationController.swift in Sources */,

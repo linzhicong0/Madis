@@ -202,6 +202,7 @@ struct RightView: View {
                         // TTL
                         Text("TTL:")
                             .font(.caption)
+                        // TODO: Better format, if > 3600s, then show hour, if >24 hour, show day, etc...
                         Text("\(redisDetailViewModel!.ttl)")
                             .font(.caption2)
                             .foregroundStyle(.gray)
@@ -217,10 +218,6 @@ struct RightView: View {
                         Text("Encoding:")
                             .font(.caption)
                         
-                        //                        Text("\(redisDetailViewModel!.encoding)")
-                        //                            .font(.caption2)
-                        //                            .foregroundStyle(.gray)
-                        //
                         Spacer()
                     }
                     .padding(.vertical, 6)
@@ -230,11 +227,12 @@ struct RightView: View {
                     // table
                     HStack {
                         
-                        Table(MockData.redisKeyValueItems, selection: $selection) {
-                            
-                            TableColumn("Field", value: \.field)
-                            TableColumn("Content", value: \.content)
-                        }
+//                        Table(MockData.redisKeyValueItems, selection: $selection) {
+//                            
+//                            TableColumn("Field", value: \.field)
+//                            TableColumn("Content", value: \.content)
+//                        }
+                        TableValueEditor()
                         
                         Divider()
                         

@@ -61,7 +61,7 @@ struct TopBarView: View {
             
             HStack(alignment:.center) {
                 
-                Text("Connected to 6389 (Cluster)")
+                Text("\(selectHostAndPort) (Cluster)")
                     .font(.caption)
                     .padding(.leading, 5)
                 Spacer()
@@ -98,6 +98,15 @@ struct TopBarView: View {
         }
         .padding(.leading, 75)
         
+        
+        
+    }
+    
+    var selectHostAndPort: String {
+        guard let connectionDetail = appViewModel.selectedConnectionDetail else {
+            return ""
+        }
+        return "\(connectionDetail.host):\(connectionDetail.port)"
         
         
     }
