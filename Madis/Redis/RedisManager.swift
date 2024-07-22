@@ -44,18 +44,19 @@ public class RedisManager {
     func testConnection(host: String, port: Int = 6379, username: String?, password: String?) -> EventLoopFuture<Bool> {
         return RedisClient.testConnection(host: host, port: port, username: username, password: password, initDatabase: 0, eventLoop: eventLoop)
     }
-    func getAllKeys(clientName: String, callback: @escaping ([RedisOutlineItem]) -> Void) -> Void {
+    
+    func getAllKeysWithType(clientName: String, callback: @escaping ([RedisOutlineItem]) -> Void) -> Void {
         guard let client = redisClients[clientName] else {
             callback([])
             return
         }
         
         var outlineItems = [RedisOutlineItem]()
-        client.getAllKeys().whenSuccess { keys in
-            outlineItems = self.convertKeysToRedisOutlineItem(keys: keys)
+        client.getAllKeysWithType().whenSuccess { result in
+             outlineItems = self.convertKeysToRedisOutlineItem(keysWithType: result)
             // sort by the children first, then the key
             outlineItems.sort { item1, item2 in
-                 if item1.children != nil && item2.children == nil {
+                if item1.children != nil && item2.children == nil {
                     return true
                 } else {
                     return item1.key ?? "" < item2.key ?? ""
@@ -76,34 +77,36 @@ public class RedisManager {
             callback(value)
         }
     }
-
-    private func convertKeysToRedisOutlineItem(keys: [String], isRawKey: Bool = false) -> [RedisOutlineItem] {
+    
+    private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()
         if (isRawKey) {
             // TODO: add the item as the raw key, so all the children will be nil
-            for key in keys {
-                let item = RedisOutlineItem(key: key, label: key, type: .String, children: nil)
+            for keyTypes in keysWithType {
+                let item = RedisOutlineItem(key: keyTypes.0, label: keyTypes.0, type: .fromString(keyTypes.1), children: nil)
                 items.append(item)
             }
             return items
         }
-        items = createOutlineItems(from: keys)
+        items = createOutlineItems(from: keysWithType)
         return items
     }
     
     
-    private func createOutlineItems(from inputs: [String]) -> [RedisOutlineItem] {
+    private func createOutlineItems(from inputs: [(String, String)]) -> [RedisOutlineItem] {
         var rootItems: [RedisOutlineItem] = []
         for input in inputs {
-            let parts = input.split(separator: ":").map { String($0) }
-            addParts(parts, to: &rootItems, fullKey: input)
+            let key = input.0
+            let keyType = input.1
+            let parts = key.split(separator: ":").map { String($0) }
+            addParts(parts, to: &rootItems, fullKey: key, keyType: keyType)
         }
         
         return rootItems
     }
     
-    private func addParts(_ parts: [String], to items: inout [RedisOutlineItem], fullKey: String) {
+    private func addParts(_ parts: [String], to items: inout [RedisOutlineItem], fullKey: String, keyType: String) {
         guard !parts.isEmpty else { return }
         
         let label = parts[0]
@@ -113,21 +116,21 @@ public class RedisManager {
             if !remainingParts.isEmpty {
                 var existingItem = items[existingItemIndex]
                 var newChildren = existingItem.children ?? []
-                addParts(remainingParts, to: &newChildren, fullKey: fullKey)
+                addParts(remainingParts, to: &newChildren, fullKey: fullKey, keyType: keyType)
                 existingItem.children = newChildren
                 items[existingItemIndex] = existingItem
             } else {
-                let newItem = RedisOutlineItem(key: fullKey, label: label, type: .String, children: nil)
+                let newItem = RedisOutlineItem(key: fullKey, label: label, type: .fromString(keyType), children: nil)
                 items.append(newItem)
             }
         } else {
             let newItem: RedisOutlineItem
             if remainingParts.isEmpty {
-                newItem = RedisOutlineItem(key: fullKey, label: label, type: .String, children: nil)
+                newItem = RedisOutlineItem(key: fullKey, label: label, type: .fromString(keyType), children: nil)
             } else {
                 var children: [RedisOutlineItem] = []
-                addParts(remainingParts, to: &children, fullKey: fullKey)
-                newItem = RedisOutlineItem(key: nil, label: label, type: .String, children: children)
+                addParts(remainingParts, to: &children, fullKey: fullKey, keyType: keyType)
+                newItem = RedisOutlineItem(key: nil, label: label, type: .fromString(keyType), children: children)
             }
             items.append(newItem)
         }

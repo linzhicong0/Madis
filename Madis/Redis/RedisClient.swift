@@ -105,6 +105,7 @@ public class RedisClient {
         
     }
     
+    // Get all the keys from redis server
     public func getAllKeys() -> EventLoopFuture<[String]> {
         
         let promise = eventLoop.next().makePromise(of: [String].self)
@@ -130,7 +131,34 @@ public class RedisClient {
         return promise.futureResult
         
     }
+    /// Get a list of tuple, consit of (redisKey, redisType)
+    /// - returns: a tuple of (redisKey, redisType)
+    public func getAllKeysWithType() -> EventLoopFuture<[(String, String)]> {
+        
+        // Get all the keys
+        let keysFuture = self.connection.send(command: "KEYS", with: [.bulkString(self.stringToByteBuffer("*"))])
+        
+        // Loop all the keys and get the type of each key
+        return keysFuture.flatMap { resp in
+            if let keysArray = resp.array {
+                let keyStrings = keysArray.compactMap { $0.string }
+                self.connection.sendCommandsImmediately = false
+                let keyTypeFutures = keyStrings.map { key in
+                    self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))])
+                        .map { type in
+                            return (key, type.string ?? "")
+                        }
+                }
+                self.connection.sendCommandsImmediately = true
+                return EventLoopFuture.whenAllSucceed(keyTypeFutures, on: self.eventLoop)
+            } else {
+                print("No keys found")
+                return self.eventLoop.makeSucceededFuture([])
+            }
+        }
+    }
     
+    // Get the details of the given key
     func getKeyMetaData(key: String) -> EventLoopFuture<RedisItemDetailViewModel> {
         let promise = eventLoop.next().makePromise(of: RedisItemDetailViewModel.self)
         // set the sendCommandsImmediately to false to make it as the pipeline

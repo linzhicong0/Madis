@@ -66,7 +66,8 @@ struct LeftView: View {
                 
                 Button(action: {
                     print("refresh button clicked")
-                    getAllKeys()
+                    //                    getAllKeys()
+                    getAllKeysWithType()
                 }, label: {
                     Image(systemName: "arrow.clockwise")
                         .font(.caption)
@@ -103,14 +104,12 @@ struct LeftView: View {
                             Text("(\(item.children!.count))")
                         }
                         .onTapGesture {
-                            print("click")
                             selectedItem = item.id
                         }
                     }
                     else {
                         RedisItemView(item: item, selected: selectedItem == item.id)
                             .onTapGesture {
-                                print("click")
                                 withAnimation(.linear(duration: 0.1)) {
                                     selectedItem = item.id
                                     selectKey(key: item.key!)
@@ -132,17 +131,29 @@ struct LeftView: View {
             
         }
         .onAppear() {
-            getAllKeys()
+            
+            getAllKeysWithType()
+            //            getAllKeys()
         }
     }
     
-    private func getAllKeys() {
-        print("DatabaseView left view onAppear")
+    //    private func getAllKeys() {
+    //        print("DatabaseView left view onAppear")
+    //        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+    //        RedisManager.shared.getAllKeys(clientName: clientName) { values in
+    //            redisOutlineItems = values
+    //        }
+    //        print("Finished getting keys from redis")
+    //    }
+    private func getAllKeysWithType() {
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
-        RedisManager.shared.getAllKeys(clientName: clientName) { values in
+        
+        RedisManager.shared.getAllKeysWithType(clientName: clientName) { values in
             redisOutlineItems = values
+            print(redisOutlineItems)
+            
         }
-        print("Finished getting keys from redis")
+        
     }
     
     private func selectKey(key: String) {
@@ -227,11 +238,11 @@ struct RightView: View {
                     // table
                     HStack {
                         
-//                        Table(MockData.redisKeyValueItems, selection: $selection) {
-//                            
-//                            TableColumn("Field", value: \.field)
-//                            TableColumn("Content", value: \.content)
-//                        }
+                        //                        Table(MockData.redisKeyValueItems, selection: $selection) {
+                        //
+                        //                            TableColumn("Field", value: \.field)
+                        //                            TableColumn("Content", value: \.content)
+                        //                        }
                         TableValueEditor()
                         
                         Divider()

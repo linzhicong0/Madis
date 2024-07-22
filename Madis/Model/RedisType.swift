@@ -43,4 +43,24 @@ enum RedisType {
 
         
     }
+    static func fromString(_ rawValue: String) -> RedisType {
+        switch rawValue.uppercased() {
+        case "STRING":
+            return .String
+        case "HASH":
+            return .Hash
+        case "SET":
+            return .Set
+        case "LIST":
+            return .List
+        case "ZSET":
+            return .ZSet
+        case "STREAM":
+            return .Stream
+        case "NONE":
+            return .None
+        default:
+            return .None
+        }
+    }
 }
