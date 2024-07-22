@@ -38,7 +38,7 @@ struct ConnectionConfigurationView: View {
         
         ZStack(alignment: .topLeading) {
             VStack(spacing: 20) {
-                Text("Update Connection")
+                Text("\(isUpdate ? "Update" : "Create") Connection")
                     .font(.title)
                 
                 // Connection Name
@@ -175,7 +175,7 @@ struct ConnectionConfigurationView: View {
                     .init(\.id)]
             )
             descriptor.fetchLimit = 1
-            var fetchResult = try! context.fetch(descriptor)
+            let fetchResult = try! context.fetch(descriptor)
             
             if fetchResult.count != 0 {
                 print("exist")
