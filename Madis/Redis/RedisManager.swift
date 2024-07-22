@@ -9,9 +9,6 @@ import NIOCore
 import NIOPosix
 import RediStack
 
-
-
-
 public class RedisManager {
     //    static let eventLoop: EventLoop = NIOSingletons.posixEventLoopGroup.any()
     static let shared = RedisManager()
@@ -28,7 +25,7 @@ public class RedisManager {
             return
         }
         
-        let newClient = try RedisClient(host: config.host, port: Int(config.port)!, password: config.password, initDatabase: 0, eventLoop: eventLoop  )
+        let newClient = try RedisClient(host: config.host, port: Int(config.port)!, password: config.password == "" ? nil : config.password, initDatabase: 0, eventLoop: eventLoop  )
         redisClients[name] = newClient
         
     }

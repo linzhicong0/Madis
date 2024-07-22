@@ -72,7 +72,7 @@ struct ConnectionCardView: View {
         .background(Color("ConnectionCardBackground"))
         .clipShape(.rect(cornerRadius: 12))
         .sheet(isPresented: $showDialog, content: {
-            ConnectionConfigurationView(showDialog: $showDialog, isUpdate: true, name: connectionDetail.name, host: connectionDetail.host, port: connectionDetail.port, username: connectionDetail.username ?? "", password: connectionDetail.password ?? "")
+            ConnectionConfigurationView(showDialog: $showDialog, isUpdate: true, connectionDetail: connectionDetail)
         })
         
     }
