@@ -13,7 +13,7 @@ struct RedisItemView: View {
     let selected: Bool
     
     var body: some View {
-        HStack(spacing: 3) {
+        HStack(spacing: 8) {
             Text(item.type.stringValue)
                 .font(.caption)
                 .padding(.vertical, 3)
