@@ -22,6 +22,7 @@ struct RedisItemView: View {
                 .background(item.type.colorValue)
                 .clipShape(.rect(cornerRadius: 3))
             Text("\(item.label)")
+                .font(.system(size: 13))
             Spacer()
         }
         .padding(4)
