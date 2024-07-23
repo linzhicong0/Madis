@@ -117,7 +117,7 @@ public class RedisClient {
                 // keys should be an array of RESPValue, convert each to string and print
                 if let keysArray = keys.array {
                     let keyStrings = keysArray.compactMap { $0.string }
-                    print("Keys: \(keyStrings)")
+//                    print("Keys: \(keyStrings)")
                     promise.succeed(keyStrings)
                 } else {
                     print("No keys found")
@@ -164,6 +164,7 @@ public class RedisClient {
         // set the sendCommandsImmediately to false to make it as the pipeline
         // not sure if this is the pipeline handle using the RediStack
         self.connection.sendCommandsImmediately = false
+        
         let ttlFuture = self.connection.ttl(RedisKey(key)).flatMap { value in
             var ttl = "INFINITY"
             if let t = value.timeAmount {
@@ -179,13 +180,16 @@ public class RedisClient {
             return self.eventLoop.next().makeSucceededFuture(memory)
         }
         
+        let typeFuture = self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
+            return self.eventLoop.makeSucceededFuture(value.string ?? "")
+        }
+        
         self.connection.sendCommandsImmediately = true
         
-        EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture], on: eventLoop.next()).whenComplete { result in
+        EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture, typeFuture], on: eventLoop.next()).whenComplete { result in
             switch result {
             case .success(let values):
-                print(values)
-                promise.succeed(RedisItemDetailViewModel(key: key, ttl: try! values[0].get(), memory: try! values[1].get()))
+                promise.succeed(RedisItemDetailViewModel(key: key, ttl: try! values[0].get(), memory: try! values[1].get(), type: .fromString(try! values[2].get())))
             case .failure(let error):
                 print("Error fetching key: \(error)")
                 promise.fail(error)

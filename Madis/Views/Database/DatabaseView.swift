@@ -131,27 +131,15 @@ struct LeftView: View {
             
         }
         .onAppear() {
-            
             getAllKeysWithType()
-            //            getAllKeys()
         }
     }
     
-    //    private func getAllKeys() {
-    //        print("DatabaseView left view onAppear")
-    //        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
-    //        RedisManager.shared.getAllKeys(clientName: clientName) { values in
-    //            redisOutlineItems = values
-    //        }
-    //        print("Finished getting keys from redis")
-    //    }
     private func getAllKeysWithType() {
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
         
         RedisManager.shared.getAllKeysWithType(clientName: clientName) { values in
             redisOutlineItems = values
-            print(redisOutlineItems)
-            
         }
         
     }
@@ -182,7 +170,14 @@ struct RightView: View {
             else {
                 // Top
                 HStack {
+                    Text("\( redisDetailViewModel?.type.stringValue ?? "")")
+                        .padding(.vertical, 3)
+                        .frame(width: 50)
+                        .foregroundStyle(.white)
+                        .background(redisDetailViewModel?.type.colorValue ?? .blue)
+                        .clipShape(.rect(cornerRadius: 3))
                     Text("\(redisDetailViewModel!.key)")
+                        .font(.system(size: 22))
                     Spacer()
                     
                     Button(action: {}, label: {

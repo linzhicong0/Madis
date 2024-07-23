@@ -67,7 +67,7 @@ public class RedisManager {
     
     func getKeyMetaData(clientName: String, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
         guard let client = redisClients[clientName] else {
-            callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test"))
+            callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test", type: .None))
             return
         }
         client.getKeyMetaData(key:key).whenSuccess { value in
