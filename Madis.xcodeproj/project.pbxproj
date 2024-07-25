@@ -45,6 +45,7 @@
 		E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */; };
 		E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */; };
 		E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */; };
+		E7F3A2ED2C4FE6E200DE1022 /* RedisValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemDetailViewModel.swift; sourceTree = "<group>"; };
 		E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValueEditor.swift; sourceTree = "<group>"; };
 		E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableValueEditor.swift; sourceTree = "<group>"; };
+		E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				E71781252BE91CC10056BF64 /* AppViewModel.swift */,
 				E7511F522C29926400330FBF /* ConnectionDetail.swift */,
 				E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */,
+				E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				E71781262BE91CC10056BF64 /* AppViewModel.swift in Sources */,
 				E717810E2BD683C10056BF64 /* HomeView.swift in Sources */,
 				E71781242BE9163F0056BF64 /* SideView.swift in Sources */,
+				E7F3A2ED2C4FE6E200DE1022 /* RedisValue.swift in Sources */,
 				E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */,
 				E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */,
 				E7511F512C20505A00330FBF /* RedisClient.swift in Sources */,

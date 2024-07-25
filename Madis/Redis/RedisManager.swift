@@ -50,7 +50,7 @@ public class RedisManager {
         
         var outlineItems = [RedisOutlineItem]()
         client.getAllKeysWithType().whenSuccess { result in
-             outlineItems = self.convertKeysToRedisOutlineItem(keysWithType: result)
+            outlineItems = self.convertKeysToRedisOutlineItem(keysWithType: result)
             // sort by the children first, then the key
             outlineItems.sort { item1, item2 in
                 if item1.children != nil && item2.children == nil {
@@ -64,10 +64,10 @@ public class RedisManager {
         }
         
     }
-    
+
     func getKeyMetaData(clientName: String, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
         guard let client = redisClients[clientName] else {
-            callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test", type: .None))
+            callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test", type: .None, value: .String("none")))
             return
         }
         client.getKeyMetaData(key:key).whenSuccess { value in

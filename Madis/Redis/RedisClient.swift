@@ -117,7 +117,7 @@ public class RedisClient {
                 // keys should be an array of RESPValue, convert each to string and print
                 if let keysArray = keys.array {
                     let keyStrings = keysArray.compactMap { $0.string }
-//                    print("Keys: \(keyStrings)")
+                    //                    print("Keys: \(keyStrings)")
                     promise.succeed(keyStrings)
                 } else {
                     print("No keys found")
@@ -159,47 +159,53 @@ public class RedisClient {
     }
     
     // Get the details of the given key
+    // Including the type, ttl, memory and the value
     func getKeyMetaData(key: String) -> EventLoopFuture<RedisItemDetailViewModel> {
-        let promise = eventLoop.next().makePromise(of: RedisItemDetailViewModel.self)
-        // set the sendCommandsImmediately to false to make it as the pipeline
-        // not sure if this is the pipeline handle using the RediStack
-        self.connection.sendCommandsImmediately = false
         
-        let ttlFuture = self.connection.ttl(RedisKey(key)).flatMap { value in
-            var ttl = "INFINITY"
-            if let t = value.timeAmount {
-                ttl = "\(t.nanoseconds/1_000_000_000) s"
+        // Get the type of the key first
+        return self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
+            if let type = value.string {
+                let promise = self.eventLoop.next().makePromise(of: RedisItemDetailViewModel.self)
+                // set the sendCommandsImmediately to false to make it as the pipeline
+                // not sure if this is the pipeline handle using the RediStack
+                self.connection.sendCommandsImmediately = false
+                
+                let ttlFuture = self.connection.ttl(RedisKey(key)).flatMap { value in
+                    var ttl = "INFINITY"
+                    if let t = value.timeAmount {
+                        ttl = "\(t.nanoseconds/1_000_000_000) s"
+                    }
+                    return self.eventLoop.next().makeSucceededFuture(ttl)
+                }
+                
+                let memoryUsageFuture = self.connection.send(command: "MEMORY", with: [.bulkString(self.stringToByteBuffer("USAGE")),.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
+                    var memory = "0"
+                    if let m = value.int {
+                        memory = "\(m) bytes"
+                    }
+                    return self.eventLoop.next().makeSucceededFuture(memory)
+                }
+                
+                // TODO: get the value according to different type of the key
+                
+                self.connection.sendCommandsImmediately = true
+                
+                EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture], on: self.eventLoop.next()).whenComplete { result in
+                    switch result {
+                    case .success(let values):
+                        promise.succeed(RedisItemDetailViewModel(key: key, ttl: try! values[0].get(), memory: try! values[1].get(), type: .fromString(type), value: .String("")))
+                    case .failure(let error):
+                        print("Error fetching key: \(error)")
+                        promise.fail(error)
+                    }
+                }
+                return promise.futureResult
+            } else {
+                return self.eventLoop.makeFailedFuture(RedisError.init(reason: "Error getting TYPE of: \(key)"))
             }
-            return self.eventLoop.next().makeSucceededFuture(ttl)
         }
-        let memoryUsageFuture = self.connection.send(command: "MEMORY", with: [.bulkString(stringToByteBuffer("USAGE")),.bulkString(stringToByteBuffer(key))]).flatMap { value in
-            var memory = "0"
-            if let m = value.int {
-                memory = "\(m) bytes"
-            }
-            return self.eventLoop.next().makeSucceededFuture(memory)
-        }
-        
-        let typeFuture = self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
-            return self.eventLoop.makeSucceededFuture(value.string ?? "")
-        }
-        
-        self.connection.sendCommandsImmediately = true
-        
-        EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture, typeFuture], on: eventLoop.next()).whenComplete { result in
-            switch result {
-            case .success(let values):
-                promise.succeed(RedisItemDetailViewModel(key: key, ttl: try! values[0].get(), memory: try! values[1].get(), type: .fromString(try! values[2].get())))
-            case .failure(let error):
-                print("Error fetching key: \(error)")
-                promise.fail(error)
-            }
-            
-        }
-        
-        return promise.futureResult
-        
     }
+    
     public func getString(_ key: String) -> EventLoopFuture<String> {
         
         let promise = eventLoop.next().makePromise(of: String.self)

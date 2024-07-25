@@ -13,4 +13,5 @@ struct RedisItemDetailViewModel {
     let ttl: String
     let memory: String
     let type: RedisType
+    let value: RedisValue
 }
