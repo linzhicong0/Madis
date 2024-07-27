@@ -13,3 +13,6 @@ I'm a backend developer with limited experience in frontend development. However
 ## Status
 
 The project is still actively under development and cannot even be considered version 0.0.1 yet. Many basic functions are still in progress, and I will only work on this in my spare time or when I'm willing to. So, don't expect rapid version or feature releases.
+
+## Branch
+Since there are still lots of features need to be done, so will take the feature/new as the main branch now. After baisc feature supported, will merge back to main.
