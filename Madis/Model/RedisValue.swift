@@ -12,9 +12,10 @@ typealias HashElement = [String:String]
 
 enum RedisValue {
     case String(String)
-    case List(String)
-    case Set(String)
+    case List([String])
+    case Set([String])
     case ZSet(SortedSetElement)
     case Hash(HashElement)
     case Stream
+    case None
 }

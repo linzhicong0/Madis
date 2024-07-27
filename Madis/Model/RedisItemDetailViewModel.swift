@@ -9,9 +9,9 @@ import Foundation
 
 struct RedisItemDetailViewModel {
     
-    let key: String
-    let ttl: String
-    let memory: String
-    let type: RedisType
-    let value: RedisValue
+    var key: String
+    var ttl: String
+    var memory: String
+    var type: RedisType
+    var value: RedisValue
 }

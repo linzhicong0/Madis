@@ -161,73 +161,104 @@ public class RedisClient {
     // Get the details of the given key
     // Including the type, ttl, memory and the value
     func getKeyMetaData(key: String) -> EventLoopFuture<RedisItemDetailViewModel> {
-        
-        // Get the type of the key first
-        return self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
-            if let type = value.string {
-                let promise = self.eventLoop.next().makePromise(of: RedisItemDetailViewModel.self)
-                // set the sendCommandsImmediately to false to make it as the pipeline
-                // not sure if this is the pipeline handle using the RediStack
+        return getType(key: key)
+            .flatMap { redisType in
                 self.connection.sendCommandsImmediately = false
-                
-                let ttlFuture = self.connection.ttl(RedisKey(key)).flatMap { value in
-                    var ttl = "INFINITY"
-                    if let t = value.timeAmount {
-                        ttl = "\(t.nanoseconds/1_000_000_000) s"
-                    }
-                    return self.eventLoop.next().makeSucceededFuture(ttl)
-                }
-                
-                let memoryUsageFuture = self.connection.send(command: "MEMORY", with: [.bulkString(self.stringToByteBuffer("USAGE")),.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
-                    var memory = "0"
-                    if let m = value.int {
-                        memory = "\(m) bytes"
-                    }
-                    return self.eventLoop.next().makeSucceededFuture(memory)
-                }
-                
-                // TODO: get the value according to different type of the key
-                
+                let ttlFuture = self.getTTL(key: key)
+                let memoryUsageFuture = self.getMemoryUsage(key: key)
                 self.connection.sendCommandsImmediately = true
-                
-                EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture], on: self.eventLoop.next()).whenComplete { result in
-                    switch result {
-                    case .success(let values):
-                        promise.succeed(RedisItemDetailViewModel(key: key, ttl: try! values[0].get(), memory: try! values[1].get(), type: .fromString(type), value: .String("")))
-                    case .failure(let error):
-                        print("Error fetching key: \(error)")
-                        promise.fail(error)
+                return EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture], on: self.eventLoop)
+                    .flatMap { result in
+                        let viewModel = RedisItemDetailViewModel(key: key, ttl:try! result[0].get(), memory:try! result[1].get(), type: redisType, value: .None)
+                        return self.eventLoop.makeSucceededFuture(viewModel)
                     }
-                }
-                return promise.futureResult
-            } else {
-                return self.eventLoop.makeFailedFuture(RedisError.init(reason: "Error getting TYPE of: \(key)"))
             }
-        }
-    }
-    
-    public func getString(_ key: String) -> EventLoopFuture<String> {
-        
-        let promise = eventLoop.next().makePromise(of: String.self)
-        
-        let future = self.connection.get(RedisKey(key))
-        future.whenComplete { result in
-            switch result {
-            case .success(let value):
-                if let value = value.string {
-                    promise.succeed(value)
-                } else {
-                    print("key not found!")
-                }
-            case .failure(let error):
-                print("Error fetching key: \(error)")
-                promise.fail(error)
+            .flatMap { value in
+                return self.getRedisValue(key: key, type: value.type)
+                    .map { redisValue in
+                        var viewModel = value
+                        viewModel.value = redisValue
+                        return viewModel
+                    }
+            }.flatMapError { error in
+                return self.eventLoop.makeFailedFuture(error)
             }
-        }
-        return promise.futureResult
     }
     
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
+    }
+    
+    private func getRedisValue(key: String, type: RedisType) -> EventLoopFuture<RedisValue> {
+        switch type {
+        case .String:
+            return self.connection.get(RedisKey(key)).map { value in
+                if let value = value.string {
+                    return .String(value)
+                } else {
+                    return .String("")
+                }
+            }
+            .flatMapError { error in
+                self.eventLoop.makeFailedFuture(error)
+            }
+        case .List:
+            return self.connection.lrange(from: RedisKey(key), upToIndex: 2999).map { value in
+                return .List(value.map { $0.string ?? "" })
+            }.flatMapError { error in
+                self.eventLoop.makeFailedFuture(error)
+            }
+        case .Set:
+            return self.connection.sscan(RedisKey(key), startingFrom: 0, count: 3000).map { (cursor, value) in
+                return .Set(value.map { $0.string ?? "" })
+            }.flatMapError { error in
+                self.eventLoop.makeFailedFuture(error)
+            }
+        case .Hash:
+            return self.connection.hscan(RedisKey(key), startingFrom: 0, matching: "*").map { (cursor, value) in
+                return .Hash(value.mapValues{ $0.string ?? ""})
+            }
+            // case .ZSet:
+            // case .Stream:
+            // case .None:
+        default:
+            return self.eventLoop.makeSucceededFuture(.String(""))
+        }
+        
+        
+        return self.eventLoop.makeSucceededFuture(.String(""))
+    }
+    
+    // Get the type of the given key
+    private func getType(key: String) -> EventLoopFuture<RedisType> {
+        return self.connection.send(command: "TYPE", with: [.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
+            if let typeString = value.string {
+                return self.eventLoop.makeSucceededFuture(.fromString(typeString))
+            } else {
+                return self.eventLoop.makeFailedFuture(RedisError.init(reason: "Unknown key type:\(String(describing: value.string))"))
+            }
+        }
+    }
+    
+    // Get the TTL of the given key
+    private func getTTL(key: String) -> EventLoopFuture<String> {
+        return self.connection.ttl(RedisKey(key)).flatMap { value in
+            var ttl = "INFINITY"
+            if let t = value.timeAmount {
+                ttl = "\(t.nanoseconds/1_000_000_000) s"
+            }
+            return self.eventLoop.makeSucceededFuture(ttl)
+        }
+    }
+    
+    // Get the memory usage of the given key
+    private func getMemoryUsage(key: String) -> EventLoopFuture<String> {
+        return self.connection.send(command: "MEMORY", with: [.bulkString(self.stringToByteBuffer("USAGE")),.bulkString(self.stringToByteBuffer(key))]).flatMap { value in
+            var memory = "0"
+            if let m = value.int {
+                memory = "\(m) bytes"
+            }
+            return self.eventLoop.makeSucceededFuture(memory)
+        }
     }
 }
