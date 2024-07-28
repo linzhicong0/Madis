@@ -218,15 +218,19 @@ public class RedisClient {
             return self.connection.hscan(RedisKey(key), startingFrom: 0, matching: "*").map { (cursor, value) in
                 return .Hash(value.mapValues{ $0.string ?? ""})
             }
-            // case .ZSet:
-            // case .Stream:
+        case .ZSet:
+            return self.connection.zrange(from: RedisKey(key), indices: 0..<2999, includeScoresInResponse: true).map { values in
+                var elements: [SortedSetElement] = []
+                for i in stride(from: 0, to: values.count, by: 2) {
+                    elements.append((value: values[i].string!, score: Double(values[i+1].string!)!))
+                }
+                return .ZSet(elements)
+            }
+//             case .Stream:
             // case .None:
         default:
             return self.eventLoop.makeSucceededFuture(.String(""))
         }
-        
-        
-        return self.eventLoop.makeSucceededFuture(.String(""))
     }
     
     // Get the type of the given key
