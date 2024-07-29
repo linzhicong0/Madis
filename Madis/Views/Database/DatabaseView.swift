@@ -172,7 +172,7 @@ struct RightView: View {
                 HStack {
                     Text("\( redisDetailViewModel?.type.stringValue ?? "")")
                         .padding(.vertical, 3)
-                        .frame(width: 50)
+                        .frame(width: 60)
                         .foregroundStyle(.white)
                         .background(redisDetailViewModel?.type.colorValue ?? .blue)
                         .clipShape(.rect(cornerRadius: 3))
