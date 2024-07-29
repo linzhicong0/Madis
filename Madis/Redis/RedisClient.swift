@@ -226,7 +226,15 @@ public class RedisClient {
                 }
                 return .ZSet(elements)
             }
-//             case .Stream:
+        case .Stream:
+            return self.connection.send(command: "XREVRANGE", with: [.bulkString(self.stringToByteBuffer(key)),
+                                                                     .bulkString(self.stringToByteBuffer("+")),
+                                                                     .bulkString(self.stringToByteBuffer("-")),
+                                                                     .bulkString(self.stringToByteBuffer("count")),
+                                                                     .bulkString(self.stringToByteBuffer("2999")),
+            ]).map { value in
+                return self.parseStreamFromRESPValue(respValue: value)
+            }
             // case .None:
         default:
             return self.eventLoop.makeSucceededFuture(.String(""))
@@ -264,5 +272,26 @@ public class RedisClient {
             }
             return self.eventLoop.makeSucceededFuture(memory)
         }
+    }
+    
+    private func parseStreamFromRESPValue(respValue: RESPValue) -> RedisValue {
+        // example: [[1722128454840-0,[e,f,g,h]],[1722127845727-0,[c,d]],[1722126902273-0,[a,b]]]
+        var streamElements: [StreamElement] = []
+        if let array = respValue.array {
+            for value in array {
+                // [1722128454840-0,[e,f,g,h]]
+                var elements: [[String: String]] = []
+                let id = value.array![0].string!
+                let values = value.array![1].array
+                for i in stride(from: 0, to: values!.count, by: 2) {
+                    let key = values![i].string!
+                    let value = values![i+1].string!
+                    elements.append([key : value])
+                }
+                streamElements.append(StreamElement(id: id, values: elements))
+            }
+        }
+        return .Stream(streamElements)
+        
     }
 }
