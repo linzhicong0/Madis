@@ -233,44 +233,44 @@ struct RightView: View {
                     // table
                     HStack {
                         
-                        //                        Table(MockData.redisKeyValueItems, selection: $selection) {
-                        //
-                        //                            TableColumn("Field", value: \.field)
-                        //                            TableColumn("Content", value: \.content)
-                        //                        }
-                        TableValueEditor()
-                        
-                        Divider()
-                        
-                        VStack {
-                            
-                            Form {
-                                Section {
-                                    TextEditor(text: $fieldText)
-                                        .font(.headline)
-                                        .frame(height: 100)
-                                } header: {
-                                    Text("Field")
-                                        .font(.caption)
-                                        .foregroundStyle(.gray)
-                                    
-                                }
-                                
-                                Section {
-                                    TextEditor(text: $contentText)
-                                        .frame(height: 100)
-                                } header: {
-                                    Text("Content")
-                                        .font(.caption)
-                                        .foregroundStyle(.gray)
-                                }
-                                
-                            }
-                            
-                            Spacer()
+                        switch redisDetailViewModel?.value {
+                        case .List(let values):
+                            ListTableValueEditor(items: values)
+                        default:
+                            TableValueEditor()
                         }
-                        .padding(.trailing, 8)
-                        .frame(maxWidth: 200, maxHeight: .infinity)
+                        
+//                        Divider()
+                        
+//                        VStack {
+//                            
+//                            Form {
+//                                Section {
+//                                    TextEditor(text: $fieldText)
+//                                        .font(.headline)
+//                                        .frame(height: 100)
+//                                } header: {
+//                                    Text("Field")
+//                                        .font(.caption)
+//                                        .foregroundStyle(.gray)
+//                                    
+//                                }
+//                                
+//                                Section {
+//                                    TextEditor(text: $contentText)
+//                                        .frame(height: 100)
+//                                } header: {
+//                                    Text("Content")
+//                                        .font(.caption)
+//                                        .foregroundStyle(.gray)
+//                                }
+//                                
+//                            }
+//                            
+//                            Spacer()
+//                        }
+//                        .padding(.trailing, 8)
+//                        .frame(maxWidth: 200, maxHeight: .infinity)
                         
                     }
                     
