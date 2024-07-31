@@ -24,7 +24,7 @@ struct HashTableValueEditor: View {
             TableColumn("#", value: \.index.description)
                 .width(50)
                 .alignment(.center)
-            TableColumn("Key", value: \.key)
+            TableColumn("Field", value: \.key)
                 .alignment(.center)
             TableColumn("Value", value: \.value)
                 .alignment(.center)
