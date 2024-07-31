@@ -47,6 +47,7 @@
 		E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */; };
 		E7F3A2ED2C4FE6E200DE1022 /* RedisValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */; };
 		E7F3A2F12C59242900DE1022 /* ListTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */; };
+		E7F3A2F32C5A564100DE1022 /* SetTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableValueEditor.swift; sourceTree = "<group>"; };
 		E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisValue.swift; sourceTree = "<group>"; };
 		E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableValueEditor.swift; sourceTree = "<group>"; };
+		E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableValueEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */,
 				E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */,
 				E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */,
+				E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				E71781102BD6842C0056BF64 /* TopBarView.swift in Sources */,
 				E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */,
 				E7511F592C2AE5FE00330FBF /* SettingView.swift in Sources */,
+				E7F3A2F32C5A564100DE1022 /* SetTableValueEditor.swift in Sources */,
 				E71780B22BD00E460056BF64 /* DatabaseNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

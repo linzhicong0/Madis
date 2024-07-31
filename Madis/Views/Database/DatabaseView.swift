@@ -236,6 +236,8 @@ struct RightView: View {
                         switch redisDetailViewModel?.value {
                         case .List(let values):
                             ListTableValueEditor(items: values)
+                        case .Set(let values):
+                            SetTableValueEditor(items: values)
                         default:
                             TableValueEditor()
                         }
