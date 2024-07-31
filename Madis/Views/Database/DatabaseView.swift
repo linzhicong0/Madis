@@ -242,6 +242,8 @@ struct RightView: View {
                             ZSetTableValueEditor(items: values)
                         case .Hash(let values):
                             HashTableValueEditor(items: values)
+                        case .Stream(let values):
+                            StreamTableValueEditor(items: values)
                         default:
                             TableValueEditor()
                         }

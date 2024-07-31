@@ -25,5 +25,6 @@ enum RedisValue {
 
 struct StreamElement {
     let id: String
-    let values: [[String : String]]
+//    let values: [[String : String]]
+    let values: [(key: String, value: String)]
 }

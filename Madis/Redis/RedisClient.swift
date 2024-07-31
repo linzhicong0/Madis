@@ -280,13 +280,15 @@ public class RedisClient {
         if let array = respValue.array {
             for value in array {
                 // [1722128454840-0,[e,f,g,h]]
-                var elements: [[String: String]] = []
+//                var elements: [[String: String]] = []
+                var elements: [(key:String, value: String)] = []
                 let id = value.array![0].string!
                 let values = value.array![1].array
                 for i in stride(from: 0, to: values!.count, by: 2) {
                     let key = values![i].string!
                     let value = values![i+1].string!
-                    elements.append([key : value])
+//                    elements.append([key : value])
+                    elements.append((key: key, value: value))
                 }
                 streamElements.append(StreamElement(id: id, values: elements))
             }
