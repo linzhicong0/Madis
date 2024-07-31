@@ -8,37 +8,18 @@
 import SwiftUI
 
 struct StringValueEditor: View {
-    @State private var text: String = ""
+    @State var text: String = ""
     
     var body: some View {
-        HStack(spacing: 0) {
-            // Line numbers
-            VStack(alignment: .trailing) {
-                ForEach(text.components(separatedBy: "\n"), id: \.self) { line in
-                    Text(String(format: "%2d", line.count + 1))
-                        .foregroundColor(.red)
-                        .padding(.trailing, 5)
-                }
-                Spacer()
-            }
-            
-            // Text field with line numbers
-            ZStack(alignment: .topLeading) {
-                TextEditor(text: $text)
-                    .textEditorStyle(.plain)
-                    .foregroundStyle(.black)
-                    .padding(.leading, 10)
-                    .scrollDisabled(true)
-                    .scrollClipDisabled()
-                
-                
-            }
-            .padding(15)
-        }
-        .font(.body)
-        .background(Color.white)
-        .cornerRadius(8)
-        .padding()
+        TextEditor(text: $text)
+            .textEditorStyle(.plain)
+            .foregroundStyle(.white)
+            .padding(.leading, 10)
+            .padding(.top, 10)
+            .scrollDisabled(true)
+            .scrollClipDisabled()
+            .font(.system(size: 15))
+            .background(.black.opacity(0.3))
     }
 }
 

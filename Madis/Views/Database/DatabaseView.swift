@@ -232,8 +232,9 @@ struct RightView: View {
                     
                     // table
                     HStack {
-                        
                         switch redisDetailViewModel?.value {
+                        case .String(let value):
+                            StringValueEditor(text: value)
                         case .List(let values):
                             ListTableValueEditor(items: values)
                         case .Set(let values):
