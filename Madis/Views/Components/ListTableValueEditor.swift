@@ -31,6 +31,10 @@ struct ListTableValueEditor: View {
             TableColumn("Operations") { item in
                 OperationColumn {
                     print("copy button clicked: \(item.value)")
+                    let pasteboard = NSPasteboard.general
+                    pasteboard.clearContents()
+                    pasteboard.setString(item.value, forType: .string)
+                    
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
                 } deleteAction: {
