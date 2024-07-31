@@ -240,6 +240,8 @@ struct RightView: View {
                             SetTableValueEditor(items: values)
                         case .ZSet(let values):
                             ZSetTableValueEditor(items: values)
+                        case .Hash(let values):
+                            HashTableValueEditor(items: values)
                         default:
                             TableValueEditor()
                         }
