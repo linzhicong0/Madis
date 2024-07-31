@@ -48,6 +48,7 @@
 		E7F3A2ED2C4FE6E200DE1022 /* RedisValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */; };
 		E7F3A2F12C59242900DE1022 /* ListTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */; };
 		E7F3A2F32C5A564100DE1022 /* SetTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */; };
+		E7F3A2F52C5A572300DE1022 /* ZSetTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F42C5A572300DE1022 /* ZSetTableValueEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisValue.swift; sourceTree = "<group>"; };
 		E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableValueEditor.swift; sourceTree = "<group>"; };
 		E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableValueEditor.swift; sourceTree = "<group>"; };
+		E7F3A2F42C5A572300DE1022 /* ZSetTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSetTableValueEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 				E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */,
 				E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */,
 				E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */,
+				E7F3A2F42C5A572300DE1022 /* ZSetTableValueEditor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				E7511F532C29926400330FBF /* ConnectionDetail.swift in Sources */,
 				E7F3A2F12C59242900DE1022 /* ListTableValueEditor.swift in Sources */,
 				E71780BB2BD011CC0056BF64 /* RedisRow.swift in Sources */,
+				E7F3A2F52C5A572300DE1022 /* ZSetTableValueEditor.swift in Sources */,
 				E71781282BEA61EC0056BF64 /* ConnectionManagementView.swift in Sources */,
 				E71781162BD6A2560056BF64 /* BlurView.swift in Sources */,
 				E71781122BD684510056BF64 /* DatabaseView.swift in Sources */,

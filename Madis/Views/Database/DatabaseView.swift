@@ -238,6 +238,8 @@ struct RightView: View {
                             ListTableValueEditor(items: values)
                         case .Set(let values):
                             SetTableValueEditor(items: values)
+                        case .ZSet(let values):
+                            ZSetTableValueEditor(items: values)
                         default:
                             TableValueEditor()
                         }
