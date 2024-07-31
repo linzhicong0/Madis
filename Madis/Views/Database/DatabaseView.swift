@@ -247,41 +247,7 @@ struct RightView: View {
                         default:
                             TableValueEditor()
                         }
-                        
-                        //                        Divider()
-                        
-                        //                        VStack {
-                        //
-                        //                            Form {
-                        //                                Section {
-                        //                                    TextEditor(text: $fieldText)
-                        //                                        .font(.headline)
-                        //                                        .frame(height: 100)
-                        //                                } header: {
-                        //                                    Text("Field")
-                        //                                        .font(.caption)
-                        //                                        .foregroundStyle(.gray)
-                        //
-                        //                                }
-                        //
-                        //                                Section {
-                        //                                    TextEditor(text: $contentText)
-                        //                                        .frame(height: 100)
-                        //                                } header: {
-                        //                                    Text("Content")
-                        //                                        .font(.caption)
-                        //                                        .foregroundStyle(.gray)
-                        //                                }
-                        //
-                        //                            }
-                        //
-                        //                            Spacer()
-                        //                        }
-                        //                        .padding(.trailing, 8)
-                        //                        .frame(maxWidth: 200, maxHeight: .infinity)
-                        
                     }
-                    
                     // bottom
                 }
             }
