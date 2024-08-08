@@ -162,7 +162,7 @@ struct RightView: View {
     
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             
             if redisDetailViewModel == nil {
                 Text("No key selected...")
@@ -199,37 +199,33 @@ struct RightView: View {
                 }
                 .padding(.vertical, 13)
                 .padding(.horizontal)
-                .background(BlurView())
+                Divider()
                 
-                VStack {
+                VStack(spacing: 0) {
                     
                     // info
                     HStack {
                         // TTL
                         Text("TTL:")
-                            .font(.caption)
                         // TODO: Better format, if > 3600s, then show hour, if >24 hour, show day, etc...
                         Text("\(redisDetailViewModel!.ttl)")
-                            .font(.caption2)
                             .foregroundStyle(.gray)
                         
                         // Memory
                         Text("Memory:")
-                            .font(.caption)
                         Text("\(redisDetailViewModel!.memory)")
-                            .font(.caption2)
                             .foregroundStyle(.gray)
                         
                         // Encoding
                         Text("Encoding:")
-                            .font(.caption)
                         
                         Spacer()
                     }
+                    .font(.system(size: 12))
                     .padding(.vertical, 6)
-                    .padding(.horizontal, 4)
-                    .background(.black.secondary)
+                    .padding(.horizontal, 8)
                     
+                    Divider()
                     // table
                     HStack {
                         switch redisDetailViewModel?.value {
