@@ -180,22 +180,20 @@ struct RightView: View {
                         .font(.system(size: 22))
                     Spacer()
                     
-                    Button(action: {}, label: {
-                        Image(systemName:  "heart" )
-                    })
-                    .buttonStyle(BorderedButtonStyle())
-                    
-                    Button(action: {}, label: {
-                        
-                        HStack(spacing:1) {
-                            Image(systemName: "gear")
-                            Image(systemName: "chevron.down")
-                            
-                        }
+                    Button(action: {
+                       print("copy button clicked")
+                    }, label: {
+                        Label("copy", systemImage: "doc.on.doc")
                     })
                     .buttonBorderShape(.roundedRectangle)
-                    
-                    
+
+                    Button {
+                        print("save button clicked")
+                    } label: {
+                        Label("save", systemImage: "opticaldiscdrive")
+                    }
+                    .buttonBorderShape(.roundedRectangle)
+
                 }
                 .padding(.vertical, 13)
                 .padding(.horizontal)
