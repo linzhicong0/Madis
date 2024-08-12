@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StringValueEditor: View {
-    @State var text: String = ""
+    @Binding var text: String
     
     var body: some View {
         TextEditor(text: $text)
@@ -24,5 +24,5 @@ struct StringValueEditor: View {
 }
 
 #Preview {
-    StringValueEditor()
+   StringValueEditor(text: .constant("test"))
 }

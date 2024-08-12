@@ -185,6 +185,15 @@ public class RedisClient {
             }
     }
     
+    func save(key: String, redisValue: RedisValue) -> EventLoopFuture<Void> {
+        switch redisValue {
+        case .String(let value):
+            return self.connection.set(RedisKey(key), to: value)
+        default:
+            return self.eventLoop.makeSucceededVoidFuture()
+        }
+    }
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

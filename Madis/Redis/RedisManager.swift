@@ -64,7 +64,7 @@ public class RedisManager {
         }
         
     }
-
+    
     func getKeyMetaData(clientName: String, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
         guard let client = redisClients[clientName] else {
             callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test", type: .None, value: .String("none")))
@@ -75,6 +75,17 @@ public class RedisManager {
         }
     }
     
+    func save(clientName: String, key: String, value: RedisValue, callback: @escaping () -> Void) -> Void {
+        guard let client = redisClients[clientName] else {
+            callback()
+            return
+        }
+        
+        client.save(key: key, redisValue: value).whenSuccess { _ in
+            callback()
+        }
+        
+    }
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()

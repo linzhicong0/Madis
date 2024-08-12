@@ -155,6 +155,7 @@ struct LeftView: View {
 
 
 struct RightView: View {
+    @Environment(\.appViewModel) private var appViewModel
     @State var selection: Set<UUID> = []
     @State var fieldText: String = ""
     @State var contentText: String = ""
@@ -180,20 +181,31 @@ struct RightView: View {
                         .font(.system(size: 22))
                     Spacer()
                     
-                    Button(action: {
-                       print("copy button clicked")
-                    }, label: {
-                        Label("copy", systemImage: "doc.on.doc")
-                    })
-                    .buttonBorderShape(.roundedRectangle)
-
+                    if redisDetailViewModel?.type == .String {
+                        Button(action: {
+                            print("copy button clicked")
+                        }, label: {
+                            Label("copy", systemImage: "doc.on.doc")
+                        })
+                        .buttonBorderShape(.roundedRectangle)
+                    }
+                    
                     Button {
                         print("save button clicked")
+                        
+                        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+                        RedisManager.shared.save(clientName: clientName, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
+                            print("saved")
+                            
+                            RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
+                                self.redisDetailViewModel = value
+                            }
+                        }
                     } label: {
                         Label("save", systemImage: "opticaldiscdrive")
                     }
                     .buttonBorderShape(.roundedRectangle)
-
+                    
                 }
                 .padding(.vertical, 13)
                 .padding(.horizontal)
@@ -227,8 +239,8 @@ struct RightView: View {
                     // table
                     HStack {
                         switch redisDetailViewModel?.value {
-                        case .String(let value):
-                            StringValueEditor(text: value)
+                        case .String:
+                            StringValueEditor(text: bindingString()!)
                         case .List(let values):
                             ListTableValueEditor(items: values)
                         case .Set(let values):
@@ -247,6 +259,18 @@ struct RightView: View {
                 }
             }
         }
+    }
+    
+    private func bindingString() -> Binding<String>? {
+        if case let .String( value) = redisDetailViewModel?.value {
+            return Binding<String>(
+                get: { value },
+                set: { newValue in
+                    redisDetailViewModel?.value = .String(newValue)
+                }
+            )
+        }
+        return nil
     }
 }
 
