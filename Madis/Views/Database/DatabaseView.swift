@@ -130,7 +130,7 @@ struct LeftView: View {
             .padding(.leading, 10)
             
         }
-        .onAppear() {
+        .task {
             getAllKeysWithType()
         }
     }
