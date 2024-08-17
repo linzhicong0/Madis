@@ -161,6 +161,7 @@ struct RightView: View {
     @State var contentText: String = ""
     @Binding var redisDetailViewModel: RedisItemDetailViewModel?
     
+    @State private var openDialog = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -205,7 +206,17 @@ struct RightView: View {
                         Label("save", systemImage: "opticaldiscdrive")
                     }
                     .buttonBorderShape(.roundedRectangle)
+                   
                     
+                    if redisDetailViewModel?.type != . String {
+                        Button(action: {
+                            print("plus button clicked")
+                            openDialog.toggle()
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
+                        
+                    }
                 }
                 .padding(.vertical, 13)
                 .padding(.horizontal)
@@ -259,6 +270,9 @@ struct RightView: View {
                 }
             }
         }
+        .sheet(isPresented: $openDialog, content: {
+            ListAddItemView()
+        })
     }
     
     private func bindingString() -> Binding<String>? {
