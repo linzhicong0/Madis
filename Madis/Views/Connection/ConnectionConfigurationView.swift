@@ -236,7 +236,8 @@ struct CustomFormInputView: View {
     var horizontalPadding: CGFloat = 4
     var verticalPadding: CGFloat = 5
     var placeholder: String?
-    
+    var disableTextInput = false
+
     @Binding var text: String
     
     var body: some View {
@@ -252,11 +253,13 @@ struct CustomFormInputView: View {
                 
                 if isSecured {
                     SecureField("\(placeholder?.description ?? "")", text: $text)
+                        .disabled(disableTextInput)
                         .textFieldStyle(.plain)
                         .font(.system(size: 16))
                 }
                 else {
                     TextField("\(placeholder?.description ?? "")", text: $text)
+                        .disabled(disableTextInput)
                         .textFieldStyle(.plain)
                         .font(.system(size: 16))
                 }

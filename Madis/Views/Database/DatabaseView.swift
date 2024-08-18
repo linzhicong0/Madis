@@ -271,7 +271,7 @@ struct RightView: View {
             }
         }
         .sheet(isPresented: $openDialog, content: {
-            ListAddItemView()
+            ListAddItemView(key: redisDetailViewModel!.key)
         })
     }
     

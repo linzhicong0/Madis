@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ListAddItemView: View {
     
-    @Environment(\.dismiss) var dismiss
-    @State var selection: String = "Start"
+    let key: String
     
+    @Environment(\.dismiss) var dismiss
+    @State private var selection: String = "Start"
     @State private var strings = [""]
     
     var body: some View {
@@ -24,7 +25,7 @@ struct ListAddItemView: View {
     
     private var content: some View {
         VStack(spacing: 15) {
-            CustomFormInputView(title: "Connection Name", systemImage: "key.horizontal", placeholder: "connection name", text: .constant("key"))
+            CustomFormInputView(title: "Connection Name", systemImage: "key.horizontal", placeholder: "connection name", disableTextInput: true, text: .constant(key))
             VStack {
                 Section {
                     HStack {
@@ -82,10 +83,23 @@ struct ListAddItemView: View {
             }
         }
     }
+    
+    private func confirm() {
+        // Validate the input
+        self.strings.forEach { value in
+            if value.isEmpty {
+                // TODO: Show an alert view to tell the user
+                // some of the value is empty
+               return
+            }
+        }
+        
+        
+    }
 }
 
 #Preview {
-    ListAddItemView()
+    ListAddItemView(key: "key")
         .frame(width: 600, height: 380)
 }
 
