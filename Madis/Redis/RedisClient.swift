@@ -194,6 +194,15 @@ public class RedisClient {
         }
     }
     
+    func listAddItem(key: String, items: [String], direction: ListPushDirection) -> EventLoopFuture<Int> {
+        switch direction {
+        case .start:
+            return self.connection.lpush(items, into: .init(key))
+        case .end:
+            return self.connection.rpush(items, into: .init(key))
+        }
+    }
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

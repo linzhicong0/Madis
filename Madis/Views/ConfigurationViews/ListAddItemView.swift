@@ -12,14 +12,16 @@ struct ListAddItemView: View {
     let key: String
     
     @Environment(\.dismiss) var dismiss
-    @State private var selection: String = "Start"
-    @State private var strings = [""]
+    @Environment(\.appViewModel) private var appViewModel
+    @State private var direction: ListPushDirection = .start
+    @State private var values = [""]
     
     var body: some View {
         
         CommonDialogView(title: "Add Item(s)") {
             content
         } onConfirmClicked: {
+            confirm()
         }
     }
     
@@ -29,11 +31,11 @@ struct ListAddItemView: View {
             VStack {
                 Section {
                     HStack {
-                        Picker("", selection: $selection) {
+                        Picker("", selection: $direction) {
                             Text("Start")
-                                .tag("Start")
+                                .tag(ListPushDirection.start)
                             Text("End")
-                                .tag("End")
+                                .tag(ListPushDirection.end)
                         }
                         .frame(width: 200)
                         .pickerStyle(.segmented)
@@ -53,19 +55,19 @@ struct ListAddItemView: View {
                 Section {
                     ScrollViewReader { scrollProxy in
                         ScrollView {
-                            ForEach(0..<strings.count, id: \.self) { index in
-                                ItemView(value: $strings[index]){
-                                    if (strings.count > 1) {
-                                        strings.remove(at: index)
+                            ForEach(0..<values.count, id: \.self) { index in
+                                ItemView(value: $values[index]){
+                                    if (values.count > 1) {
+                                        values.remove(at: index)
                                     }
                                 }
                                 .padding(.trailing, 5)
                             }
-                            .onChange(of: strings.count) { oldValue, newValue in
+                            .onChange(of: values.count) { oldValue, newValue in
                                 scrollProxy.scrollTo("PlusButton", anchor: .bottom)
                             }
                             Button(action: {
-                                strings.append("")
+                                values.append("")
                             }, label: {
                                 Image(systemName: "plus")
                             })
@@ -86,14 +88,24 @@ struct ListAddItemView: View {
     
     private func confirm() {
         // Validate the input
-        self.strings.forEach { value in
+        self.values.forEach { value in
             if value.isEmpty {
                 // TODO: Show an alert view to tell the user
                 // some of the value is empty
-               return
+                return
             }
         }
         
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+        
+        RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
+            if (result < 0 ) {
+                print("error")
+            } else {
+                dismiss()
+            }
+            
+        }
         
     }
 }
