@@ -191,6 +191,13 @@ struct RightView: View {
                         .buttonBorderShape(.roundedRectangle)
                     }
                     
+                    // refresh button
+                    Button(action: {
+                       refresh()
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                    })
+                    
                     Button {
                         print("save button clicked")
                         
@@ -285,6 +292,13 @@ struct RightView: View {
             )
         }
         return nil
+    }
+    
+    private func refresh() {
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
+            self.redisDetailViewModel = value
+        }
     }
 }
 
