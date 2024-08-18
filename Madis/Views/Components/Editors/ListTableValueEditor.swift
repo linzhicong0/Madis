@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ListTableValueEditor: View {
     
+    @Environment(\.appViewModel) private var appViewModel
     @State var selection: Set<UUID> = []
     
-    let items: [String]
+    var detail: RedisItemDetailViewModel
+    var refresh: (() -> Void)?
     
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
@@ -38,7 +40,8 @@ struct ListTableValueEditor: View {
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
                 } deleteAction: {
-                    print(item)
+//                    onDeleteAt?(item.index)
+                    deleteItem(index: item.index)
                 }
             }
             .width(100)
@@ -47,13 +50,26 @@ struct ListTableValueEditor: View {
     }
     
     var viewModel: [ViewModel] {
-        items.enumerated().map { index, value in
+        if case let RedisValue.List(items) = detail.value {
+         return items.enumerated().map { index, value in
               ViewModel(index: index, value: value)
-          }
-        
+          }   
+        }
+        return []
+    }
+    private func deleteItem(index: Int) {
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        RedisManager.shared.listRemoveItemAt(clientName: clientName, key: detail.key, index: index) { value in
+            if (value < 0) {
+                print("error")
+            } else {
+                refresh?()
+            }
+        }
+
     }
 }
 
 #Preview {
-    ListTableValueEditor(items: ["a", "b", "c"])
+    ListTableValueEditor(detail: .init(key: "key", ttl: "ttl", memory: "memory", type: .List, value: .List(["1", "2"])))
 }

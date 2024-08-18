@@ -259,8 +259,10 @@ struct RightView: View {
                         switch redisDetailViewModel?.value {
                         case .String:
                             StringValueEditor(text: bindingString()!)
-                        case .List(let values):
-                            ListTableValueEditor(items: values)
+                        case .List:
+                            ListTableValueEditor(detail: redisDetailViewModel!){
+                                refresh()
+                            }
                         case .Set(let values):
                             SetTableValueEditor(items: values)
                         case .ZSet(let values):
@@ -277,7 +279,9 @@ struct RightView: View {
                 }
             }
         }
-        .sheet(isPresented: $openDialog, content: {
+        .sheet(isPresented: $openDialog, onDismiss: {
+            refresh()
+        }, content: {
             ListAddItemView(key: redisDetailViewModel!.key)
         })
     }

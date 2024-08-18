@@ -96,7 +96,7 @@ struct ListAddItemView: View {
             }
         }
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
         
         RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
             if (result < 0 ) {

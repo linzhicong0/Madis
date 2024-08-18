@@ -203,6 +203,13 @@ public class RedisClient {
         }
     }
     
+    func listRemoveItemAt(key: String, index: Int) -> EventLoopFuture<Int>{
+        return self.connection.lset(index: index, to: MADIS_DELETE_PLACEHOLDER, in: .init(key))
+            .flatMap { _ in
+                return self.connection.lrem(MADIS_DELETE_PLACEHOLDER, from: .init(key))
+            }
+    }
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }
