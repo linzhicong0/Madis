@@ -197,6 +197,14 @@ struct RightView: View {
                     }, label: {
                         Image(systemName: "arrow.clockwise")
                     })
+                    .help("refresh")
+                    
+                    Button(action: {
+                        
+                    }, label: {
+                        Image(systemName: "clock")
+                    })
+                    .help("set TTL")
                     
                     Button {
                         print("save button clicked")
@@ -222,6 +230,7 @@ struct RightView: View {
                         }, label: {
                             Image(systemName: "plus")
                         })
+                        .help("add new item")
                         
                     }
                 }
