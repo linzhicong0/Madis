@@ -11,7 +11,6 @@ struct ListAddItemView: View {
     
     let key: String
     
-    @Environment(\.dismiss) var dismiss
     @Environment(\.appViewModel) private var appViewModel
     @State private var direction: ListPushDirection = .start
     @State private var values = [""]
@@ -101,10 +100,7 @@ struct ListAddItemView: View {
         RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
             if (result < 0 ) {
                 print("error")
-            } else {
-                dismiss()
             }
-            
         }
         
     }

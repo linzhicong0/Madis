@@ -210,6 +210,10 @@ public class RedisClient {
             }
     }
     
+    func listModifyItemAt(key: String, index: Int, to: String) -> EventLoopFuture<Void> {
+        return self.connection.lset(index: index, to: to, in: .init(key))
+    }
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

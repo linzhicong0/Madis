@@ -35,11 +35,8 @@ struct CommonDialogView<Content: View>: View {
                 Spacer()
                 
                 Button(action: {
-                    if let cancelAction = onCancelClicked {
-                        cancelAction()
-                    } else {
-                        dismiss()
-                    }
+                    onCancelClicked?()
+                    dismiss()
                 }, label: {
                     Text("Cancel")
                         .padding(5)
@@ -49,6 +46,7 @@ struct CommonDialogView<Content: View>: View {
                 
                 Button(action: {
                     onConfirmClicked?()
+                    dismiss()
                 }, label: {
                     Text("Confirm")
                         .padding(5)

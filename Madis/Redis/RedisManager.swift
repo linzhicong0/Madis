@@ -108,6 +108,16 @@ public class RedisManager {
         }
     }
     
+    func listModifyItemAt(clientName: String, key: String, index: Int, to: String, callback: @escaping () -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback()
+            return
+        }
+        client.listModifyItemAt(key: key, index: index, to: to).whenSuccess {
+            callback()
+        }
+    }
+    
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()

@@ -15,6 +15,10 @@ struct ListTableValueEditor: View {
     var detail: RedisItemDetailViewModel
     var refresh: (() -> Void)?
     
+    @State private var openEditDialog = false
+    @State private var selectedIndex: Int = -1
+    @State private var selectedValue = ""
+
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
         let index: Int
@@ -39,21 +43,36 @@ struct ListTableValueEditor: View {
                     
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
+                    selectedIndex = item.index
+                    selectedValue = item.value
+                    openEditDialog.toggle()
                 } deleteAction: {
-//                    onDeleteAt?(item.index)
                     deleteItem(index: item.index)
                 }
             }
             .width(100)
             .alignment(.center)
+            
         }
+        .sheet(isPresented: $openEditDialog, content: {
+            ListModifyItemDialog(value: $selectedValue) {
+                print(selectedValue)
+                guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+                RedisManager.shared.listModifyItemAt(clientName: clientName, key: detail.key, index: selectedIndex, to: selectedValue) {
+                    // TODO: Show the success message
+                    print("update done")
+                    refresh?()
+                }
+            }
+        })
+        
     }
     
     var viewModel: [ViewModel] {
         if case let RedisValue.List(items) = detail.value {
-         return items.enumerated().map { index, value in
-              ViewModel(index: index, value: value)
-          }   
+            return items.enumerated().map { index, value in
+                ViewModel(index: index, value: value)
+            }
         }
         return []
     }
@@ -66,7 +85,7 @@ struct ListTableValueEditor: View {
                 refresh?()
             }
         }
-
+        
     }
 }
 

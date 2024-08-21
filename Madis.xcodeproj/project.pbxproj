@@ -35,6 +35,7 @@
 		E750364D2C70E3C700BE8394 /* CommonDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750364C2C70E3C700BE8394 /* CommonDialogView.swift */; };
 		E75036502C71C9C300BE8394 /* ListPushDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750364F2C71C9C300BE8394 /* ListPushDirection.swift */; };
 		E75036562C71DB3B00BE8394 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75036552C71DB3B00BE8394 /* Constants.swift */; };
+		E75036592C761BA300BE8394 /* ListModifyItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75036582C761BA300BE8394 /* ListModifyItemDialog.swift */; };
 		E7511F052BFB948D00330FBF /* RediStack in Frameworks */ = {isa = PBXBuildFile; productRef = E7511F042BFB948D00330FBF /* RediStack */; };
 		E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F4E2BFCE01000330FBF /* RedisManager.swift */; };
 		E7511F512C20505A00330FBF /* RedisClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F502C20505A00330FBF /* RedisClient.swift */; };
@@ -105,6 +106,7 @@
 		E750364C2C70E3C700BE8394 /* CommonDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDialogView.swift; sourceTree = "<group>"; };
 		E750364F2C71C9C300BE8394 /* ListPushDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPushDirection.swift; sourceTree = "<group>"; };
 		E75036552C71DB3B00BE8394 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E75036582C761BA300BE8394 /* ListModifyItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModifyItemDialog.swift; sourceTree = "<group>"; };
 		E7511F4E2BFCE01000330FBF /* RedisManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisManager.swift; sourceTree = "<group>"; };
 		E7511F502C20505A00330FBF /* RedisClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisClient.swift; sourceTree = "<group>"; };
 		E7511F522C29926400330FBF /* ConnectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetail.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		E75036492C6BA41300BE8394 /* Editors */ = {
 			isa = PBXGroup;
 			children = (
+				E75036572C761B8F00BE8394 /* List */,
 				E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */,
 				E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */,
 				E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */,
@@ -262,6 +265,14 @@
 				E75036552C71DB3B00BE8394 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		E75036572C761B8F00BE8394 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E75036582C761BA300BE8394 /* ListModifyItemDialog.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		E7511F032BFB948D00330FBF /* Frameworks */ = {
@@ -545,6 +556,7 @@
 				E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */,
 				E71780BF2BD012860056BF64 /* MockData.swift in Sources */,
 				E75652942BBD9AB000F83280 /* MadisApp.swift in Sources */,
+				E75036592C761BA300BE8394 /* ListModifyItemDialog.swift in Sources */,
 				E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */,
 				E71781222BE8F9550056BF64 /* TabButton.swift in Sources */,
 				E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */,
