@@ -118,6 +118,18 @@ public class RedisManager {
         }
     }
     
+    func setAddItems(clientName: String, key: String, items: [String], callback: @escaping (Int)-> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(-1)
+            return
+        }
+        
+        client.setAddItems(key: key, items: items).whenSuccess { value in
+            callback(value)
+        }
+        
+    }
+    
     func setRemoveItem(clientName: String, key: String, item: String, callback: @escaping () -> Void) {
         guard let client = redisClients[clientName] else {
             callback()

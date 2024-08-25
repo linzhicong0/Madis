@@ -293,7 +293,20 @@ struct RightView: View {
         .sheet(isPresented: $openDialog, onDismiss: {
             refresh()
         }, content: {
-            ListAddItemView(key: redisDetailViewModel!.key)
+            switch redisDetailViewModel?.type {
+            case .Hash:
+                Text("To implement")
+            case .Set:
+                SetAddItemDialog(key: redisDetailViewModel!.key)
+            case .List:
+                ListAddItemView(key: redisDetailViewModel!.key)
+            case .ZSet:
+                Text("To implement")
+            case .Stream:
+                Text("To implement")
+            default:
+                Text("To implement")
+            }
         })
     }
     

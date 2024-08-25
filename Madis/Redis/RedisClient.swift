@@ -214,6 +214,10 @@ public class RedisClient {
         return self.connection.lset(index: index, to: to, in: .init(key))
     }
     
+    func setAddItems(key: String, items: [String]) -> EventLoopFuture<Int> {
+        return self.connection.sadd(items, to: .init(key))
+    }
+    
     func setRemoveItem(key: String, item: String) -> EventLoopFuture<Int> {
         return self.connection.srem(item, from: .init(key))
     }

@@ -1,13 +1,13 @@
 //
-//  ListAddItemView.swift
+//  SetAddItemDialog.swift
 //  Madis
 //
-//  Created by Jack Lin on 2024/8/13.
+//  Created by Jack Lin on 2024/8/25.
 //
 
 import SwiftUI
 
-struct ListAddItemView: View {
+struct SetAddItemDialog: View {
     
     let key: String
     
@@ -15,9 +15,9 @@ struct ListAddItemView: View {
     @State private var direction: ListPushDirection = .start
     @State private var values = [""]
     
+    
     var body: some View {
-        
-        CommonDialogView(title: "List Add Item(s)") {
+        CommonDialogView(title: "Set Add Item(s)") {
             content
         } onConfirmClicked: {
             confirm()
@@ -27,29 +27,6 @@ struct ListAddItemView: View {
     private var content: some View {
         VStack(spacing: 15) {
             CustomFormInputView(title: "Key", systemImage: "key.horizontal", placeholder: "key", disableTextInput: true, text: .constant(key))
-            VStack {
-                Section {
-                    HStack {
-                        Picker("", selection: $direction) {
-                            Text("Start")
-                                .tag(ListPushDirection.start)
-                            Text("End")
-                                .tag(ListPushDirection.end)
-                        }
-                        .frame(width: 200)
-                        .pickerStyle(.segmented)
-                        .labelsHidden()
-                        Spacer()
-                    }
-                } header: {
-                    HStack {
-                        Text("Type")
-                            .font(.system(size: 14))
-                            .foregroundStyle(.white)
-                        Spacer()
-                    }
-                }
-            }
             VStack {
                 Section {
                     ScrollViewReader { scrollProxy in
@@ -84,7 +61,6 @@ struct ListAddItemView: View {
             }
         }
     }
-    
     private func confirm() {
         // Validate the input
         self.values.forEach { value in
@@ -97,41 +73,16 @@ struct ListAddItemView: View {
         
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
         
-        RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
+        RedisManager.shared.setAddItems(clientName: clientName, key: key, items: values) { result in
             if (result < 0 ) {
                 print("error")
             }
         }
-        
     }
+    
+    
 }
 
 #Preview {
-    ListAddItemView(key: "key")
-        .frame(width: 600, height: 380)
-}
-
-struct ItemView: View{
-    
-    @Binding var value: String
-    let onDelete: () -> Void
-    
-    var body: some View {
-        HStack {
-            CustomTextField( systemImage: "line.3.horizontal.circle", placeholder: "new item", text: $value)
-            Button(action: {
-                onDelete()
-            }, label: {
-                Image(systemName: "trash")
-            })
-        }
-        
-    }
-}
-
-
-#Preview {
-    ItemView(value: .constant("")) {
-        
-    }
+    SetAddItemDialog(key: "test")
 }
