@@ -214,6 +214,21 @@ public class RedisClient {
         return self.connection.lset(index: index, to: to, in: .init(key))
     }
     
+    func setRemoveItem(key: String, item: String) -> EventLoopFuture<Int> {
+        return self.connection.srem(item, from: .init(key))
+    }
+    
+    // Modify an item
+    // Since the set does not support modify an item directly
+    // So we need to remove the given item, and add the new item into the Set
+    func setModifyItem(key: String, item: String, newItem: String) -> EventLoopFuture<Int> {
+        let key: RedisKey = .init(key)
+        return self.connection.srem(item, from: key)
+            .flatMap { _ in
+                return self.connection.sadd(newItem, to: key)
+            }
+    }
+ 
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

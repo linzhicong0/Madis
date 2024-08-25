@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct SetTableValueEditor: View {
-   
-    @State var selection: Set<UUID> = []
     
-    let items: [String]
+    @Environment(\.appViewModel) private var appViewModel
+    @State var selection: Set<UUID> = []
+    @State private var openEditDialog = false
+    @State private var selectedIndex = -1
+    @State private var updatedValue = ""
+    @State private var originalValue = ""
+    
+    var detail: RedisItemDetailViewModel
+    var refresh: (() -> Void)?
     
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
@@ -36,24 +42,47 @@ struct SetTableValueEditor: View {
                     pasteboard.setString(item.value, forType: .string)
                     
                 } modifyAction: {
-                    print("modify button clicked: \(item.value)")
+                    selectedIndex = item.index
+                    originalValue = item.value
+                    updatedValue = item.value
+                    openEditDialog.toggle()
                 } deleteAction: {
-                    print(item)
+                    print(item.value)
+                    deleteItem(item: item.value)
                 }
             }
             .width(100)
             .alignment(.center)
         }
+        .sheet(isPresented: $openEditDialog, content: {
+            SetModifyItemDialog(value: $updatedValue) {
+                guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+                RedisManager.shared.setModifyItem(clientName: clientName, key: detail.key, item: originalValue, newItem: updatedValue) {
+                    // TODO: Show the success message
+                    print("update done")
+                    refresh?()
+                }
+            }
+        })
     }
     
     var viewModel: [ViewModel] {
-        items.enumerated().map { index, value in
-              ViewModel(index: index, value: value)
-          }
+        if case let RedisValue.Set(items) = detail.value {
+            return items.enumerated().map { index, value in
+                ViewModel(index: index, value: value)
+            }
+        }
+        return []
+    }
+    private func deleteItem(item: String) {
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        RedisManager.shared.setRemoveItem(clientName: clientName, key: detail.key, item: item) {
+            refresh?()
+        }
         
     }
 }
 
 #Preview {
-    SetTableValueEditor(items: ["a", "b", "c"])
+    SetTableValueEditor(detail: .init(key: "test", ttl: "ttl", memory: "memory", type: .Set, value: .Set(["1", "2", "3"])))
 }

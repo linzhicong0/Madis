@@ -272,8 +272,10 @@ struct RightView: View {
                             ListTableValueEditor(detail: redisDetailViewModel!){
                                 refresh()
                             }
-                        case .Set(let values):
-                            SetTableValueEditor(items: values)
+                        case .Set:
+                            SetTableValueEditor(detail: redisDetailViewModel!) {
+                                refresh()
+                            }
                         case .ZSet(let values):
                             ZSetTableValueEditor(items: values)
                         case .Hash(let values):

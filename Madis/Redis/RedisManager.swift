@@ -118,6 +118,29 @@ public class RedisManager {
         }
     }
     
+    func setRemoveItem(clientName: String, key: String, item: String, callback: @escaping () -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback()
+            return
+        }
+        
+        client.setRemoveItem(key: key, item: item).whenSuccess { _ in
+            callback()
+        }
+    }
+    
+    func setModifyItem(clientName: String, key: String, item: String, newItem: String, callback: @escaping ()-> Void) {
+        
+        guard let client = redisClients[clientName] else {
+            callback()
+            return
+        }
+        
+        client.setModifyItem(key: key, item: item, newItem: newItem).whenSuccess { _ in
+            callback()
+        }
+    }
+    
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()
