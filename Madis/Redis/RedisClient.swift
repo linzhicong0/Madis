@@ -234,27 +234,39 @@ public class RedisClient {
     }
     
     // This function can set or update a field
-    func hashSetFields(key: String, fields: [String: String]) -> EventLoopFuture<Bool> {
-        
+    func hashSetFields(key: String, fields: [String: String]) -> EventLoopFuture<Void> {
         self.connection.sendCommandsImmediately = false
-        let key =  RedisKey(key)
+        let key = RedisKey(key)
         
-        var futures: [EventLoopFuture<Bool>] = []
-        
-        fields.forEach { (field: String, value: String) in
-            futures.append(self.connection.hset(field, to: value, in: key))
+        let futures = fields.map { (field, value) in
+            self.connection.hset(field, to: value, in: key)
         }
+        
         self.connection.sendCommandsImmediately = true
         
         return EventLoopFuture.whenAllComplete(futures, on: self.eventLoop)
-            .flatMap { result in
-                
-                var allSuccess = true
-                result.forEach { value in
-                    let value = try! value.get()
-                    allSuccess = allSuccess && value
-                }
-                return self.eventLoop.makeSucceededFuture(allSuccess)
+            .flatMap { _ in
+                return self.eventLoop.makeSucceededVoidFuture()
+            }
+    }
+
+    /// Sets multiple fields in a Redis hash, but only if they don't already exist.
+    /// - Parameters:
+    ///   - key: The key of the hash in Redis.
+    ///   - fields: A dictionary where the keys are field names and the values are the corresponding values to set.
+    /// - Returns: An `EventLoopFuture` that resolves to a dictionary. The keys are the field names, and the values are booleans indicating whether each field was set (true) or already existed (false).
+    func hashSetFieldsIfNotExist(key: String, fields: [String: String]) -> EventLoopFuture<Bool> {
+        let redisKey = RedisKey(key)
+        self.connection.sendCommandsImmediately = false
+        let futures = fields.map { field, value in
+            self.connection.hsetnx(field, to: value, in: redisKey)
+        }
+        self.connection.sendCommandsImmediately = true
+        return EventLoopFuture.whenAllComplete(futures, on: self.eventLoop)
+            .flatMap { results in
+                self.eventLoop.makeSucceededFuture(results.allSatisfy { result in
+                    (try? result.get()) ?? false
+                })
             }
     }
     
@@ -262,7 +274,8 @@ public class RedisClient {
         return self.connection.hdel(field, from: .init(key))
         
     }
- 
+
+
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

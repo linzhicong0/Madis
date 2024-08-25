@@ -160,11 +160,31 @@ public class RedisManager {
             return
         }
         
-        client.hashSetFields(key: key, fields: fields).whenSuccess { value in
-            callback(value)
+        client.hashSetFields(key: key, fields: fields).whenComplete { result in
+            switch result {
+            case .success:
+                callback(true)
+            case .failure:
+                callback(false)
+            }
         }
         
+    }
+
+    func hashSetFieldsIfNotExist(clientName: String, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
         
+        client.hashSetFieldsIfNotExist(key: key, fields: fields).whenComplete { result in
+            switch result {
+            case .success(let value):
+                callback(value)
+            case .failure(_):
+                callback(false)
+            }
+        }
     }
     
     func hashRemoveField(clientName: String, key: String, field: String, callback: @escaping (Int) -> Void){
