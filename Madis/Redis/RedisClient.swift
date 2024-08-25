@@ -232,6 +232,36 @@ public class RedisClient {
                 return self.connection.sadd(newItem, to: key)
             }
     }
+    
+    // This function can set or update a field
+    func hashSetFields(key: String, fields: [String: String]) -> EventLoopFuture<Bool> {
+        
+        self.connection.sendCommandsImmediately = false
+        let key =  RedisKey(key)
+        
+        var futures: [EventLoopFuture<Bool>] = []
+        
+        fields.forEach { (field: String, value: String) in
+            futures.append(self.connection.hset(field, to: value, in: key))
+        }
+        self.connection.sendCommandsImmediately = true
+        
+        return EventLoopFuture.whenAllComplete(futures, on: self.eventLoop)
+            .flatMap { result in
+                
+                var allSuccess = true
+                result.forEach { value in
+                    let value = try! value.get()
+                    allSuccess = allSuccess && value
+                }
+                return self.eventLoop.makeSucceededFuture(allSuccess)
+            }
+    }
+    
+    func hashRemoveField(key: String, field: String) -> EventLoopFuture<Int> {
+        return self.connection.hdel(field, from: .init(key))
+        
+    }
  
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)

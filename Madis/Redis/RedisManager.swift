@@ -153,6 +153,31 @@ public class RedisManager {
         }
     }
     
+    func hashSetFields(clientName: String, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+        
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        client.hashSetFields(key: key, fields: fields).whenSuccess { value in
+            callback(value)
+        }
+        
+        
+    }
+    
+    func hashRemoveField(clientName: String, key: String, field: String, callback: @escaping (Int) -> Void){
+        guard let client = redisClients[clientName] else {
+            callback(-1)
+            return
+        }
+        
+        client.hashRemoveField(key: key, field: field).whenSuccess { value in
+            callback(value)
+        }
+    }
+    
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()

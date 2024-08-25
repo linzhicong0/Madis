@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct HashTableValueEditor: View {
- @State var selection: Set<UUID> = []
+    @State var selection: Set<UUID> = []
     
-    let items: HashElement
-    
+    @Environment(\.appViewModel) private var appViewModel
+    //    let items: HashElement
+    let detail: RedisItemDetailViewModel
+    var refresh: (() -> Void)?
+
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
         let index: Int
@@ -34,11 +37,10 @@ struct HashTableValueEditor: View {
                     let pasteboard = NSPasteboard.general
                     pasteboard.clearContents()
                     pasteboard.setString(item.value, forType: .string)
-                    
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
                 } deleteAction: {
-                    print(item)
+                    deleteItem(field: item.key)
                 }
             }
             .width(100)
@@ -47,12 +49,28 @@ struct HashTableValueEditor: View {
     }
     
     var viewModel: [ViewModel] {
-        items.enumerated().map { index, value in
-            ViewModel(index: index, key: value.key, value: value.value)
-          }
+        if case let RedisValue.Hash(items) = detail.value {
+            return items.enumerated().map { index, value in
+                ViewModel(index: index, key: value.key, value: value.value)
+            }
+        }
+        return []
+    }
+    
+    private func deleteItem(field: String) {
+        
+        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        
+        RedisManager.shared.hashRemoveField(clientName: clientName, key: detail.key, field: field) { value in
+            if (value < 0) {
+                print("error")
+            } else {
+                refresh?()
+            }
+        }
     }
 }
 
 #Preview {
-    HashTableValueEditor(items: ["a":"1", "b": "2"])
+    HashTableValueEditor(detail: .init(key: "key", ttl: "ttl", memory: "memory", type: .Hash, value: .Hash(["a": "1", "b": "2"])))
 }

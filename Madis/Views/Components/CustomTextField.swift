@@ -26,6 +26,7 @@ struct CustomTextField: View {
             
             TextField("\(placeholder?.description ?? "")", text: $text)
                 .textFieldStyle(.plain)
+                .frame(height: 22)
                 .font(.system(size: 16))
         }
         .padding(.vertical, verticalPadding)
