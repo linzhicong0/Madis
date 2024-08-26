@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomTextField: View {
     
-    let systemImage: String
+    var systemImage: String?
     let placeholder: String?
     let verticalPadding: CGFloat = 4
     let horizontalPadding: CGFloat = 5
@@ -19,9 +19,11 @@ struct CustomTextField: View {
     var body: some View {
         
         HStack {
-            Image(systemName: systemImage)
-                .font(.system(size: 16))
-                .foregroundStyle(.white)
+            if let systemImage = systemImage {
+                Image(systemName: systemImage)
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white)
+            }
             
             
             TextField("\(placeholder?.description ?? "")", text: $text)
@@ -34,14 +36,6 @@ struct CustomTextField: View {
         .background(.primary.opacity(0.15))
         .clipShape(.rect(cornerRadius: 10))
     }
-    
-    //        TextField(key, text: $text)
-    //            .textFieldStyle(.plain)
-    //            .font(.system(size: 16))
-    //            .padding(.vertical, 4)
-    //            .padding(.horizontal, 5)
-    //            .background(.primary.opacity(0.15))
-    //            .clipShape(.rect(cornerRadius: 10))
 }
 
 #Preview {

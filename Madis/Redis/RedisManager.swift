@@ -197,6 +197,23 @@ public class RedisManager {
             callback(value)
         }
     }
+
+    func hashReplaceField(clientName: String, key: String, previousField: String, field: String, value: String, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        client.hashReplaceField(key: key, previousField: previousField, field: field, value: value).whenComplete { result in
+            switch result {
+            case .success(_):
+                callback(true)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }
+
     
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         

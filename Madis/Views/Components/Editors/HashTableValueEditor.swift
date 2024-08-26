@@ -14,7 +14,13 @@ struct HashTableValueEditor: View {
     //    let items: HashElement
     let detail: RedisItemDetailViewModel
     var refresh: (() -> Void)?
-
+    
+    @State var openEditDialog: Bool = false
+    @State var selectedValue: String = ""
+    @State var selectedField: String = ""
+    
+    @State private var originalField: String = ""
+    
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
         let index: Int
@@ -39,12 +45,43 @@ struct HashTableValueEditor: View {
                     pasteboard.setString(item.value, forType: .string)
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
+                    selectedValue = item.value
+                    selectedField = item.key
+                    originalField = item.key
+                    openEditDialog = true
                 } deleteAction: {
                     deleteItem(field: item.key)
                 }
             }
             .width(100)
             .alignment(.center)
+        }
+        .sheet(isPresented: $openEditDialog) {
+            HashModifyItemDialog(field: $selectedField, value: $selectedValue) {
+                if let clientName = appViewModel.selectedConnectionDetail?.name {
+                    if originalField != selectedField {
+                        // Handle field change
+                        RedisManager.shared.hashReplaceField(clientName: clientName, key: detail.key, previousField: originalField, field: selectedField, value: selectedValue) { success in
+                            if success {
+                                print("Field changed successfully")
+                                refresh?()
+                            } else {
+                                print("Failed to change field")
+                            }
+                        }
+                    } else {
+                        // Handle value change
+                        RedisManager.shared.hashSetFields(clientName: clientName, key: detail.key, fields: [selectedField: selectedValue]) { success in
+                            if success {
+                                print("Value updated successfully")
+                                refresh?()
+                            } else {
+                                print("Failed to update value")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     

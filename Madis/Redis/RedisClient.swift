@@ -117,7 +117,6 @@ public class RedisClient {
                 // keys should be an array of RESPValue, convert each to string and print
                 if let keysArray = keys.array {
                     let keyStrings = keysArray.compactMap { $0.string }
-                    //                    print("Keys: \(keyStrings)")
                     promise.succeed(keyStrings)
                 } else {
                     print("No keys found")
@@ -269,12 +268,29 @@ public class RedisClient {
                 })
             }
     }
-    
+    /// Removes a field from a Redis hash and replaces it with a new field.
+    /// - Parameters:
+    ///   - key: The key of the hash in Redis.
+    ///   - previousField: The field to remove from the hash.
+    ///   - field: The new field to add to the hash.
+    ///   - value: The value to associate with the new field.
+    /// - Returns: An `EventLoopFuture` that resolves to a boolean indicating success (true) or failure (false).
+    func hashReplaceField(key: String, previousField: String, field: String, value: String) -> EventLoopFuture<Bool> {
+        let redisKey = RedisKey(key)
+        return self.connection.hdel(previousField, from: redisKey)
+            .flatMap { _ in
+                return self.connection.hset(field, to: value, in: redisKey)
+            }
+    }
+    /// Removes a field from a Redis hash.
+    /// - Parameters:
+    ///   - key: The key of the hash in Redis.
+    ///   - field: The field to remove from the hash.
+    /// - Returns: An `EventLoopFuture` that resolves to an `Int` representing the number of fields that were removed (0 if the field did not exist, 1 if it was removed successfully).
     func hashRemoveField(key: String, field: String) -> EventLoopFuture<Int> {
         return self.connection.hdel(field, from: .init(key))
         
     }
-
 
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
