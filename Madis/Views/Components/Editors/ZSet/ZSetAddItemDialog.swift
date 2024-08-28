@@ -1,29 +1,28 @@
 //
-//  HashAddItemDialog.swift
+//  ZSetAddItemDialog.swift
 //  Madis
 //
-//  Created by Jack Lin on 2024/8/25.
+//  Created by Jack Lin on 2024/8/26.
 //
 
 import SwiftUI
 
-struct HashAddItemDialog: View {
-    
+struct ZSetAddItemDialog: View {
     let key: String
     
     @Environment(\.appViewModel) private var appViewModel
     
     @State private var conflictHandle: ConflictHandle = .replace
-    @State private var values: [HashItem] = [.init(field: "", value: "")]
+    @State private var values: [ZSetItem] = [ZSetItem(score: 0.0, member: "")]
     
     var body: some View {
-        
-        CommonDialogView(title: "Hash Add Item(s)") {
+        CommonDialogView(title: "ZSet Add Item(s)") {
             content
         } onConfirmClicked: {
             confirm()
         }
     }
+    
     private var content: some View {
         VStack(spacing: 15) {
             CustomFormInputView(title: "Key", systemImage: "key.horizontal", placeholder: "key", disableTextInput: true, text: .constant(key))
@@ -55,7 +54,7 @@ struct HashAddItemDialog: View {
                     ScrollViewReader { scrollProxy in
                         ScrollView {
                             ForEach(0..<values.count, id: \.self) { index in
-                                HashItemView(field: $values[index].field, value:$values[index].value, onDelete: {
+                                ZSetItemView(score: $values[index].score, member: $values[index].member, onDelete: {
                                     if (values.count > 1) {
                                         values.remove(at: index)
                                     }
@@ -66,7 +65,7 @@ struct HashAddItemDialog: View {
                                 scrollProxy.scrollTo("PlusButton", anchor: .bottom)
                             }
                             Button(action: {
-                                values.append(HashItem(field: "", value: ""))
+                                values.append(ZSetItem(score: 0, member: ""))
                             }, label: {
                                 Image(systemName: "plus")
                             })
@@ -84,60 +83,45 @@ struct HashAddItemDialog: View {
             }
         }
     }
+    
     private func confirm() {
-        
-        var fields: [String: String] = [:]
-        
-        values.forEach { hashItem in
-            fields[hashItem.field] = hashItem.value
-        }
-        
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-        switch conflictHandle {
-        case .replace:
-            RedisManager.shared.hashSetFields(clientName: clientName, key: key, fields: fields) { value in
-                // TODO: error handle
-                if !value {
-                    print("Error: Failed to set hash fields")
-                }
-            }
-        case .ignore:
-            RedisManager.shared.hashSetFieldsIfNotExist(clientName: clientName, key: key, fields: fields) { value in
-                // TODO: error handle
-                if !value {
-                    print("Error: Failed to set hash fields if not exist")
-                }
+        
+        RedisManager.shared.zsetAdd(clientName: clientName, key: key, items: values, replace: conflictHandle == .replace) { success in
+            if success {
+                print("Successfully added items to ZSet")
+            } else {
+                print("Failed to add items to ZSet")
             }
         }
+        
     }
 }
 
-struct HashItemView: View {
-    
-    @Binding var field: String
-    @Binding var value: String
+struct ZSetItemView: View {
+    @Binding var score: Double
+    @Binding var member: String
     let onDelete: () -> Void
     
     var body: some View {
         HStack {
-            CustomTextField( systemImage: "book.pages", placeholder: "field", text: $field)
-            CustomTextField( systemImage: "line.3.horizontal.circle", placeholder: "value", text: $value)
-            Button(action: {
-                onDelete()
-            }, label: {
+            CustomTextField(systemImage: "book.pages", placeholder: "member", text: $member)
+            CustomTextField(systemImage: "line.3.horizontal.circle", placeholder: "score", text: Binding(
+                get: { String(score) },
+                set: { if let value = Double($0) { score = value } }
+            ))
+            Button(action: onDelete) {
                 Image(systemName: "trash")
-            })
+            }
         }
-        
     }
 }
 
-struct HashItem {
-    var field: String
-    var value: String
-    
+struct ZSetItem {
+    var score: Double
+    var member: String
 }
 
 #Preview {
-    HashAddItemDialog(key: "key")
+    ZSetAddItemDialog(key: "key")
 }

@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ZSetTableValueEditor: View {
-  @State var selection: Set<UUID> = []
+    @State var selection: Set<UUID> = []
+    @Environment(\.appViewModel) private var appViewModel
+    @State private var openEditDialog: Bool = false
+    @State private var selectedValue: String = ""
+    @State private var selectedScore: Double = 0.0
+    @State private var originalValue: String = ""
     
-    let items: [SortedSetElement]
+    let detail: RedisItemDetailViewModel
+    let refresh: (() -> Void)?
     
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
@@ -37,6 +43,10 @@ struct ZSetTableValueEditor: View {
                     
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
+                    selectedValue = item.value
+                    selectedScore = Double(item.score) ?? 0.0
+                    originalValue = item.value
+                    openEditDialog = true
                 } deleteAction: {
                     print(item)
                 }
@@ -44,16 +54,30 @@ struct ZSetTableValueEditor: View {
             .width(100)
             .alignment(.center)
         }
+        .sheet(isPresented: $openEditDialog) {
+            ZSetModifyItemDialog(score: $selectedScore, member: $selectedValue) {
+                if let clientName = appViewModel.selectedConnectionDetail?.name {
+                    RedisManager.shared.zsetAdd(clientName: clientName, key: detail.key, items: [ZSetItem(score: selectedScore, member: selectedValue)], replace: true) { success in
+                        if success {
+                            print("Item updated successfully")
+                            refresh?()
+                        } else {
+                            print("Failed to update item")
+                        }
+                    }
+                }
+            }
+        }
     }
     
     var viewModel: [ViewModel] {
-        items.enumerated().map { index, value in
-            ViewModel(index: index, value: value.value, score: value.score.description)
-          }
+        if case let RedisValue.ZSet(items) = detail.value {
+            return items.enumerated().map { index, value in
+                ViewModel(index: index, value: value.0, score: value.1.description)
+            }
+        }
+        return []
         
     }
 }
 
-#Preview {
-    ZSetTableValueEditor(items: [SortedSetElement(value: "a", score: 1.0), SortedSetElement(value: "b", score: 2.0), SortedSetElement(value: "c", score: 3.0)])
-}

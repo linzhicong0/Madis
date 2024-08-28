@@ -276,8 +276,10 @@ struct RightView: View {
                             SetTableValueEditor(detail: redisDetailViewModel!) {
                                 refresh()
                             }
-                        case .ZSet(let values):
-                            ZSetTableValueEditor(items: values)
+                        case .ZSet:
+                            ZSetTableValueEditor(detail: redisDetailViewModel!) {
+                                refresh()
+                            }
                         case .Hash:
                             HashTableValueEditor(detail: redisDetailViewModel!) {
                                 refresh()
@@ -303,7 +305,7 @@ struct RightView: View {
             case .List:
                 ListAddItemView(key: redisDetailViewModel!.key)
             case .ZSet:
-                Text("To implement")
+                ZSetAddItemDialog(key: redisDetailViewModel!.key)
             case .Stream:
                 Text("To implement")
             default:

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HashConflictHandle: String {
+enum ConflictHandle: String {
     case replace
     case ignore
 }

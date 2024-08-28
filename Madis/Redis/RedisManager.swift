@@ -213,6 +213,22 @@ public class RedisManager {
             }
         }
     }
+    func zsetAdd(clientName: String, key: String, items: [ZSetItem], replace: Bool, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        let convertedItems = items.map { (element: $0.member, score: $0.score) }
+        client.zsetAddItems(key: key, items: convertedItems, replace: replace).whenComplete { result in
+            switch result {
+            case .success(_):
+                callback(true)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }
 
     
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {

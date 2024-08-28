@@ -292,6 +292,10 @@ public class RedisClient {
         
     }
 
+    func zsetAddItems(key: String, items: [(element: String, score: Double)], replace: Bool) -> EventLoopFuture<Int> {
+        return self.connection.zadd(items, to: RedisKey(key), inserting: replace ? .allElements : .onlyNewElements)
+    }
+
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }
