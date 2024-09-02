@@ -49,6 +49,7 @@ struct LeftView: View {
     @State var selectedItem: String = ""
     @State var redisOutlineItems: [RedisOutlineItem] = []
     @Binding var redisDetailViewModel: RedisItemDetailViewModel?
+    @State var totalKeys: Int = 0
     
     var body: some View {
         VStack {
@@ -121,7 +122,7 @@ struct LeftView: View {
             } header: {
                 HStack{
                     // TODO: Update it to dynamic fetch the result
-                    Text("KEYS (8409 SCANNED)")
+                    Text("KEYS (\(totalKeys) SCANNED)")
                         .font(.headline)
                         .foregroundStyle(.gray)
                     Spacer()
@@ -139,7 +140,8 @@ struct LeftView: View {
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
         
         RedisManager.shared.getAllKeysWithType(clientName: clientName) { values in
-            redisOutlineItems = values
+            totalKeys = values.0
+            redisOutlineItems = values.1
         }
         
     }

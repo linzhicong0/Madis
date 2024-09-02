@@ -42,9 +42,9 @@ public class RedisManager {
         return RedisClient.testConnection(host: host, port: port, username: username, password: password, initDatabase: 0, eventLoop: eventLoop)
     }
     
-    func getAllKeysWithType(clientName: String, callback: @escaping ([RedisOutlineItem]) -> Void) -> Void {
+    func getAllKeysWithType(clientName: String, callback: @escaping ((Int, [RedisOutlineItem])) -> Void) -> Void {
         guard let client = redisClients[clientName] else {
-            callback([])
+            callback((0, []))
             return
         }
         
@@ -60,7 +60,7 @@ public class RedisManager {
                 }
             }
             
-            callback(outlineItems)
+            callback((result.count, outlineItems))
         }
         
     }
