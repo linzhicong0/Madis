@@ -33,7 +33,7 @@ struct StreamTableValueEditor: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             TableColumn("Operations") { item in
-                OperationColumn {
+                OperationColumn(showModifyButton: false) {
                     print("copy button clicked: \(item.value)")
                     let pasteboard = NSPasteboard.general
                     pasteboard.clearContents()

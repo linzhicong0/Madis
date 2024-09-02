@@ -43,6 +43,7 @@
 		E75036652C7B82E800BE8394 /* HashModifyItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75036642C7B82E800BE8394 /* HashModifyItemDialog.swift */; };
 		E75036682C7CBA6900BE8394 /* ZSetAddItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75036672C7CBA6900BE8394 /* ZSetAddItemDialog.swift */; };
 		E750366A2C7CBA7100BE8394 /* ZSetModifyItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75036692C7CBA7100BE8394 /* ZSetModifyItemDialog.swift */; };
+		E750366D2C85EE2700BE8394 /* StreamAddItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750366C2C85EE2700BE8394 /* StreamAddItemDialog.swift */; };
 		E7511F052BFB948D00330FBF /* RediStack in Frameworks */ = {isa = PBXBuildFile; productRef = E7511F042BFB948D00330FBF /* RediStack */; };
 		E7511F4F2BFCE01000330FBF /* RedisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F4E2BFCE01000330FBF /* RedisManager.swift */; };
 		E7511F512C20505A00330FBF /* RedisClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7511F502C20505A00330FBF /* RedisClient.swift */; };
@@ -121,6 +122,7 @@
 		E75036642C7B82E800BE8394 /* HashModifyItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashModifyItemDialog.swift; sourceTree = "<group>"; };
 		E75036672C7CBA6900BE8394 /* ZSetAddItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSetAddItemDialog.swift; sourceTree = "<group>"; };
 		E75036692C7CBA7100BE8394 /* ZSetModifyItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSetModifyItemDialog.swift; sourceTree = "<group>"; };
+		E750366C2C85EE2700BE8394 /* StreamAddItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAddItemDialog.swift; sourceTree = "<group>"; };
 		E7511F4E2BFCE01000330FBF /* RedisManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisManager.swift; sourceTree = "<group>"; };
 		E7511F502C20505A00330FBF /* RedisClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisClient.swift; sourceTree = "<group>"; };
 		E7511F522C29926400330FBF /* ConnectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetail.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		E75036492C6BA41300BE8394 /* Editors */ = {
 			isa = PBXGroup;
 			children = (
+				E750366B2C85EE0900BE8394 /* Stream */,
 				E75036662C7CBA5700BE8394 /* ZSet */,
 				E750365F2C7B17E400BE8394 /* Hash */,
 				E750365A2C7B05BE00BE8394 /* Set */,
@@ -318,6 +321,14 @@
 				E75036692C7CBA7100BE8394 /* ZSetModifyItemDialog.swift */,
 			);
 			path = ZSet;
+			sourceTree = "<group>";
+		};
+		E750366B2C85EE0900BE8394 /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				E750366C2C85EE2700BE8394 /* StreamAddItemDialog.swift */,
+			);
+			path = Stream;
 			sourceTree = "<group>";
 		};
 		E7511F032BFB948D00330FBF /* Frameworks */ = {
@@ -576,6 +587,7 @@
 				E7F3A2F52C5A572300DE1022 /* ZSetTableValueEditor.swift in Sources */,
 				E71781282BEA61EC0056BF64 /* ConnectionManagementView.swift in Sources */,
 				E7F3A2FC2C5A5B4600DE1022 /* Utils.swift in Sources */,
+				E750366D2C85EE2700BE8394 /* StreamAddItemDialog.swift in Sources */,
 				E71781162BD6A2560056BF64 /* BlurView.swift in Sources */,
 				E750364D2C70E3C700BE8394 /* CommonDialogView.swift in Sources */,
 				E750364B2C6BA42B00BE8394 /* CustomTextField.swift in Sources */,

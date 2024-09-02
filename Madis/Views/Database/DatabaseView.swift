@@ -307,7 +307,7 @@ struct RightView: View {
             case .ZSet:
                 ZSetAddItemDialog(key: redisDetailViewModel!.key)
             case .Stream:
-                Text("To implement")
+                StreamAddItemDialog(key: redisDetailViewModel!.key)
             default:
                 Text("To implement")
             }

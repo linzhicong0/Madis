@@ -52,6 +52,7 @@ struct OperationColumn: View {
     @State private var isDeleteButtonHovering = false
     @State private var isCopyButtonHovering = false
     
+    var showModifyButton: Bool = true
     var copyAction: ()-> Void
     var modifyAction: ()-> Void
     var deleteAction: () -> Void
@@ -70,18 +71,20 @@ struct OperationColumn: View {
                 isCopyButtonHovering = hovering
             })
             
-            Button(action: {
-                modifyAction()
-            }, label: {
-                Image(systemName: "square.and.pencil")
-                    .resizable()
-                    .frame(width: 15, height: 15)
-                    .foregroundStyle(isModifyButtonHovering ? .blue : .white)
-                    .contentShape(Rectangle())
-            })
-            .onHover(perform: { hovering in
-                isModifyButtonHovering = hovering
-            })
+            if showModifyButton {
+                Button(action: {
+                    modifyAction()
+                }, label: {
+                    Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .foregroundStyle(isModifyButtonHovering ? .blue : .white)
+                        .contentShape(Rectangle())
+                })
+                .onHover(perform: { hovering in
+                    isModifyButtonHovering = hovering
+                })
+            }
             
             Button(action: {
                 deleteAction()

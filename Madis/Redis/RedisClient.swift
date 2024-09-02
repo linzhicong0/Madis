@@ -295,6 +295,19 @@ public class RedisClient {
     func zsetAddItems(key: String, items: [(element: String, score: Double)], replace: Bool) -> EventLoopFuture<Int> {
         return self.connection.zadd(items, to: RedisKey(key), inserting: replace ? .allElements : .onlyNewElements)
     }
+    /// Adds a new item to a Redis stream.
+    /// - Parameters:
+    ///   - key: The key of the stream in Redis.
+    ///   - id: The ID of the new stream entry. Use "*" to let Redis generate an ID.
+    ///   - fields: A dictionary where the keys are field names and the values are the corresponding values to set.
+    /// - Returns: An `EventLoopFuture` that resolves to the ID of the added stream entry.
+    func streamAddItem(key: String, id: String, fields: [String: String]) -> EventLoopFuture<String> {
+        let fieldValues = fields.flatMap { [$0.key, $0.value] }
+        return self.connection.send(command: "XADD", with: [.bulkString(self.stringToByteBuffer(key)), .bulkString(self.stringToByteBuffer(id))] + fieldValues.map { .bulkString(self.stringToByteBuffer($0)) })
+            .map { response in
+                return response.string ?? ""
+            }
+    }
 
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)

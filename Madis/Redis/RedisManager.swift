@@ -230,6 +230,22 @@ public class RedisManager {
         }
     }
 
+    func streamAdd(clientName: String, key: String, id: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        client.streamAddItem(key: key, id: id, fields: fields).whenComplete { result in
+            switch result {
+            case .success(_):
+                callback(true)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }
+
     
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
