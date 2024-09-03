@@ -164,6 +164,7 @@ struct RightView: View {
     @Binding var redisDetailViewModel: RedisItemDetailViewModel?
     
     @State private var openDialog = false
+    @State private var openTTLDialog = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -199,14 +200,14 @@ struct RightView: View {
                     }, label: {
                         Image(systemName: "arrow.clockwise")
                     })
-                    .help("refresh")
+                    .help("Refresh")
                     
                     Button(action: {
-                        
+                       openTTLDialog.toggle() 
                     }, label: {
                         Image(systemName: "clock")
                     })
-                    .help("set TTL")
+                    .help("Set TTL")
                     
                     Button {
                         print("save button clicked")
@@ -314,6 +315,23 @@ struct RightView: View {
                 Text("To implement")
             }
         })
+        .sheet(isPresented: $openTTLDialog, onDismiss: {
+            refresh()
+        }, content: {
+            TTLSettingDialog(key: redisDetailViewModel!.key) { key, ttl in
+            guard let selectedConnectionName = appViewModel.selectedConnectionDetail?.name else {
+                return
+            }
+            
+            RedisManager.shared.setTTL(clientName: selectedConnectionName, key: key, ttl: ttl) { success in
+                if success {
+                    print("TTL set successfully for key: \(key)")
+                } else {
+                    print("Failed to set TTL for key: \(key)")
+                }
+            }
+            }
+        })  
     }
     
     private func bindingString() -> Binding<String>? {

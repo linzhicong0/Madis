@@ -309,6 +309,10 @@ public class RedisClient {
             }
     }
 
+    func setTTL(key: String, ttl: Int64) -> EventLoopFuture<Bool> {
+        return self.connection.expire(RedisKey(key), after: .seconds(ttl))
+    }
+
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }

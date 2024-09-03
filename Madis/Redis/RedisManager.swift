@@ -245,8 +245,29 @@ public class RedisManager {
             }
         }
     }
-
     
+    /// Sets the Time To Live (TTL) for a specified key in Redis.
+    /// - Parameters:
+    ///   - clientName: The name of the Redis client to use.
+    ///   - key: The key for which to set the TTL.
+    ///   - ttl: The TTL value in seconds.
+    ///   - callback: A closure that is called with a boolean indicating success (true) or failure (false).
+    func setTTL(clientName: String, key: String, ttl: Int64, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        client.setTTL(key: key, ttl: ttl).whenComplete { result in
+            switch result {
+            case .success(let success):
+                callback(success)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }
+
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()
