@@ -168,7 +168,7 @@ public class RedisClient {
                 self.connection.sendCommandsImmediately = true
                 return EventLoopFuture.whenAllComplete([ttlFuture, memoryUsageFuture], on: self.eventLoop)
                     .flatMap { result in
-                        let viewModel = RedisItemDetailViewModel(key: key, ttl:try! result[0].get(), memory:try! result[1].get(), type: redisType, value: .None)
+                        let viewModel = RedisItemDetailViewModel(key: key, ttl: try! result[0].get(), memory:try! result[1].get(), type: redisType, value: .None)
                         return self.eventLoop.makeSucceededFuture(viewModel)
                     }
             }
@@ -248,7 +248,7 @@ public class RedisClient {
                 return self.eventLoop.makeSucceededVoidFuture()
             }
     }
-
+    
     /// Sets multiple fields in a Redis hash, but only if they don't already exist.
     /// - Parameters:
     ///   - key: The key of the hash in Redis.
@@ -291,7 +291,7 @@ public class RedisClient {
         return self.connection.hdel(field, from: .init(key))
         
     }
-
+    
     func zsetAddItems(key: String, items: [(element: String, score: Double)], replace: Bool) -> EventLoopFuture<Int> {
         return self.connection.zadd(items, to: RedisKey(key), inserting: replace ? .allElements : .onlyNewElements)
     }
@@ -308,11 +308,18 @@ public class RedisClient {
                 return response.string ?? ""
             }
     }
-
+    
     func setTTL(key: String, ttl: Int64) -> EventLoopFuture<Bool> {
-        return self.connection.expire(RedisKey(key), after: .seconds(ttl))
+        if ttl < 0 {
+            return self.connection.send(command: "PERSIST", with: [.bulkString(self.stringToByteBuffer(key))])
+                .map { response in
+                    return response.int == 1
+                }
+        } else {
+            return self.connection.expire(RedisKey(key), after: .seconds(ttl))
+        }
     }
-
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }
@@ -385,9 +392,30 @@ public class RedisClient {
         return self.connection.ttl(RedisKey(key)).flatMap { value in
             var ttl = "INFINITY"
             if let t = value.timeAmount {
-                ttl = "\(t.nanoseconds/1_000_000_000) s"
+                ttl = self.formatTTL(Int64(t.nanoseconds/1_000_000_000))
             }
             return self.eventLoop.makeSucceededFuture(ttl)
+        }
+    }
+    
+    private func formatTTL(_ ttl: Int64) -> String {
+        if ttl <= 0 {
+            return "Infinite"
+        }
+        
+        let day = ttl / 86400
+        let hour = (ttl % 86400) / 3600
+        let minute = (ttl % 3600) / 60
+        let second = ttl % 60
+        
+        if day > 0 {
+            return String(format: "%dd %02dh %02dm %02ds", day, hour, minute, second)
+        } else if hour > 0 {
+            return String(format: "%dh %02dm %02ds", hour, minute, second)
+        } else if minute > 0 {
+            return String(format: "%dm %02ds", minute, second)
+        } else {
+            return String(format: "%ds", second)
         }
     }
     
@@ -408,14 +436,14 @@ public class RedisClient {
         if let array = respValue.array {
             for value in array {
                 // [1722128454840-0,[e,f,g,h]]
-//                var elements: [[String: String]] = []
+                //                var elements: [[String: String]] = []
                 var elements: [(key:String, value: String)] = []
                 let id = value.array![0].string!
                 let values = value.array![1].array
                 for i in stride(from: 0, to: values!.count, by: 2) {
                     let key = values![i].string!
                     let value = values![i+1].string!
-//                    elements.append([key : value])
+                    //                    elements.append([key : value])
                     elements.append((key: key, value: value))
                 }
                 streamElements.append(StreamElement(id: id, values: elements))

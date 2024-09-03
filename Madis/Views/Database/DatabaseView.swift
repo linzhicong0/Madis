@@ -165,7 +165,7 @@ struct RightView: View {
     
     @State private var openDialog = false
     @State private var openTTLDialog = false
-    
+
     var body: some View {
         VStack(spacing: 0) {
             
@@ -247,7 +247,6 @@ struct RightView: View {
                     HStack {
                         // TTL
                         Text("TTL:")
-                        // TODO: Better format, if > 3600s, then show hour, if >24 hour, show day, etc...
                         Text("\(redisDetailViewModel!.ttl)")
                             .foregroundStyle(.gray)
                         
