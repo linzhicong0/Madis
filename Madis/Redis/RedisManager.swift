@@ -228,6 +228,22 @@ public class RedisManager {
             }
         }
     }
+    func zsetRemoveItem(clientName: String, key: String, item: String, callback: @escaping (Int) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(0)
+            return
+        }
+        
+        client.zsetRemoveItem(key: key, item: item).whenComplete { result in
+            switch result {
+            case .success(let value):
+                callback(value)
+            case .failure(_):
+                callback(-1)
+            }
+        }
+    }
+    
 
     func streamAdd(clientName: String, key: String, id: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
         guard let client = redisClients[clientName] else {

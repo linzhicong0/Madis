@@ -295,6 +295,9 @@ public class RedisClient {
     func zsetAddItems(key: String, items: [(element: String, score: Double)], replace: Bool) -> EventLoopFuture<Int> {
         return self.connection.zadd(items, to: RedisKey(key), inserting: replace ? .allElements : .onlyNewElements)
     }
+    func zsetRemoveItem(key: String, item: String) -> EventLoopFuture<Int> {
+        return self.connection.zrem(item, from: RedisKey(key))
+    }
     /// Adds a new item to a Redis stream.
     /// - Parameters:
     ///   - key: The key of the stream in Redis.

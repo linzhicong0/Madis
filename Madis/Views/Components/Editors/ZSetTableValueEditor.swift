@@ -36,19 +36,16 @@ struct ZSetTableValueEditor: View {
                 .alignment(.center)
             TableColumn("Operations") { item in
                 OperationColumn {
-                    print("copy button clicked: \(item.value)")
                     let pasteboard = NSPasteboard.general
                     pasteboard.clearContents()
                     pasteboard.setString(item.value, forType: .string)
-                    
                 } modifyAction: {
-                    print("modify button clicked: \(item.value)")
                     selectedValue = item.value
                     selectedScore = Double(item.score) ?? 0.0
                     originalValue = item.value
                     openEditDialog = true
                 } deleteAction: {
-                    print(item)
+                    deleteItem(item: item)
                 }
             }
             .width(100)
@@ -69,7 +66,7 @@ struct ZSetTableValueEditor: View {
             }
         }
     }
-    
+
     var viewModel: [ViewModel] {
         if case let RedisValue.ZSet(items) = detail.value {
             return items.enumerated().map { index, value in
@@ -78,6 +75,16 @@ struct ZSetTableValueEditor: View {
         }
         return []
         
+    }
+
+    private func deleteItem(item: ViewModel) {
+        if let clientName = appViewModel.selectedConnectionDetail?.name {
+            RedisManager.shared.zsetRemoveItem(clientName: clientName, key: detail.key, item: item.value) { count in
+                if count > 0 {
+                    refresh?()
+                }
+            }
+        }
     }
 }
 
