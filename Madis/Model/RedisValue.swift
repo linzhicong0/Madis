@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias SortedSetElement = (value: String, score: Double)
+typealias ZSetItem = (element: String, score: Double)
 typealias HashElement = [String:String]
 
 
@@ -15,7 +15,7 @@ enum RedisValue {
     case String(String)
     case List([String])
     case Set([String])
-    case ZSet([SortedSetElement])
+    case ZSet([ZSetItem])
     case Hash(HashElement)
     case Stream([StreamElement])
     case None

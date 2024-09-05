@@ -355,9 +355,9 @@ public class RedisClient {
             }
         case .ZSet:
             return self.connection.zrange(from: RedisKey(key), indices: 0..<2999, includeScoresInResponse: true).map { values in
-                var elements: [SortedSetElement] = []
+                var elements: [ZSetItem] = []
                 for i in stride(from: 0, to: values.count, by: 2) {
-                    elements.append((value: values[i].string!, score: Double(values[i+1].string!)!))
+                    elements.append((element: values[i].string!, score: Double(values[i+1].string!)!))
                 }
                 return .ZSet(elements)
             }

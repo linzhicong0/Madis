@@ -13,7 +13,7 @@ struct ZSetAddItemDialog: View {
     @Environment(\.appViewModel) private var appViewModel
     
     @State private var conflictHandle: ConflictHandle = .replace
-    @State private var values: [ZSetItem] = [ZSetItem(score: 0.0, member: "")]
+    @State private var values: [ZSetItem] = [("", 0.0)]
     
     var body: some View {
         CommonDialogView(title: "ZSet Add Item(s)") {
@@ -54,7 +54,7 @@ struct ZSetAddItemDialog: View {
                     ScrollViewReader { scrollProxy in
                         ScrollView {
                             ForEach(0..<values.count, id: \.self) { index in
-                                ZSetItemView(score: $values[index].score, member: $values[index].member, onDelete: {
+                                ZSetItemView(element: $values[index], onDelete: {
                                     if (values.count > 1) {
                                         values.remove(at: index)
                                     }
@@ -65,7 +65,7 @@ struct ZSetAddItemDialog: View {
                                 scrollProxy.scrollTo("PlusButton", anchor: .bottom)
                             }
                             Button(action: {
-                                values.append(ZSetItem(score: 0, member: ""))
+                                values.append(ZSetItem("", 0.0))
                             }, label: {
                                 Image(systemName: "plus")
                             })
@@ -94,32 +94,29 @@ struct ZSetAddItemDialog: View {
                 print("Failed to add items to ZSet")
             }
         }
-        
+
     }
 }
 
 struct ZSetItemView: View {
-    @Binding var score: Double
-    @Binding var member: String
+    @Binding var element: ZSetItem
     let onDelete: () -> Void
     
     var body: some View {
         HStack {
-            CustomTextField(systemImage: "book.pages", placeholder: "member", text: $member)
+            CustomTextField(systemImage: "book.pages", placeholder: "member", text: Binding(
+                get: { element.element },
+                set: { element.element = $0 }
+            ))
             CustomTextField(systemImage: "line.3.horizontal.circle", placeholder: "score", text: Binding(
-                get: { String(score) },
-                set: { if let value = Double($0) { score = value } }
+                get: { String(element.score) },
+                set: { if let value = Double($0) { element.score = value } }
             ))
             Button(action: onDelete) {
                 Image(systemName: "trash")
             }
         }
     }
-}
-
-struct ZSetItem {
-    var score: Double
-    var member: String
 }
 
 #Preview {

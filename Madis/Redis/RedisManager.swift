@@ -219,8 +219,7 @@ public class RedisManager {
             return
         }
         
-        let convertedItems = items.map { (element: $0.member, score: $0.score) }
-        client.zsetAddItems(key: key, items: convertedItems, replace: replace).whenComplete { result in
+        client.zsetAddItems(key: key, items: items, replace: replace).whenComplete { result in
             switch result {
             case .success(_):
                 callback(true)

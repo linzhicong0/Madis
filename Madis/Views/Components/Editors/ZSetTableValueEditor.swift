@@ -57,7 +57,7 @@ struct ZSetTableValueEditor: View {
         .sheet(isPresented: $openEditDialog) {
             ZSetModifyItemDialog(score: $selectedScore, member: $selectedValue) {
                 if let clientName = appViewModel.selectedConnectionDetail?.name {
-                    RedisManager.shared.zsetAdd(clientName: clientName, key: detail.key, items: [ZSetItem(score: selectedScore, member: selectedValue)], replace: true) { success in
+                    RedisManager.shared.zsetAdd(clientName: clientName, key: detail.key, items: [(element: selectedValue, score: selectedScore)], replace: true) { success in
                         if success {
                             print("Item updated successfully")
                             refresh?()
