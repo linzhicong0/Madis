@@ -18,5 +18,10 @@ class AppViewModel {
     var selectedConnectionDetail: ConnectionDetail?
     
     var selectedKey: String = ""
-    
+
+    var showFloatingMessage: Bool = false
+
+    var floatingMessage: String = ""
+
+    var floatingMessageType: FloatingMessageType = .success 
 }

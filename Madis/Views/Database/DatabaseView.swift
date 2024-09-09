@@ -157,7 +157,7 @@ struct LeftView: View {
 
 
 struct RightView: View {
-    @Environment(\.appViewModel) private var appViewModel
+    @Environment(\.appViewModel) var appViewModel
     @State var selection: Set<UUID> = []
     @State var fieldText: String = ""
     @State var contentText: String = ""
@@ -165,6 +165,15 @@ struct RightView: View {
     
     @State private var openDialog = false
     @State private var openTTLDialog = false
+
+    // Not sure why we need this right now, but if we bind from the viewmodel, it will
+    // say can not find the appViewModel in the scope
+    private var showFloatingMessageBinding: Binding<Bool> {
+        Binding(
+            get: { appViewModel.showFloatingMessage },
+            set: { appViewModel.showFloatingMessage = $0 }
+        )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -292,6 +301,9 @@ struct RightView: View {
                             TableValueEditor()
                         }
                     }
+                    .floatingMessage(isPresented: showFloatingMessageBinding,
+                                     message: appViewModel.floatingMessage,
+                                     type: appViewModel.floatingMessageType)
                     // bottom
                 }
             }

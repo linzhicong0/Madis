@@ -14,7 +14,6 @@ struct ZSetTableValueEditor: View {
     @State private var selectedValue: String = ""
     @State private var selectedScore: Double = 0.0
     @State private var originalValue: String = ""
-    @State private var showSuccessMessage = false
     @State private var modifyMessage: String = ""
     @State private var messageType: FloatingMessageType = .success
     
@@ -60,20 +59,19 @@ struct ZSetTableValueEditor: View {
                     RedisManager.shared.zsetAdd(clientName: clientName, key: detail.key, items: [(element: selectedValue, score: selectedScore)], replace: true) { success in
                         if success {
                             refresh?()
-                            modifyMessage = "Item updated successfully"
+                            appViewModel.floatingMessage = "Item updated successfully"
+                            appViewModel.floatingMessageType = .success
                         } else {
-                            modifyMessage = "Failed to update item"
-                            messageType = .error
+                            appViewModel.floatingMessage = "Failed to update item"
+                            appViewModel.floatingMessageType = .error
                         }
-
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            showSuccessMessage = true
+                            appViewModel.showFloatingMessage = true
                         }   
                     }
                 }
             }
         }
-        .floatingMessage(isPresented: $showSuccessMessage, message: modifyMessage, type: messageType)
     }
 
     var viewModel: [ViewModel] {
