@@ -59,6 +59,8 @@
 		E75652A62BBD9AB200F83280 /* MadisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652A52BBD9AB200F83280 /* MadisTests.swift */; };
 		E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652AF2BBD9AB200F83280 /* MadisUITests.swift */; };
 		E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */; };
+		E7BBC2A12C8F326100B266E9 /* FloatingSuccessMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BBC2A02C8F326100B266E9 /* FloatingSuccessMessage.swift */; };
+		E7BBC2A32C8F36D000B266E9 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BBC2A22C8F36D000B266E9 /* MessageType.swift */; };
 		E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */; };
 		E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */; };
 		E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */; };
@@ -144,6 +146,8 @@
 		E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652AF2BBD9AB200F83280 /* MadisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITests.swift; sourceTree = "<group>"; };
 		E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E7BBC2A02C8F326100B266E9 /* FloatingSuccessMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSuccessMessage.swift; sourceTree = "<group>"; };
+		E7BBC2A22C8F36D000B266E9 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
 		E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemDetailViewModel.swift; sourceTree = "<group>"; };
 		E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValueEditor.swift; sourceTree = "<group>"; };
 		E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableValueEditor.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 				E750364F2C71C9C300BE8394 /* ListPushDirection.swift */,
 				E75036622C7B187900BE8394 /* ConflictHandle.swift */,
 				E75036722C874DE400BE8394 /* TimeUnit.swift */,
+				E7BBC2A22C8F36D000B266E9 /* MessageType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				E750364A2C6BA42B00BE8394 /* CustomTextField.swift */,
 				E750364C2C70E3C700BE8394 /* CommonDialogView.swift */,
 				E75036702C8745B800BE8394 /* TTLSettingDialog.swift */,
+				E7BBC2A02C8F326100B266E9 /* FloatingSuccessMessage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -591,6 +597,7 @@
 			files = (
 				E7511F532C29926400330FBF /* ConnectionDetail.swift in Sources */,
 				E75036632C7B187900BE8394 /* ConflictHandle.swift in Sources */,
+				E7BBC2A12C8F326100B266E9 /* FloatingSuccessMessage.swift in Sources */,
 				E7F3A2F12C59242900DE1022 /* ListTableValueEditor.swift in Sources */,
 				E71780BB2BD011CC0056BF64 /* RedisRow.swift in Sources */,
 				E7F3A2F52C5A572300DE1022 /* ZSetTableValueEditor.swift in Sources */,
@@ -641,6 +648,7 @@
 				E71781102BD6842C0056BF64 /* TopBarView.swift in Sources */,
 				E71780B62BD010260056BF64 /* DatabaseRowView.swift in Sources */,
 				E7511F592C2AE5FE00330FBF /* SettingView.swift in Sources */,
+				E7BBC2A32C8F36D000B266E9 /* MessageType.swift in Sources */,
 				E7F3A2F92C5A5AB200DE1022 /* StreamTableValueEditor.swift in Sources */,
 				E7F3A2F32C5A564100DE1022 /* SetTableValueEditor.swift in Sources */,
 				E71780B22BD00E460056BF64 /* DatabaseNavigationView.swift in Sources */,
