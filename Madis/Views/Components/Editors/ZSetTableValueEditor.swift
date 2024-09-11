@@ -14,8 +14,6 @@ struct ZSetTableValueEditor: View {
     @State private var selectedValue: String = ""
     @State private var selectedScore: Double = 0.0
     @State private var originalValue: String = ""
-    @State private var modifyMessage: String = ""
-    @State private var messageType: FloatingMessageType = .success
     
     let detail: RedisItemDetailViewModel
     let refresh: (() -> Void)?
