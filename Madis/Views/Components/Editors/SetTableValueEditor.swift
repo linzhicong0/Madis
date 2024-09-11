@@ -58,9 +58,12 @@ struct SetTableValueEditor: View {
             SetModifyItemDialog(value: $updatedValue) {
                 guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
                 RedisManager.shared.setModifyItem(clientName: clientName, key: detail.key, item: originalValue, newItem: updatedValue) {
-                    // TODO: Show the success message
-                    print("update done")
                     refresh?()
+                    appViewModel.floatingMessage = "Value updated successfully."
+                    appViewModel.floatingMessageType = .success
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        appViewModel.showFloatingMessage = true
+                    }
                 }
             }
         })
