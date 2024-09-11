@@ -218,22 +218,24 @@ struct RightView: View {
                     })
                     .help("Set TTL")
                     
-                    Button {
-                        print("save button clicked")
-                        
-                        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
-                        RedisManager.shared.save(clientName: clientName, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
-                            print("saved")
-                            
-                            RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
-                                self.redisDetailViewModel = value
+                    if redisDetailViewModel?.type == .String {
+                        Button {
+                            guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+                            RedisManager.shared.save(clientName: clientName, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
+                                appViewModel.floatingMessage = "Value updated successfully."
+                                appViewModel.floatingMessageType = .success
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    appViewModel.showFloatingMessage = true
+                                }   
+                                RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
+                                    self.redisDetailViewModel = value
+                                }
                             }
+                        } label: {
+                            Label("save", systemImage: "opticaldiscdrive")
                         }
-                    } label: {
-                        Label("save", systemImage: "opticaldiscdrive")
+                        .buttonBorderShape(.roundedRectangle)
                     }
-                    .buttonBorderShape(.roundedRectangle)
-                   
                     
                     if redisDetailViewModel?.type != . String {
                         Button(action: {
