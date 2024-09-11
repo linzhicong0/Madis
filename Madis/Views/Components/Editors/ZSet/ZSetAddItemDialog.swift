@@ -89,9 +89,14 @@ struct ZSetAddItemDialog: View {
         
         RedisManager.shared.zsetAdd(clientName: clientName, key: key, items: values, replace: conflictHandle == .replace) { success in
             if success {
-                print("Successfully added items to ZSet")
+                appViewModel.floatingMessage = "Successfully added item\(values.count > 1 ? "s" : "")."    
+                appViewModel.floatingMessageType = .success
             } else {
-                print("Failed to add items to ZSet")
+                appViewModel.floatingMessage = "Failed to add item\(values.count > 1 ? "s" : "")."
+                appViewModel.floatingMessageType = .error
+            }
+            withAnimation(.easeInOut(duration: 0.3)) {
+                appViewModel.showFloatingMessage = true
             }
         }
 
