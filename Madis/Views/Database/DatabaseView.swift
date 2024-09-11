@@ -338,10 +338,16 @@ struct RightView: View {
             
             RedisManager.shared.setTTL(clientName: selectedConnectionName, key: key, ttl: ttl) { success in
                 if success {
-                    print("TTL set successfully for key: \(key)")
+                    appViewModel.floatingMessage = "TTL set successfully for [\(key)]"
+                    appViewModel.floatingMessageType = .success
                 } else {
-                    print("Failed to set TTL for key: \(key)")
+                    appViewModel.floatingMessage = "Failed to set TTL for [\(key)]"
+                    appViewModel.floatingMessageType = .error
+                    
                 }
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    appViewModel.showFloatingMessage = true
+                }   
             }
             }
         })  
