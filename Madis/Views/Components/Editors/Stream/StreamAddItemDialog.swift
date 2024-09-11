@@ -72,9 +72,14 @@ struct StreamAddItemDialog: View {
         
         RedisManager.shared.streamAdd(clientName: clientName, key: key, id: id, fields: fieldDict) { success in
             if success {
-                print("Successfully added entry to Stream")
+                appViewModel.floatingMessage = "Successfully added entr\(fields.count > 1 ? "ies" : "y") to Stream."
+                appViewModel.floatingMessageType = .success
             } else {
-                print("Failed to add entry to Stream")
+                appViewModel.floatingMessage = "Failed added entr\(fields.count > 1 ? "ies" : "y") to Stream."
+                appViewModel.floatingMessageType = .error
+            }
+            withAnimation(.easeInOut(duration: 0.3)) {
+                appViewModel.showFloatingMessage = true
             }
         }
     }
