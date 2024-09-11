@@ -59,9 +59,12 @@ struct ListTableValueEditor: View {
                 print(selectedValue)
                 guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
                 RedisManager.shared.listModifyItemAt(clientName: clientName, key: detail.key, index: selectedIndex, to: selectedValue) {
-                    // TODO: Show the success message
-                    print("update done")
                     refresh?()
+                    appViewModel.floatingMessage = "Update item successfully."
+                    appViewModel.floatingMessageType = .success
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        appViewModel.showFloatingMessage = true
+                    }
                 }
             }
         })
