@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-class Uitls{
+class Utils {
     public static func formatStreamValuesToString(values: [(key: String, value: String)]) -> String {
         var result = "{\n"
         let length = values.count
@@ -21,5 +22,13 @@ class Uitls{
         }
         result.append("}")
         return result
+    }
+
+    public static func showDeleteItemSuccessMessage(appViewModel: AppViewModel) {
+        appViewModel.floatingMessage = "Successfully deleted item."
+        appViewModel.floatingMessageType = .success
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appViewModel.showFloatingMessage = true
+        }
     }
 }

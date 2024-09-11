@@ -87,6 +87,7 @@ struct ZSetTableValueEditor: View {
             RedisManager.shared.zsetRemoveItem(clientName: clientName, key: detail.key, item: item.value) { count in
                 if count > 0 {
                     refresh?()
+                    Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)
                 }
             }
         }

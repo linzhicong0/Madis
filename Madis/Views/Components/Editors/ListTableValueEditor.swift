@@ -83,6 +83,7 @@ struct ListTableValueEditor: View {
                 print("error")
             } else {
                 refresh?()
+                Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)
             }
         }
         

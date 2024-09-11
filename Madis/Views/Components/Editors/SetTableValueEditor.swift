@@ -81,6 +81,7 @@ struct SetTableValueEditor: View {
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
         RedisManager.shared.setRemoveItem(clientName: clientName, key: detail.key, item: item) {
             refresh?()
+            Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)
         }
         
     }

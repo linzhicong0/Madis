@@ -52,7 +52,7 @@ struct StreamTableValueEditor: View {
     
     var viewModel: [ViewModel] {
         items.enumerated().map { index, value in
-            ViewModel(index: index, key: value.id, value: Uitls.formatStreamValuesToString(values: value.values))
+            ViewModel(index: index, key: value.id, value: Utils.formatStreamValuesToString(values: value.values))
         }
     }
 }
