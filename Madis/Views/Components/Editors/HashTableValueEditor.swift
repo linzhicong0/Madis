@@ -63,21 +63,31 @@ struct HashTableValueEditor: View {
                         // Handle field change
                         RedisManager.shared.hashReplaceField(clientName: clientName, key: detail.key, previousField: originalField, field: selectedField, value: selectedValue) { success in
                             if success {
-                                print("Field changed successfully")
                                 refresh?()
+                                appViewModel.floatingMessage = "Field changed successfully"
+                                appViewModel.floatingMessageType = .success
                             } else {
-                                print("Failed to change field")
+                                appViewModel.floatingMessage = "Failed to change field"
+                                appViewModel.floatingMessageType = .error
                             }
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                appViewModel.showFloatingMessage = true
+                            }   
                         }
                     } else {
                         // Handle value change
                         RedisManager.shared.hashSetFields(clientName: clientName, key: detail.key, fields: [selectedField: selectedValue]) { success in
                             if success {
-                                print("Value updated successfully")
                                 refresh?()
+                                appViewModel.floatingMessage = "Value updated successfully."
+                                appViewModel.floatingMessageType = .success
                             } else {
-                                print("Failed to update value")
+                                appViewModel.floatingMessage = "Failed to update value."
+                                appViewModel.floatingMessageType = .error
                             }
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                appViewModel.showFloatingMessage = true
+                            }   
                         }
                     }
                 }
