@@ -96,18 +96,32 @@ struct HashAddItemDialog: View {
         switch conflictHandle {
         case .replace:
             RedisManager.shared.hashSetFields(clientName: clientName, key: key, fields: fields) { value in
-                // TODO: error handle
                 if !value {
-                    print("Error: Failed to set hash fields")
+                    appViewModel.floatingMessage = "Failed to set hash fields."
+                    appViewModel.floatingMessageType = .error
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        appViewModel.showFloatingMessage = true
+                    }
+                    return
                 }
             }
         case .ignore:
             RedisManager.shared.hashSetFieldsIfNotExist(clientName: clientName, key: key, fields: fields) { value in
-                // TODO: error handle
                 if !value {
-                    print("Error: Failed to set hash fields if not exist")
+                    appViewModel.floatingMessage = "Successfully set hash fields and ignore some fields."
+                    appViewModel.floatingMessageType = .warning
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        appViewModel.showFloatingMessage = true
+                    }
+                    return
                 }
             }
+        }
+
+        appViewModel.floatingMessage = "Successfully set hash fields."
+        appViewModel.floatingMessageType = .success
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appViewModel.showFloatingMessage = true
         }
     }
 }
