@@ -312,6 +312,19 @@ public class RedisClient {
             }
     }
     
+    /// Removes an item from a Redis stream.
+    /// - Parameters:
+    ///   - key: The key of the stream in Redis.
+    ///   - id: The ID of the stream entry to remove.
+    /// - Returns: An `EventLoopFuture` that resolves to a boolean indicating success (true) or failure (false).
+    func streamRemoveItem(key: String, id: String) -> EventLoopFuture<Bool> {
+        return self.connection.send(command: "XDEL", with: [.bulkString(self.stringToByteBuffer(key)), .bulkString(self.stringToByteBuffer(id))])
+            .map { response in
+                return response.int == 1
+            }
+    }
+
+
     func setTTL(key: String, ttl: Int64) -> EventLoopFuture<Bool> {
         if ttl < 0 {
             return self.connection.send(command: "PERSIST", with: [.bulkString(self.stringToByteBuffer(key))])

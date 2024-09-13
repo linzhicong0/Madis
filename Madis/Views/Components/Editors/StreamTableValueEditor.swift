@@ -9,8 +9,10 @@ import SwiftUI
 
 struct StreamTableValueEditor: View {
     
+    @Environment(\.appViewModel) private var appViewModel
     @State var selection: Set<UUID> = []
-    let items: [StreamElement]
+    let detail: RedisItemDetailViewModel
+    var refresh: (() -> Void)?
     
     struct ViewModel: Identifiable {
         let id: UUID = UUID()
@@ -42,7 +44,7 @@ struct StreamTableValueEditor: View {
                 } modifyAction: {
                     print("modify button clicked: \(item.value)")
                 } deleteAction: {
-                    print(item)
+                    removeItem(id: item.key)
                 }
             }
             .width(100)
@@ -51,12 +53,24 @@ struct StreamTableValueEditor: View {
     }
     
     var viewModel: [ViewModel] {
-        items.enumerated().map { index, value in
-            ViewModel(index: index, key: value.id, value: Utils.formatStreamValuesToString(values: value.values))
+        if case let RedisValue.Stream(items) = detail.value {
+            return items.enumerated().map { index, value in
+                ViewModel(index: index, key: value.id, value: Utils.formatStreamValuesToString(values: value.values))
+            }
+        }
+        return []
+    }
+
+    func removeItem(id: String) {
+        RedisManager.shared.streamRemoveItem(clientName: appViewModel.selectedConnectionDetail?.name ?? "", key: detail.key, id: id) { result in
+            if result {
+                refresh?()
+                Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)
+            }
         }
     }
 }
 
 #Preview {
-    StreamTableValueEditor(items: [StreamElement(id: "a", values: [(key: "1", value: "2")])])
+    StreamTableValueEditor(detail: RedisItemDetailViewModel(key: "key", ttl: "0", memory: "0", type: .Stream, value: .Stream([StreamElement(id: "a", values: [(key: "1", value: "2")])])))
 }

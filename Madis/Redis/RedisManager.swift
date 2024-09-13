@@ -260,6 +260,28 @@ public class RedisManager {
             }
         }
     }
+
+    /// Removes an item from a Redis stream.
+    /// - Parameters:
+    ///   - clientName: The name of the Redis client to use.
+    ///   - key: The key of the stream in Redis.
+    ///   - id: The ID of the stream entry to remove.
+    ///   - callback: A closure that is called with a boolean indicating success (true) or failure (false).
+    func streamRemoveItem(clientName: String, key: String, id: String, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[clientName] else {
+            callback(false)
+            return
+        }
+        
+        client.streamRemoveItem(key: key, id: id).whenComplete { result in
+            switch result { 
+            case .success(let value):
+                callback(value)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }   
     
     /// Sets the Time To Live (TTL) for a specified key in Redis.
     /// - Parameters:

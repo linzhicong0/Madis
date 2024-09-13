@@ -298,7 +298,9 @@ struct RightView: View {
                                 refresh()
                             }
                         case .Stream(let values):
-                            StreamTableValueEditor(items: values)
+                            StreamTableValueEditor(detail: redisDetailViewModel!) {
+                                refresh()
+                            }
                         default:
                             TableValueEditor()
                         }
