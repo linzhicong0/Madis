@@ -222,11 +222,8 @@ struct RightView: View {
                         Button {
                             guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
                             RedisManager.shared.save(clientName: clientName, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
-                                appViewModel.floatingMessage = "Value updated successfully."
-                                appViewModel.floatingMessageType = .success
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    appViewModel.showFloatingMessage = true
-                                }   
+                                Utils.showSuccessMessage(appViewModel: appViewModel, message: "Value updated successfully.")
+
                                 RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
                                     self.redisDetailViewModel = value
                                 }
@@ -340,17 +337,11 @@ struct RightView: View {
             
             RedisManager.shared.setTTL(clientName: selectedConnectionName, key: key, ttl: ttl) { success in
                 if success {
-                    appViewModel.floatingMessage = "TTL set successfully for [\(key)]"
-                    appViewModel.floatingMessageType = .success
+                    Utils.showSuccessMessage(appViewModel: appViewModel, message: "TTL set successfully for [\(key)]")
                 } else {
-                    appViewModel.floatingMessage = "Failed to set TTL for [\(key)]"
-                    appViewModel.floatingMessageType = .error
-                    
+                    Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to set TTL for [\(key)]")
                 }
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    appViewModel.showFloatingMessage = true
-                }   
-            }
+                }
             }
         })  
     }

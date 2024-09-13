@@ -31,4 +31,25 @@ class Utils {
             appViewModel.showFloatingMessage = true
         }
     }
+    public static func showSuccessMessage(appViewModel: AppViewModel, message: String) {
+        appViewModel.floatingMessage = message
+        appViewModel.floatingMessageType = .success
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appViewModel.showFloatingMessage = true
+        }
+    }
+    public static func showErrorMessage(appViewModel: AppViewModel, message: String) {
+        appViewModel.floatingMessage = message
+        appViewModel.floatingMessageType = .error
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appViewModel.showFloatingMessage = true
+        }
+    }  
+    public static func showWarningMessage(appViewModel: AppViewModel, message: String) {
+        appViewModel.floatingMessage = message
+        appViewModel.floatingMessageType = .warning
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appViewModel.showFloatingMessage = true
+        }
+    }   
 }

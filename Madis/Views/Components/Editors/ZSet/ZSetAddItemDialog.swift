@@ -86,17 +86,20 @@ struct ZSetAddItemDialog: View {
     
     private func confirm() {
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        // Remove items with empty values
+        values.removeAll { $0.element.isEmpty }
+        
+        // Check if there are any items left after removal
+        if values.isEmpty {
+            Utils.showWarningMessage(appViewModel: appViewModel, message: "Please enter at least one valid item.")
+            return
+        }
         
         RedisManager.shared.zsetAdd(clientName: clientName, key: key, items: values, replace: conflictHandle == .replace) { success in
             if success {
-                appViewModel.floatingMessage = "Successfully added item\(values.count > 1 ? "s" : "")."    
-                appViewModel.floatingMessageType = .success
+                Utils.showSuccessMessage(appViewModel: appViewModel, message: "Successfully added item\(values.count > 1 ? "s" : "").")
             } else {
-                appViewModel.floatingMessage = "Failed to add item\(values.count > 1 ? "s" : "")."
-                appViewModel.floatingMessageType = .error
-            }
-            withAnimation(.easeInOut(duration: 0.3)) {
-                appViewModel.showFloatingMessage = true
+                Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add item\(values.count > 1 ? "s" : "").")
             }
         }
 

@@ -89,11 +89,7 @@ struct ListAddItemView: View {
         // Validate the input
         self.values.removeAll { $0.isEmpty }
         if self.values.isEmpty {
-            appViewModel.floatingMessage = "Please enter at least one item."
-            appViewModel.floatingMessageType = .error
-            withAnimation(.easeInOut(duration: 0.3)) {
-                appViewModel.showFloatingMessage = true
-            }
+            Utils.showErrorMessage(appViewModel: appViewModel, message: "Please enter at least one item.")
             return
         }
         
@@ -101,17 +97,11 @@ struct ListAddItemView: View {
         
         RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
             if (result < 0 ) {
-                appViewModel.floatingMessage = "Failed to add item\(values.count > 1 ? "s" : "")."
-                appViewModel.floatingMessageType = .error
+                Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add item\(values.count > 1 ? "s" : "").")
             } else {
-                appViewModel.floatingMessage = "Add item\(values.count > 1 ? "s" : "") successfully."
-                appViewModel.floatingMessageType = .success
+                Utils.showSuccessMessage(appViewModel: appViewModel, message: "Add item\(values.count > 1 ? "s" : "") successfully.")
             }
-            withAnimation(.easeInOut(duration: 0.3)) {
-                appViewModel.showFloatingMessage = true
-            }   
         }
-        
     }
 }
 

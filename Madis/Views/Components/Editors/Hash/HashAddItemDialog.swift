@@ -89,7 +89,13 @@ struct HashAddItemDialog: View {
         var fields: [String: String] = [:]
         
         values.forEach { hashItem in
-            fields[hashItem.field] = hashItem.value
+            if !hashItem.field.isEmpty && !hashItem.value.isEmpty {
+                fields[hashItem.field] = hashItem.value
+            }
+        }
+        if fields.isEmpty {
+            Utils.showWarningMessage(appViewModel: appViewModel, message: "Please enter at least one item.")
+            return
         }
         
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
@@ -97,32 +103,20 @@ struct HashAddItemDialog: View {
         case .replace:
             RedisManager.shared.hashSetFields(clientName: clientName, key: key, fields: fields) { value in
                 if !value {
-                    appViewModel.floatingMessage = "Failed to set hash fields."
-                    appViewModel.floatingMessageType = .error
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        appViewModel.showFloatingMessage = true
-                    }
+                    Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to set hash fields.")
                     return
                 }
             }
         case .ignore:
             RedisManager.shared.hashSetFieldsIfNotExist(clientName: clientName, key: key, fields: fields) { value in
                 if !value {
-                    appViewModel.floatingMessage = "Successfully set hash fields and ignore some fields."
-                    appViewModel.floatingMessageType = .warning
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        appViewModel.showFloatingMessage = true
-                    }
+                    Utils.showWarningMessage(appViewModel: appViewModel, message: "Successfully set hash fields and ignore some fields.")
                     return
                 }
             }
         }
 
-        appViewModel.floatingMessage = "Successfully set hash fields."
-        appViewModel.floatingMessageType = .success
-        withAnimation(.easeInOut(duration: 0.3)) {
-            appViewModel.showFloatingMessage = true
-        }
+        Utils.showSuccessMessage(appViewModel: appViewModel, message: "Successfully set hash fields.")
     }
 }
 

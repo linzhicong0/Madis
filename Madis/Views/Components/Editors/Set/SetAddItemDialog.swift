@@ -65,11 +65,7 @@ struct SetAddItemDialog: View {
         // Validate the input
         for value in self.values {
             if value.isEmpty {
-                appViewModel.floatingMessage = "Some values are empty. Please fill in all fields."
-                appViewModel.floatingMessageType = .error
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    appViewModel.showFloatingMessage = true
-                }
+                Utils.showErrorMessage(appViewModel: appViewModel, message: "Some values are empty. Please fill in all fields.")
                 return
             }
         }
@@ -78,14 +74,9 @@ struct SetAddItemDialog: View {
         
         RedisManager.shared.setAddItems(clientName: clientName, key: key, items: values) { result in
             if (result < 0 ) {
-                appViewModel.floatingMessage = "Failed to add items to set."
-                appViewModel.floatingMessageType = .error
+                Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add items to set.")
             } else {
-                appViewModel.floatingMessage = "Items added successfully."
-                appViewModel.floatingMessageType = .success
-            }
-            withAnimation(.easeInOut(duration: 0.3)) {
-                appViewModel.showFloatingMessage = true
+                Utils.showSuccessMessage(appViewModel: appViewModel, message: "Items added successfully.")
             }
         }
     }
