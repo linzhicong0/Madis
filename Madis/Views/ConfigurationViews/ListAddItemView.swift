@@ -87,12 +87,14 @@ struct ListAddItemView: View {
     
     private func confirm() {
         // Validate the input
-        self.values.forEach { value in
-            if value.isEmpty {
-                // TODO: Show an alert view to tell the user
-                // some of the value is empty
-                return
+        self.values.removeAll { $0.isEmpty }
+        if self.values.isEmpty {
+            appViewModel.floatingMessage = "Please enter at least one item."
+            appViewModel.floatingMessageType = .error
+            withAnimation(.easeInOut(duration: 0.3)) {
+                appViewModel.showFloatingMessage = true
             }
+            return
         }
         
         guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
