@@ -61,7 +61,7 @@ struct TopBarView: View {
             
             HStack(alignment:.center) {
                 
-                Text("\(selectHostAndPort) (Cluster)")
+                Text(selectHostAndPort)
                     .font(.caption)
                     .padding(.leading, 5)
                 Spacer()
@@ -90,7 +90,7 @@ struct TopBarView: View {
             // right side bar
             Button(action: {}, label: {
                 Image(systemName: "sidebar.right")
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
             })
             .buttonStyle(PlainButtonStyle())
             
@@ -104,9 +104,9 @@ struct TopBarView: View {
     
     var selectHostAndPort: String {
         guard let connectionDetail = appViewModel.selectedConnectionDetail else {
-            return ""
+            return "No Connection"
         }
-        return "\(connectionDetail.host):\(connectionDetail.port)"
+        return "\(connectionDetail.host):\(connectionDetail.port) (\(connectionDetail.name))"
         
         
     }
