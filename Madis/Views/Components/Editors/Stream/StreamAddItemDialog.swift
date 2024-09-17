@@ -64,13 +64,13 @@ struct StreamAddItemDialog: View {
     }
     
     private func confirm() {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         
         let fieldDict = fields.reduce(into: [String: String]()) { dict, field in
             dict[field.name] = field.value
         }
         
-        RedisManager.shared.streamAdd(clientName: clientName, key: key, id: id, fields: fieldDict) { success in
+        RedisManager.shared.streamAdd(config: config, key: key, id: id, fields: fieldDict) { success in
             if success {
                 Utils.showSuccessMessage(appViewModel: appViewModel, message: "Successfully added entr\(fields.count > 1 ? "ies" : "y") to Stream.")
             } else {

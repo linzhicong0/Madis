@@ -56,8 +56,8 @@ struct SetTableValueEditor: View {
         }
         .sheet(isPresented: $openEditDialog, content: {
             SetModifyItemDialog(value: $updatedValue) {
-                guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-                RedisManager.shared.setModifyItem(clientName: clientName, key: detail.key, item: originalValue, newItem: updatedValue) {
+                guard let config = appViewModel.selectedConnectionDetail else { return }
+                RedisManager.shared.setModifyItem(config: config, key: detail.key, item: originalValue, newItem: updatedValue) {
                     refresh?()
                     appViewModel.floatingMessage = "Value updated successfully."
                     appViewModel.floatingMessageType = .success
@@ -78,8 +78,8 @@ struct SetTableValueEditor: View {
         return []
     }
     private func deleteItem(item: String) {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-        RedisManager.shared.setRemoveItem(clientName: clientName, key: detail.key, item: item) {
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.setRemoveItem(config: config, key: detail.key, item: item) {
             refresh?()
             Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)
         }

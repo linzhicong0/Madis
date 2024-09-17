@@ -58,10 +58,10 @@ struct HashTableValueEditor: View {
         }
         .sheet(isPresented: $openEditDialog) {
             HashModifyItemDialog(field: $selectedField, value: $selectedValue) {
-                if let clientName = appViewModel.selectedConnectionDetail?.name {
+                if let config = appViewModel.selectedConnectionDetail {
                     if originalField != selectedField {
                         // Handle field change
-                        RedisManager.shared.hashReplaceField(clientName: clientName, key: detail.key, previousField: originalField, field: selectedField, value: selectedValue) { success in
+                        RedisManager.shared.hashReplaceField(config: config, key: detail.key, previousField: originalField, field: selectedField, value: selectedValue) { success in
                             if success {
                                 refresh?()
                                 appViewModel.floatingMessage = "Field changed successfully"
@@ -76,7 +76,7 @@ struct HashTableValueEditor: View {
                         }
                     } else {
                         // Handle value change
-                        RedisManager.shared.hashSetFields(clientName: clientName, key: detail.key, fields: [selectedField: selectedValue]) { success in
+                        RedisManager.shared.hashSetFields(config: config, key: detail.key, fields: [selectedField: selectedValue]) { success in
                             if success {
                                 refresh?()
                                 appViewModel.floatingMessage = "Value updated successfully."
@@ -106,9 +106,9 @@ struct HashTableValueEditor: View {
     
     private func deleteItem(field: String) {
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         
-        RedisManager.shared.hashRemoveField(clientName: clientName, key: detail.key, field: field) { value in
+        RedisManager.shared.hashRemoveField(config: config, key: detail.key, field: field) { value in
             if (value < 0) {
                 print("error")
             } else {

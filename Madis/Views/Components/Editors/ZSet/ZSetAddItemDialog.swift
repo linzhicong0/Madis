@@ -85,7 +85,7 @@ struct ZSetAddItemDialog: View {
     }
     
     private func confirm() {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         // Remove items with empty values
         values.removeAll { $0.element.isEmpty }
         
@@ -95,7 +95,7 @@ struct ZSetAddItemDialog: View {
             return
         }
         
-        RedisManager.shared.zsetAdd(clientName: clientName, key: key, items: values, replace: conflictHandle == .replace) { success in
+        RedisManager.shared.zsetAdd(config: config, key: key, items: values, replace: conflictHandle == .replace) { success in
             if success {
                 Utils.showSuccessMessage(appViewModel: appViewModel, message: "Successfully added item\(values.count > 1 ? "s" : "").")
             } else {

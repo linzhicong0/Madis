@@ -13,20 +13,20 @@ public class RedisManager {
     //    static let eventLoop: EventLoop = NIOSingletons.posixEventLoopGroup.any()
     static let shared = RedisManager()
     
-    private var redisClients: [String:RedisClient] = [:]
+    var redisClients: [ConnectionDetail:RedisClient] = [:]
     private let eventLoop: EventLoop = NIOSingletons.posixEventLoopGroup.any()
     
     private init() {
     }
     
-    func addRedisClient(name: String, config: ConnectionDetail) throws {
+    func addRedisClient(config: ConnectionDetail) throws {
         // return if the name exist
-        if redisClients.keys.contains(name) {
+        if redisClients.keys.contains(config) {
             return
         }
         
         let newClient = try RedisClient(host: config.host, port: Int(config.port)!, password: config.password == "" ? nil : config.password, initDatabase: 0, eventLoop: eventLoop  )
-        redisClients[name] = newClient
+        redisClients[config] = newClient
         
     }
     
@@ -42,8 +42,8 @@ public class RedisManager {
         return RedisClient.testConnection(host: host, port: port, username: username, password: password, initDatabase: 0, eventLoop: eventLoop)
     }
     
-    func getAllKeysWithType(clientName: String, callback: @escaping ((Int, [RedisOutlineItem])) -> Void) -> Void {
-        guard let client = redisClients[clientName] else {
+    func getAllKeysWithType(config: ConnectionDetail, callback: @escaping ((Int, [RedisOutlineItem])) -> Void) -> Void {
+        guard let client = redisClients[config] else {
             callback((0, []))
             return
         }
@@ -65,8 +65,8 @@ public class RedisManager {
         
     }
     
-    func getKeyMetaData(clientName: String, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
-        guard let client = redisClients[clientName] else {
+    func getKeyMetaData(config: ConnectionDetail, key: String, callback: @escaping (RedisItemDetailViewModel) -> Void) -> Void {
+        guard let client = redisClients[config] else {
             callback(RedisItemDetailViewModel(key: "empty", ttl: "test", memory: "test", type: .None, value: .String("none")))
             return
         }
@@ -75,8 +75,8 @@ public class RedisManager {
         }
     }
     
-    func save(clientName: String, key: String, value: RedisValue, callback: @escaping () -> Void) -> Void {
-        guard let client = redisClients[clientName] else {
+    func save(config: ConnectionDetail, key: String, value: RedisValue, callback: @escaping () -> Void) -> Void {
+        guard let client = redisClients[config] else {
             callback()
             return
         }
@@ -87,9 +87,9 @@ public class RedisManager {
         
     }
     
-    func listAddItem(clientName: String, key: String, items: [String], direction: ListPushDirection, callback: @escaping (Int) -> Void) -> Void {
+    func listAddItem(config: ConnectionDetail, key: String, items: [String], direction: ListPushDirection, callback: @escaping (Int) -> Void) -> Void {
         
-        guard let client = redisClients[clientName] else {
+        guard let client = redisClients[config] else {
             callback(-1)
             return
         }
@@ -98,8 +98,8 @@ public class RedisManager {
         }
     }
     
-    func listRemoveItemAt(clientName: String, key: String, index: Int, callback: @escaping (Int) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func listRemoveItemAt(config: ConnectionDetail, key: String, index: Int, callback: @escaping (Int) -> Void) {
+        guard let client = redisClients[config] else {
             callback(-1)
             return
         }
@@ -108,8 +108,8 @@ public class RedisManager {
         }
     }
     
-    func listModifyItemAt(clientName: String, key: String, index: Int, to: String, callback: @escaping () -> Void) {
-        guard let client = redisClients[clientName] else {
+    func listModifyItemAt(config: ConnectionDetail, key: String, index: Int, to: String, callback: @escaping () -> Void) {
+        guard let client = redisClients[config] else {
             callback()
             return
         }
@@ -118,8 +118,8 @@ public class RedisManager {
         }
     }
     
-    func setAddItems(clientName: String, key: String, items: [String], callback: @escaping (Int)-> Void) {
-        guard let client = redisClients[clientName] else {
+    func setAddItems(config: ConnectionDetail, key: String, items: [String], callback: @escaping (Int)-> Void) {
+        guard let client = redisClients[config] else {
             callback(-1)
             return
         }
@@ -130,8 +130,8 @@ public class RedisManager {
         
     }
     
-    func setRemoveItem(clientName: String, key: String, item: String, callback: @escaping () -> Void) {
-        guard let client = redisClients[clientName] else {
+    func setRemoveItem(config: ConnectionDetail, key: String, item: String, callback: @escaping () -> Void) {
+        guard let client = redisClients[config] else {
             callback()
             return
         }
@@ -141,9 +141,9 @@ public class RedisManager {
         }
     }
     
-    func setModifyItem(clientName: String, key: String, item: String, newItem: String, callback: @escaping ()-> Void) {
+    func setModifyItem(config: ConnectionDetail, key: String, item: String, newItem: String, callback: @escaping ()-> Void) {
         
-        guard let client = redisClients[clientName] else {
+        guard let client = redisClients[config] else {
             callback()
             return
         }
@@ -153,9 +153,9 @@ public class RedisManager {
         }
     }
     
-    func hashSetFields(clientName: String, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+    func hashSetFields(config: ConnectionDetail, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
         
-        guard let client = redisClients[clientName] else {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -171,8 +171,8 @@ public class RedisManager {
         
     }
 
-    func hashSetFieldsIfNotExist(clientName: String, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func hashSetFieldsIfNotExist(config: ConnectionDetail, key: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -187,8 +187,8 @@ public class RedisManager {
         }
     }
     
-    func hashRemoveField(clientName: String, key: String, field: String, callback: @escaping (Int) -> Void){
-        guard let client = redisClients[clientName] else {
+    func hashRemoveField(config: ConnectionDetail, key: String, field: String, callback: @escaping (Int) -> Void){
+        guard let client = redisClients[config] else {
             callback(-1)
             return
         }
@@ -198,8 +198,8 @@ public class RedisManager {
         }
     }
 
-    func hashReplaceField(clientName: String, key: String, previousField: String, field: String, value: String, callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func hashReplaceField(config: ConnectionDetail, key: String, previousField: String, field: String, value: String, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -213,8 +213,8 @@ public class RedisManager {
             }
         }
     }
-    func zsetAdd(clientName: String, key: String, items: [ZSetItem], replace: Bool, callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func zsetAdd(config: ConnectionDetail, key: String, items: [ZSetItem], replace: Bool, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -228,8 +228,8 @@ public class RedisManager {
             }
         }
     }
-    func zsetRemoveItem(clientName: String, key: String, item: String, callback: @escaping (Int) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func zsetRemoveItem(config: ConnectionDetail, key: String, item: String, callback: @escaping (Int) -> Void) {
+        guard let client = redisClients[config] else {
             callback(0)
             return
         }
@@ -245,8 +245,8 @@ public class RedisManager {
     }
     
 
-    func streamAdd(clientName: String, key: String, id: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func streamAdd(config: ConnectionDetail, key: String, id: String, fields: [String: String], callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -267,8 +267,8 @@ public class RedisManager {
     ///   - key: The key of the stream in Redis.
     ///   - id: The ID of the stream entry to remove.
     ///   - callback: A closure that is called with a boolean indicating success (true) or failure (false).
-    func streamRemoveItem(clientName: String, key: String, id: String, callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func streamRemoveItem(config: ConnectionDetail, key: String, id: String, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }
@@ -289,8 +289,8 @@ public class RedisManager {
     ///   - key: The key for which to set the TTL.
     ///   - ttl: The TTL value in seconds.
     ///   - callback: A closure that is called with a boolean indicating success (true) or failure (false).
-    func setTTL(clientName: String, key: String, ttl: Int64, callback: @escaping (Bool) -> Void) {
-        guard let client = redisClients[clientName] else {
+    func setTTL(config: ConnectionDetail, key: String, ttl: Int64, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
             callback(false)
             return
         }

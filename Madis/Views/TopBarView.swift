@@ -13,7 +13,7 @@ struct TopBarView: View {
     @Environment(\.appViewModel) private var appViewModel
     
     var body: some View {
-        
+        @Bindable var appViewModel = appViewModel
         HStack(alignment: .center, spacing: 20) {
             
             // back
@@ -59,16 +59,27 @@ struct TopBarView: View {
             .buttonStyle(PlainButtonStyle())
             
             
-            HStack(alignment:.center) {
+            HStack(alignment: .center) {
+                Picker("Select Connection", selection: $appViewModel.selectedConnectionDetail) {
+//                    ForEach(Array(RedisManager.shared.redisClients.keys), id: \.self) { key in
+//                        Text(key)
+////                            .tag(RedisManager.shared.redisClients[key]?.connectionDetail)
+//                    }
+                }
+                .onChange(of: appViewModel.selectedConnectionDetail) { oldValue, newValue in
+                    if let newValue = newValue {
+                        appViewModel.selectedConnectionDetail = newValue
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .frame(maxWidth: 200)
+                .font(.caption)
+                .padding(.leading, 5)
                 
-                Text(selectHostAndPort)
-                    .font(.caption)
-                    .padding(.leading, 5)
                 Spacer()
                 Text("Redis 7.2.0")
                     .font(.caption)
                     .padding(.trailing, 10)
-
             }
             .frame(height: 20)
             .background(.gray.opacity(0.2))
@@ -90,7 +101,7 @@ struct TopBarView: View {
             // right side bar
             Button(action: {}, label: {
                 Image(systemName: "sidebar.right")
-                    .font(.system(size: 16))
+                    .font(.system(size: 14))
             })
             .buttonStyle(PlainButtonStyle())
             

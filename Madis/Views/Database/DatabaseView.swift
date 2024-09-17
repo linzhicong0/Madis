@@ -137,9 +137,9 @@ struct LeftView: View {
     }
     
     private func getAllKeysWithType() {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
+        guard let config = appViewModel.selectedConnectionDetail else { return  }
         
-        RedisManager.shared.getAllKeysWithType(clientName: clientName) { values in
+        RedisManager.shared.getAllKeysWithType(config: config) { values in
             totalKeys = values.0
             redisOutlineItems = values.1
         }
@@ -148,8 +148,8 @@ struct LeftView: View {
     
     private func selectKey(key: String) {
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-        RedisManager.shared.getKeyMetaData(clientName: clientName, key: key) { viewModel in
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.getKeyMetaData(config: config, key: key) { viewModel in
             redisDetailViewModel = viewModel
         }
     }
@@ -220,11 +220,11 @@ struct RightView: View {
                     
                     if redisDetailViewModel?.type == .String {
                         Button {
-                            guard let clientName = appViewModel.selectedConnectionDetail?.name else { return  }
-                            RedisManager.shared.save(clientName: clientName, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
+                            guard let config = appViewModel.selectedConnectionDetail else { return  }
+                            RedisManager.shared.save(config: config, key: redisDetailViewModel!.key, value: redisDetailViewModel!.value) {
                                 Utils.showSuccessMessage(appViewModel: appViewModel, message: "Value updated successfully.")
 
-                                RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
+                                RedisManager.shared.getKeyMetaData(config: config, key: redisDetailViewModel!.key) { value in
                                     self.redisDetailViewModel = value
                                 }
                             }
@@ -294,7 +294,7 @@ struct RightView: View {
                             HashTableValueEditor(detail: redisDetailViewModel!) {
                                 refresh()
                             }
-                        case .Stream(let values):
+                        case .Stream:
                             StreamTableValueEditor(detail: redisDetailViewModel!) {
                                 refresh()
                             }
@@ -331,11 +331,9 @@ struct RightView: View {
             refresh()
         }, content: {
             TTLSettingDialog(key: redisDetailViewModel!.key) { key, ttl in
-            guard let selectedConnectionName = appViewModel.selectedConnectionDetail?.name else {
-                return
-            }
+            guard let config = appViewModel.selectedConnectionDetail else { return }
             
-            RedisManager.shared.setTTL(clientName: selectedConnectionName, key: key, ttl: ttl) { success in
+                RedisManager.shared.setTTL(config: config, key: key, ttl: ttl) { success in
                 if success {
                     Utils.showSuccessMessage(appViewModel: appViewModel, message: "TTL set successfully for [\(key)]")
                 } else {
@@ -359,8 +357,8 @@ struct RightView: View {
     }
     
     private func refresh() {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-        RedisManager.shared.getKeyMetaData(clientName: clientName, key: redisDetailViewModel!.key) { value in
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.getKeyMetaData(config: config, key: redisDetailViewModel!.key) { value in
             self.redisDetailViewModel = value
         }
     }

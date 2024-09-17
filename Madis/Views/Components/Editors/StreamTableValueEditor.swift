@@ -62,7 +62,9 @@ struct StreamTableValueEditor: View {
     }
 
     func removeItem(id: String) {
-        RedisManager.shared.streamRemoveItem(clientName: appViewModel.selectedConnectionDetail?.name ?? "", key: detail.key, id: id) { result in
+        
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.streamRemoveItem(config: config, key: detail.key, id: id) { result in
             if result {
                 refresh?()
                 Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)

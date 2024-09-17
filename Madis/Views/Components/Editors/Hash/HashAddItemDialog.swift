@@ -98,17 +98,17 @@ struct HashAddItemDialog: View {
             return
         }
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         switch conflictHandle {
         case .replace:
-            RedisManager.shared.hashSetFields(clientName: clientName, key: key, fields: fields) { value in
+            RedisManager.shared.hashSetFields(config: config, key: key, fields: fields) { value in
                 if !value {
                     Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to set hash fields.")
                     return
                 }
             }
         case .ignore:
-            RedisManager.shared.hashSetFieldsIfNotExist(clientName: clientName, key: key, fields: fields) { value in
+            RedisManager.shared.hashSetFieldsIfNotExist(config: config, key: key, fields: fields) { value in
                 if !value {
                     Utils.showWarningMessage(appViewModel: appViewModel, message: "Successfully set hash fields and ignore some fields.")
                     return

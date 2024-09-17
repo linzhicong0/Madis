@@ -93,9 +93,9 @@ struct ListAddItemView: View {
             return
         }
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         
-        RedisManager.shared.listAddItem(clientName: clientName, key: key, items: values, direction: direction) { result in
+        RedisManager.shared.listAddItem(config: config, key: key, items: values, direction: direction) { result in
             if (result < 0 ) {
                 Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add item\(values.count > 1 ? "s" : "").")
             } else {

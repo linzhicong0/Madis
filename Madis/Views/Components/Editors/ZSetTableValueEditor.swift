@@ -53,8 +53,8 @@ struct ZSetTableValueEditor: View {
         }
         .sheet(isPresented: $openEditDialog) {
             ZSetModifyItemDialog(score: $selectedScore, member: $selectedValue) {
-                if let clientName = appViewModel.selectedConnectionDetail?.name {
-                    RedisManager.shared.zsetAdd(clientName: clientName, key: detail.key, items: [(element: selectedValue, score: selectedScore)], replace: true) { success in
+                if let config = appViewModel.selectedConnectionDetail {
+                    RedisManager.shared.zsetAdd(config: config, key: detail.key, items: [(element: selectedValue, score: selectedScore)], replace: true) { success in
                         if success {
                             refresh?()
                             appViewModel.floatingMessage = "Item updated successfully"
@@ -83,8 +83,8 @@ struct ZSetTableValueEditor: View {
     }
 
     private func deleteItem(item: ViewModel) {
-        if let clientName = appViewModel.selectedConnectionDetail?.name {
-            RedisManager.shared.zsetRemoveItem(clientName: clientName, key: detail.key, item: item.value) { count in
+        if let config = appViewModel.selectedConnectionDetail {
+            RedisManager.shared.zsetRemoveItem(config: config, key: detail.key, item: item.value) { count in
                 if count > 0 {
                     refresh?()
                     Utils.showDeleteItemSuccessMessage(appViewModel: appViewModel)

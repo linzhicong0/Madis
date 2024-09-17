@@ -57,8 +57,8 @@ struct ListTableValueEditor: View {
         .sheet(isPresented: $openEditDialog, content: {
             ListModifyItemDialog(value: $selectedValue) {
                 print(selectedValue)
-                guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-                RedisManager.shared.listModifyItemAt(clientName: clientName, key: detail.key, index: selectedIndex, to: selectedValue) {
+                guard let config = appViewModel.selectedConnectionDetail else { return }
+                RedisManager.shared.listModifyItemAt(config: config, key: detail.key, index: selectedIndex, to: selectedValue) {
                     refresh?()
                     appViewModel.floatingMessage = "Update item successfully."
                     appViewModel.floatingMessageType = .success
@@ -80,8 +80,8 @@ struct ListTableValueEditor: View {
         return []
     }
     private func deleteItem(index: Int) {
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
-        RedisManager.shared.listRemoveItemAt(clientName: clientName, key: detail.key, index: index) { value in
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.listRemoveItemAt(config: config, key: detail.key, index: index) { value in
             if (value < 0) {
                 print("error")
             } else {

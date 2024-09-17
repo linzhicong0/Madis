@@ -70,9 +70,9 @@ struct SetAddItemDialog: View {
             }
         }
         
-        guard let clientName = appViewModel.selectedConnectionDetail?.name else { return }
+        guard let config = appViewModel.selectedConnectionDetail else { return }
         
-        RedisManager.shared.setAddItems(clientName: clientName, key: key, items: values) { result in
+        RedisManager.shared.setAddItems(config: config, key: key, items: values) { result in
             if (result < 0 ) {
                 Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add items to set.")
             } else {
