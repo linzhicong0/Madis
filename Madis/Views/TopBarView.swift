@@ -61,18 +61,12 @@ struct TopBarView: View {
             
             HStack(alignment: .center) {
                 Picker("Select Connection", selection: $appViewModel.selectedConnectionDetail) {
-//                    ForEach(Array(RedisManager.shared.redisClients.keys), id: \.self) { key in
-//                        Text(key)
-////                            .tag(RedisManager.shared.redisClients[key]?.connectionDetail)
-//                    }
-                }
-                .onChange(of: appViewModel.selectedConnectionDetail) { oldValue, newValue in
-                    if let newValue = newValue {
-                        appViewModel.selectedConnectionDetail = newValue
+                    ForEach(Array(RedisManager.shared.redisClients.keys), id: \.self) { connection in
+                        Text(connection.name).tag(connection as ConnectionDetail?)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
-                .frame(maxWidth: 200)
+                .pickerStyle(.menu)
+                .frame(maxWidth: .infinity)
                 .font(.caption)
                 .padding(.leading, 5)
                 

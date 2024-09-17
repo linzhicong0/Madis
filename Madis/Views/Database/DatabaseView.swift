@@ -134,6 +134,9 @@ struct LeftView: View {
         .task {
             getAllKeysWithType()
         }
+        .onChange(of: appViewModel.selectedConnectionDetail) { _ in
+            getAllKeysWithType()
+        }
     }
     
     private func getAllKeysWithType() {
