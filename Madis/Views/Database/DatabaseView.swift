@@ -109,7 +109,7 @@ struct LeftView: View {
                         }
                     }
                     else {
-                        RedisItemView(item: item, selected: selectedItem == item.id)
+                        RedisItemView(item: item, selected: selectedItem == item.id, deleteKey: deleteKey)
                             .onTapGesture {
                                 withAnimation(.linear(duration: 0.1)) {
                                     selectedItem = item.id
@@ -154,6 +154,21 @@ struct LeftView: View {
         guard let config = appViewModel.selectedConnectionDetail else { return }
         RedisManager.shared.getKeyMetaData(config: config, key: key) { viewModel in
             redisDetailViewModel = viewModel
+        }
+    }
+
+    private func deleteKey(item: RedisOutlineItem) {
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        RedisManager.shared.deleteKey(config: config, key: item.key!) { success in
+            if success {
+                redisDetailViewModel = nil
+                // Remove the deleted item from redisOutlineItems
+                if let index = redisOutlineItems.firstIndex(where: { $0.id == item.id }) {
+                    redisOutlineItems.remove(at: index)
+                }
+                // Decrement the total keys count
+                totalKeys -= 1
+            }
         }
     }
 }

@@ -305,6 +305,22 @@ public class RedisManager {
         }
     }
 
+    func deleteKey(config: ConnectionDetail, key: String, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
+            callback(false)
+            return
+        }
+        
+        client.deleteKey(key: key).whenComplete { result in
+            switch result { 
+            case .success(let success):
+                callback(success)
+            case .failure(_):
+                callback(false)
+            }
+        }
+    }
+
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         
         var items = [RedisOutlineItem]()

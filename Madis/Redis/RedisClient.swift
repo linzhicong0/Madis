@@ -336,6 +336,13 @@ public class RedisClient {
         }
     }
     
+    func deleteKey(key: String) -> EventLoopFuture<Bool> {
+        return self.connection.delete(RedisKey(key))
+            .map { response in
+                return response == 1
+            }
+    }
+    
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }
