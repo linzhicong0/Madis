@@ -322,6 +322,50 @@ public class RedisManager {
             }
         }
     }
+    
+    func setKey(config: ConnectionDetail, key: String, value: RedisValue, callback: @escaping (Bool) -> Void) {
+        guard let client = redisClients[config] else {
+            callback(false)
+            return
+        }
+
+        switch value {
+        case .String(let stringValue):
+            client.save(key: key, redisValue: .String(stringValue)).whenComplete { _ in
+                callback(true)
+            }
+        case .List(let listItems):
+            client.listAddItem(key: key, items: listItems, direction: .end).whenComplete { _ in
+                callback(true)
+            }
+        case .Set(let setItems):
+            client.setAddItems(key: key, items: setItems).whenComplete { _ in
+                callback(true)
+            }
+        case .Hash(let hashItems):
+            let fields = Dictionary(uniqueKeysWithValues: hashItems.map { ($0.field, $0.value) })
+            client.hashSet(key: key, fields: fields).whenComplete { _ in
+                callback(true)
+            }
+        case .ZSet(let zsetItems):
+            client.zsetAddItems(key: key, items: zsetItems.map { ($0.element, $0.score) }, replace: true).whenComplete { _ in
+                callback(true)
+            }
+        case .Stream(let streamElements):
+            // Assuming we're adding the first element of the stream
+            if let firstElement = streamElements.first {
+                let fields = Dictionary(uniqueKeysWithValues: firstElement.values.map { ($0.name, $0.value) })
+                client.streamAddItem(key: key, id: "*", fields: fields).whenComplete { _ in
+                    callback(true)
+                }
+            } else {
+                callback(false)
+            }
+        case .None:
+            callback(false)
+        }
+
+    }
 
     private func convertKeysToRedisOutlineItem(keysWithType: [(String, String)], isRawKey: Bool = false) -> [RedisOutlineItem] {
         

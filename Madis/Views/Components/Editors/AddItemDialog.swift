@@ -17,7 +17,8 @@ struct AddItemDialog: View {
     @State private var redisValue: RedisValue = .String("")
     
     @Environment(\.appViewModel) private var appViewModel
-    
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         CommonDialogView(title: "Add Item") {
             content
@@ -158,7 +159,24 @@ struct AddItemDialog: View {
     }
 
     private func confirm() {
-        print(redisValue)
+        guard let config = appViewModel.selectedConnectionDetail else { return }
+        
+        // Validate input (you may want to add more specific validations based on the data type)
+        if key.isEmpty {
+            Utils.showWarningMessage(appViewModel: appViewModel, message: "Please enter a key.")
+            return
+        }
+        
+        
+        RedisManager.shared.setKey(config: config, key: key, value: redisValue) { success in
+            
+            if success {
+                Utils.showSuccessMessage(appViewModel: appViewModel, message: "Successfully added item.")
+                dismiss()
+            } else {
+                Utils.showErrorMessage(appViewModel: appViewModel, message: "Failed to add item.")
+            }
+        }
     }
 }
 

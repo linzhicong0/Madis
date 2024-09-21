@@ -231,6 +231,11 @@ public class RedisClient {
                 return self.connection.sadd(newItem, to: key)
             }
     }
+
+    func hashSet(key: String, fields: [String: String]) -> EventLoopFuture<Void> {
+        let key = RedisKey(key)
+        return self.connection.hmset(fields, in: key)
+    }
     
     // This function can set or update a field
     func hashSetFields(key: String, fields: [String: String]) -> EventLoopFuture<Void> {
@@ -342,7 +347,7 @@ public class RedisClient {
                 return response == 1
             }
     }
-    
+
     private func stringToByteBuffer(_ string: String) -> ByteBuffer {
         return ByteBufferAllocator().buffer(string: string)
     }
