@@ -374,13 +374,13 @@ public class RedisClient {
             }
         case .Hash:
             return self.connection.hscan(RedisKey(key), startingFrom: 0, matching: "*").map { (cursor, value) in
-                return .Hash(value.mapValues{ $0.string ?? ""})
+                return .Hash(value.map { HashElement(field: $0.key, value: $0.value.string ?? "") })
             }
         case .ZSet:
             return self.connection.zrange(from: RedisKey(key), indices: 0..<2999, includeScoresInResponse: true).map { values in
                 var elements: [ZSetItem] = []
                 for i in stride(from: 0, to: values.count, by: 2) {
-                    elements.append((element: values[i].string!, score: Double(values[i+1].string!)!))
+                    elements.append(ZSetItem(values[i].string!, Double(values[i+1].string!)!))
                 }
                 return .ZSet(elements)
             }
@@ -460,14 +460,13 @@ public class RedisClient {
             for value in array {
                 // [1722128454840-0,[e,f,g,h]]
                 //                var elements: [[String: String]] = []
-                var elements: [(key:String, value: String)] = []
+                var elements: [StreamField] = []
                 let id = value.array![0].string!
                 let values = value.array![1].array
                 for i in stride(from: 0, to: values!.count, by: 2) {
-                    let key = values![i].string!
+                    let name = values![i].string!
                     let value = values![i+1].string!
-                    //                    elements.append([key : value])
-                    elements.append((key: key, value: value))
+                    elements.append(StreamField(name: name, value: value))
                 }
                 streamElements.append(StreamElement(id: id, values: elements))
             }

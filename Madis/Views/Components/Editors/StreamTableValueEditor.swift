@@ -74,5 +74,5 @@ struct StreamTableValueEditor: View {
 }
 
 #Preview {
-    StreamTableValueEditor(detail: RedisItemDetailViewModel(key: "key", ttl: "0", memory: "0", type: .Stream, value: .Stream([StreamElement(id: "a", values: [(key: "1", value: "2")])])))
+    StreamTableValueEditor(detail: RedisItemDetailViewModel(key: "key", ttl: "0", memory: "0", type: .Stream, value: .Stream([StreamElement(id: "a", values: [StreamField(name: "1", value: "2")])])))
 }

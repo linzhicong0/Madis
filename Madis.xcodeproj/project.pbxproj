@@ -59,11 +59,17 @@
 		E75652A62BBD9AB200F83280 /* MadisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652A52BBD9AB200F83280 /* MadisTests.swift */; };
 		E75652B02BBD9AB200F83280 /* MadisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652AF2BBD9AB200F83280 /* MadisUITests.swift */; };
 		E75652B22BBD9AB200F83280 /* MadisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */; };
+		E766BA622C996F5800025880 /* AddItemDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E766BA612C996F5800025880 /* AddItemDialog.swift */; };
+		E766BA642C9C5BF300025880 /* ListAddItemsEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E766BA632C9C5BF300025880 /* ListAddItemsEditor.swift */; };
+		E766BA662C9C601A00025880 /* ZSetAddItemsEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E766BA652C9C601A00025880 /* ZSetAddItemsEditor.swift */; };
 		E7BBC2A12C8F326100B266E9 /* FloatingSuccessMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BBC2A02C8F326100B266E9 /* FloatingSuccessMessage.swift */; };
 		E7BBC2A32C8F36D000B266E9 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BBC2A22C8F36D000B266E9 /* MessageType.swift */; };
 		E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */; };
 		E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */; };
 		E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */; };
+		E7C915A92C9C65D600683C51 /* SetAddItemEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C915A82C9C65D600683C51 /* SetAddItemEditor.swift */; };
+		E7C915AB2C9DBBA200683C51 /* HashAddItemsEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C915AA2C9DBBA200683C51 /* HashAddItemsEditor.swift */; };
+		E7C915AD2C9DD23A00683C51 /* StreamAddItemEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C915AC2C9DD23A00683C51 /* StreamAddItemEditor.swift */; };
 		E7F3A2ED2C4FE6E200DE1022 /* RedisValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */; };
 		E7F3A2F12C59242900DE1022 /* ListTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */; };
 		E7F3A2F32C5A564100DE1022 /* SetTableValueEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */; };
@@ -146,11 +152,17 @@
 		E75652AB2BBD9AB200F83280 /* MadisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75652AF2BBD9AB200F83280 /* MadisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITests.swift; sourceTree = "<group>"; };
 		E75652B12BBD9AB200F83280 /* MadisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadisUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E766BA612C996F5800025880 /* AddItemDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDialog.swift; sourceTree = "<group>"; };
+		E766BA632C9C5BF300025880 /* ListAddItemsEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddItemsEditor.swift; sourceTree = "<group>"; };
+		E766BA652C9C601A00025880 /* ZSetAddItemsEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSetAddItemsEditor.swift; sourceTree = "<group>"; };
 		E7BBC2A02C8F326100B266E9 /* FloatingSuccessMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSuccessMessage.swift; sourceTree = "<group>"; };
 		E7BBC2A22C8F36D000B266E9 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
 		E7C449352C3594380076FDEF /* RedisItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisItemDetailViewModel.swift; sourceTree = "<group>"; };
 		E7C449382C3ECDF70076FDEF /* StringValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValueEditor.swift; sourceTree = "<group>"; };
 		E7C4493A2C3ED0B90076FDEF /* TableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableValueEditor.swift; sourceTree = "<group>"; };
+		E7C915A82C9C65D600683C51 /* SetAddItemEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAddItemEditor.swift; sourceTree = "<group>"; };
+		E7C915AA2C9DBBA200683C51 /* HashAddItemsEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashAddItemsEditor.swift; sourceTree = "<group>"; };
+		E7C915AC2C9DD23A00683C51 /* StreamAddItemEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAddItemEditor.swift; sourceTree = "<group>"; };
 		E7F3A2EC2C4FE6E200DE1022 /* RedisValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedisValue.swift; sourceTree = "<group>"; };
 		E7F3A2F02C59242900DE1022 /* ListTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableValueEditor.swift; sourceTree = "<group>"; };
 		E7F3A2F22C5A564100DE1022 /* SetTableValueEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableValueEditor.swift; sourceTree = "<group>"; };
@@ -278,6 +290,7 @@
 				E7F3A2F62C5A58BD00DE1022 /* HashTableValueEditor.swift */,
 				E7F3A2F82C5A5AB200DE1022 /* StreamTableValueEditor.swift */,
 				E750366E2C85F87E00BE8394 /* OperationColumn.swift */,
+				E766BA612C996F5800025880 /* AddItemDialog.swift */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -305,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				E75036582C761BA300BE8394 /* ListModifyItemDialog.swift */,
+				E766BA632C9C5BF300025880 /* ListAddItemsEditor.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -314,6 +328,7 @@
 			children = (
 				E750365B2C7B05CC00BE8394 /* SetModifyItemDialog.swift */,
 				E750365D2C7B13FA00BE8394 /* SetAddItemDialog.swift */,
+				E7C915A82C9C65D600683C51 /* SetAddItemEditor.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -323,6 +338,7 @@
 			children = (
 				E75036602C7B17F900BE8394 /* HashAddItemDialog.swift */,
 				E75036642C7B82E800BE8394 /* HashModifyItemDialog.swift */,
+				E7C915AA2C9DBBA200683C51 /* HashAddItemsEditor.swift */,
 			);
 			path = Hash;
 			sourceTree = "<group>";
@@ -332,6 +348,7 @@
 			children = (
 				E75036672C7CBA6900BE8394 /* ZSetAddItemDialog.swift */,
 				E75036692C7CBA7100BE8394 /* ZSetModifyItemDialog.swift */,
+				E766BA652C9C601A00025880 /* ZSetAddItemsEditor.swift */,
 			);
 			path = ZSet;
 			sourceTree = "<group>";
@@ -340,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				E750366C2C85EE2700BE8394 /* StreamAddItemDialog.swift */,
+				E7C915AC2C9DD23A00683C51 /* StreamAddItemEditor.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -607,10 +625,12 @@
 				E71781162BD6A2560056BF64 /* BlurView.swift in Sources */,
 				E750364D2C70E3C700BE8394 /* CommonDialogView.swift in Sources */,
 				E750364B2C6BA42B00BE8394 /* CustomTextField.swift in Sources */,
+				E7C915AB2C9DBBA200683C51 /* HashAddItemsEditor.swift in Sources */,
 				E71781122BD684510056BF64 /* DatabaseView.swift in Sources */,
 				E71781142BD686A30056BF64 /* DatabaseDisclosureView.swift in Sources */,
 				E75036652C7B82E800BE8394 /* HashModifyItemDialog.swift in Sources */,
 				E71780B92BD011B60056BF64 /* RedisDatabase.swift in Sources */,
+				E7C915A92C9C65D600683C51 /* SetAddItemEditor.swift in Sources */,
 				E7C449362C3594380076FDEF /* RedisItemDetailViewModel.swift in Sources */,
 				E71781202BE8F7EA0056BF64 /* MainView.swift in Sources */,
 				E75652962BBD9AB000F83280 /* ContentView.swift in Sources */,
@@ -624,10 +644,13 @@
 				E717812D2BED128E0056BF64 /* ConnectionConfigurationView.swift in Sources */,
 				E75036682C7CBA6900BE8394 /* ZSetAddItemDialog.swift in Sources */,
 				E7C449392C3ECDF70076FDEF /* StringValueEditor.swift in Sources */,
+				E7C915AD2C9DD23A00683C51 /* StreamAddItemEditor.swift in Sources */,
 				E7511F512C20505A00330FBF /* RedisClient.swift in Sources */,
 				E75036562C71DB3B00BE8394 /* Constants.swift in Sources */,
 				E7F3A2F72C5A58BD00DE1022 /* HashTableValueEditor.swift in Sources */,
+				E766BA662C9C601A00025880 /* ZSetAddItemsEditor.swift in Sources */,
 				E717811C2BDFBF870056BF64 /* ConnectionSettingView.swift in Sources */,
+				E766BA642C9C5BF300025880 /* ListAddItemsEditor.swift in Sources */,
 				E75036502C71C9C300BE8394 /* ListPushDirection.swift in Sources */,
 				E75036482C6B917300BE8394 /* ListAddItemView.swift in Sources */,
 				E71780BD2BD011DB0056BF64 /* RedisType.swift in Sources */,
@@ -638,6 +661,7 @@
 				E75036592C761BA300BE8394 /* ListModifyItemDialog.swift in Sources */,
 				E75036732C874DE400BE8394 /* TimeUnit.swift in Sources */,
 				E717812B2BEA62050056BF64 /* ConnectionCardView.swift in Sources */,
+				E766BA622C996F5800025880 /* AddItemDialog.swift in Sources */,
 				E71781222BE8F9550056BF64 /* TabButton.swift in Sources */,
 				E75036712C8745B800BE8394 /* TTLSettingDialog.swift in Sources */,
 				E7C4493B2C3ED0B90076FDEF /* TableValueEditor.swift in Sources */,

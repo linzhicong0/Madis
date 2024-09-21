@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 class Utils {
-    public static func formatStreamValuesToString(values: [(key: String, value: String)]) -> String {
+    public static func formatStreamValuesToString(values: [StreamField]) -> String {
         var result = "{\n"
         let length = values.count
         for i in 0..<values.count {
-            result.append("\t\"\(values[i].key)\": \"\(values[i].value)\"")
+            result.append("\t\"\(values[i].name)\": \"\(values[i].value)\"")
             if i != length - 1 {
                 result.append(",\n")
             } else {

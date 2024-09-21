@@ -96,7 +96,7 @@ struct StreamFieldView: View {
     }
 }
 
-struct StreamField {
+struct StreamField: Hashable {
     var name: String
     var value: String
 }

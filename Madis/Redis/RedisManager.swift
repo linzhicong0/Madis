@@ -218,8 +218,10 @@ public class RedisManager {
             callback(false)
             return
         }
+        // Convert ZSetItem list to list of tuples
+        let itemTuples = items.map { ($0.element, $0.score) }
         
-        client.zsetAddItems(key: key, items: items, replace: replace).whenComplete { result in
+        client.zsetAddItems(key: key, items: itemTuples, replace: replace).whenComplete { result in
             switch result {
             case .success(_):
                 callback(true)

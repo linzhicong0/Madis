@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-enum RedisType {
-    
+enum RedisType: CaseIterable {
     case String
     case Hash
     case Set
@@ -17,6 +16,9 @@ enum RedisType {
     case Stream
     case None
     
+    static var allCases: [RedisType] {
+        return [.String, .Hash, .Set, .List, .ZSet, .Stream]
+    }
     
     var stringValue: String {
         switch self {
@@ -40,9 +42,8 @@ enum RedisType {
         case .Stream: return .pink
         case .None: return .white
         }
-
-        
     }
+    
     static func fromString(_ rawValue: String) -> RedisType {
         switch rawValue.uppercased() {
         case "STRING":

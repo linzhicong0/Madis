@@ -98,7 +98,7 @@ struct HashTableValueEditor: View {
     var viewModel: [ViewModel] {
         if case let RedisValue.Hash(items) = detail.value {
             return items.enumerated().map { index, value in
-                ViewModel(index: index, key: value.key, value: value.value)
+                ViewModel(index: index, key: value.field, value: value.value)
             }
         }
         return []
@@ -120,5 +120,5 @@ struct HashTableValueEditor: View {
 }
 
 #Preview {
-    HashTableValueEditor(detail: .init(key: "key", ttl: "ttl", memory: "memory", type: .Hash, value: .Hash(["a": "1", "b": "2"])))
+    HashTableValueEditor(detail: .init(key: "key", ttl: "ttl", memory: "memory", type: .Hash, value: .Hash([HashElement(field: "a", value: "1"), HashElement(field: "b", value: "2")])))
 }

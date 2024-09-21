@@ -54,7 +54,7 @@ struct ZSetTableValueEditor: View {
         .sheet(isPresented: $openEditDialog) {
             ZSetModifyItemDialog(score: $selectedScore, member: $selectedValue) {
                 if let config = appViewModel.selectedConnectionDetail {
-                    RedisManager.shared.zsetAdd(config: config, key: detail.key, items: [(element: selectedValue, score: selectedScore)], replace: true) { success in
+                    RedisManager.shared.zsetAdd(config: config, key: detail.key, items: [ZSetItem(selectedValue, selectedScore)], replace: true) { success in
                         if success {
                             refresh?()
                             appViewModel.floatingMessage = "Item updated successfully"
@@ -75,7 +75,7 @@ struct ZSetTableValueEditor: View {
     var viewModel: [ViewModel] {
         if case let RedisValue.ZSet(items) = detail.value {
             return items.enumerated().map { index, value in
-                ViewModel(index: index, value: value.0, score: value.1.description)
+                ViewModel(index: index, value: value.element, score: value.score.description)
             }
         }
         return []

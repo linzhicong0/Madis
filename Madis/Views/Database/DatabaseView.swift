@@ -50,7 +50,8 @@ struct LeftView: View {
     @State var redisOutlineItems: [RedisOutlineItem] = []
     @Binding var redisDetailViewModel: RedisItemDetailViewModel?
     @State var totalKeys: Int = 0
-    
+    @State private var showAddItemDialog = false // Add this line
+
     var body: some View {
         VStack {
             HStack {
@@ -81,6 +82,7 @@ struct LeftView: View {
                 
                 Button(action: {
                     print("plus button clicked")
+                    showAddItemDialog = true // Update this line
                 }, label: {
                     Image(systemName: "plus")
                         .font(.caption)
@@ -136,6 +138,9 @@ struct LeftView: View {
         }
         .onChange(of: appViewModel.selectedConnectionDetail) { _ in
             getAllKeysWithType()
+        }
+        .sheet(isPresented: $showAddItemDialog) {
+            AddItemDialog()
         }
     }
     

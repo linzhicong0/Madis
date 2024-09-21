@@ -13,7 +13,7 @@ struct ZSetAddItemDialog: View {
     @Environment(\.appViewModel) private var appViewModel
     
     @State private var conflictHandle: ConflictHandle = .replace
-    @State private var values: [ZSetItem] = [("", 0.0)]
+    @State private var values: [ZSetItem] = [ZSetItem("", 0.0)]
     
     var body: some View {
         CommonDialogView(title: "ZSet Add Item(s)") {
@@ -112,13 +112,10 @@ struct ZSetItemView: View {
     
     var body: some View {
         HStack {
-            CustomTextField(systemImage: "book.pages", placeholder: "member", text: Binding(
-                get: { element.element },
-                set: { element.element = $0 }
-            ))
+            CustomTextField(systemImage: "book.pages", placeholder: "member", text: $element.element)
             CustomTextField(systemImage: "line.3.horizontal.circle", placeholder: "score", text: Binding(
                 get: { String(element.score) },
-                set: { if let value = Double($0) { element.score = value } }
+                set: { element.score = Double($0) ?? 0.0 }
             ))
             Button(action: onDelete) {
                 Image(systemName: "trash")
