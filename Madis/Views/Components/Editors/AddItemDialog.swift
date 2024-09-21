@@ -58,9 +58,6 @@ struct AddItemDialog: View {
                     }
                     .pickerStyle(MenuPickerStyle())
                     .labelsHidden()
-                    .onChange(of: dataType) { _, newType in
-                        updateRedisValue(for: newType)
-                    }
                 } header: {
                     HStack {
                         Text("Data Type")
@@ -137,25 +134,6 @@ struct AddItemDialog: View {
             },
             set: { redisValue = .String($0) }
         ))
-    }
-
-    private func updateRedisValue(for type: RedisType) {
-        switch type {
-        case .String:
-            redisValue = .String("")
-        case .List:
-            redisValue = .List([""])
-        case .Hash:
-            redisValue = .Hash([])
-        case .Set:
-            redisValue = .Set([""])
-        case .ZSet:
-            redisValue = .ZSet([ZSetItem("", 0.0)])
-        case .Stream:
-            redisValue = .Stream([StreamElement(id: "", values: [])])
-        case .None:
-            redisValue = .None
-        }
     }
 
     private func confirm() {
